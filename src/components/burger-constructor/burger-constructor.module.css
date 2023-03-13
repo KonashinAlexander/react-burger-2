@@ -1,0 +1,37 @@
+.box_big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-height: 280px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+
+.box_small {
+    display: block;
+    padding-left: 16px;
+}
+
+.box_flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.box__total_flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+
+.icon {
+    display: block;
+    margin-right: 8px;
+}
+
+.container {
+    margin: 0;
+}

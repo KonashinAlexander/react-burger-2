@@ -1,0 +1,30 @@
+.modal {
+    /* margin: 0 auto; */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 720px;
+    min-height: 539px;
+    top: 230px;
+    left: 20%;
+    z-index: 3;
+    background: #1C1C21;
+    border-radius: 40px;
+    box-sizing: border-box;
+} 
+
+.box_title {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    margin: 0;
+}
