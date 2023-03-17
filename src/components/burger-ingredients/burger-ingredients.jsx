@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,9 +10,9 @@ export const BurgerIngredients = ({ingredients}) => {
 
     const [current, setCurrent] = useState('buns');
 
-    const buns = ingredients.filter (item => item.type === 'bun');
-    const main = ingredients.filter (item => item.type === 'main');
-    const sauce = ingredients.filter (item => item.type === 'sauce');
+    const buns = useMemo(()=>ingredients.filter (item => item.type === 'bun'),[]);
+    const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[]);
+    const sauce = useMemo(()=>ingredients.filter (item => item.type === 'sauce'),[]);
 
     function handleClickTab (tab) {
         try {

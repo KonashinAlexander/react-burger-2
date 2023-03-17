@@ -1,5 +1,5 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames'
 import style from './burger-constructor.module.css'
@@ -14,8 +14,8 @@ export const BurgerConstructor = ( {constructorIngredients}) => {
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => {setShowModal(false)}
 
-    const bun = constructorIngredients.filter(data => data.name === 'Краторная булка N-200i');    
-    const otherIngredients = constructorIngredients.filter(data => data.name !== 'Краторная булка N-200i'); 
+    const bun = useMemo(()=>constructorIngredients.filter(data => data.name === 'Краторная булка N-200i'),[]);    
+    const otherIngredients = useMemo(()=>constructorIngredients.filter(data => data.name !== 'Краторная булка N-200i'),[]);
 
     return (
         <>
