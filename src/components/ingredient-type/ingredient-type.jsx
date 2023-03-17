@@ -52,21 +52,3 @@ IngredientType.propTypes = {
         type: PropTypes.string
     }))
 }
-
-BurgerIngredient.propTypes = {
-    __v: PropTypes.number,
-    _id: PropTypes.string,
-    calories: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    count: PropTypes.number,
-    fat: PropTypes.number,
-    image: string,
-    image_large: PropTypes.string,
-    image_mobile: PropTypes.string,
-    name: PropTypes.string,
-    onClick: PropTypes.func,
-    price: PropTypes.number,
-    proteins: PropTypes.number,
-    type: PropTypes.string
-}
-

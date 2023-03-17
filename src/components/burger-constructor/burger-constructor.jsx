@@ -96,30 +96,3 @@ BurgerConstructor.propTypes = {
     })).isRequired
 }
 
-ConstructorElement.propTypes = PropTypes.arrayOf(PropTypes.shape({        
-    text: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.number,
-    type: PropTypes.string,
-    isLocked: PropTypes.bool,
-    extraClass: PropTypes.string,
-    handleClose: PropTypes.func
-})).isRequired
-
-
-CurrencyIcon.propTypes = {
-    type: PropTypes.string
-}
-
-DragIcon.propTypes = {
-    type: PropTypes.string
-}
-
-Button.propTypes = {
-    type: PropTypes.string,
-    size: PropTypes.string,
-    htmlType: PropTypes.string,
-    onClick: PropTypes.func,
-    extraClass: PropTypes.string
-}
-

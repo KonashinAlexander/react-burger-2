@@ -46,11 +46,3 @@ Modal.propTypes = {
     onClose: PropTypes.func,
     children: PropTypes.any
 }
-
-ModalOverlay.propTypes = {    
-    onClick: PropTypes.func    
-}
-
-CloseIcon.propTypes = {
-    onClick: PropTypes.func 
-}

@@ -30,14 +30,3 @@ export const AppHeader = () => {
     )
 }
 
-BurgerIcon.propTypes = {
-    type: PropTypes.string
-}
-
-ListIcon.propTypes = {
-    type: PropTypes.string
-}
-
-ProfileIcon.propTypes = {
-    type: PropTypes.string
-}

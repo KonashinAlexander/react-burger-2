@@ -72,9 +72,3 @@ BurgerIngredients.propTypes = {
         type: PropTypes.string
     })).isRequired
 }
-
-Tab.propTypes = {
-    active: PropTypes.bool,
-    value: PropTypes.string,
-    onClick: PropTypes.func
-}
