@@ -1,0 +1,10 @@
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+}
+
+.title {
+    text-align: left;
+    margin-bottom: 24px;
+}
