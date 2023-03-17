@@ -4,15 +4,17 @@ import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
 import { IngredientType } from "../ingredient-type/ingredient-type";
+import { ingredientsPropType } from "../../utils/prop-types";
+
 
 
 export const BurgerIngredients = ({ingredients}) => {
 
     const [current, setCurrent] = useState('buns');
 
-    const buns = useMemo(()=>ingredients.filter (item => item.type === 'bun'),[]);
-    const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[]);
-    const sauce = useMemo(()=>ingredients.filter (item => item.type === 'sauce'),[]);
+    const buns = useMemo(()=>ingredients.filter (item => item.type === 'bun'),[ingredients]);
+    const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[ingredients]);
+    const sauce = useMemo(()=>ingredients.filter (item => item.type === 'sauce'),[ingredients]);
 
     function handleClickTab (tab) {
         try {
@@ -56,19 +58,29 @@ export const BurgerIngredients = ({ingredients}) => {
     )
 }
 
+// BurgerIngredients.propTypes = {
+//     ingredients: PropTypes.arrayOf(PropTypes.shape({
+//         __v: PropTypes.number,
+//         _id: PropTypes.string,
+//         calories: PropTypes.number,
+//         carbohydrates: PropTypes.number,
+//         fat: PropTypes.number,
+//         image: PropTypes.string,
+//         image_large: PropTypes.string,
+//         image_mobile: PropTypes.string,
+//         name: PropTypes.string,
+//         price: PropTypes.number,
+//         proteins: PropTypes.number,
+//         type: PropTypes.string
+//     })).isRequired
+// }
+
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        __v: PropTypes.number,
-        _id: PropTypes.string,
-        calories: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        fat: PropTypes.number,
-        image: PropTypes.string,
-        image_large: PropTypes.string,
-        image_mobile: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        proteins: PropTypes.number,
-        type: PropTypes.string
-    })).isRequired
+    ingredients: PropTypes.arrayOf(PropTypes.shape(
+        ingredientsPropType
+    )).isRequired
 }
+
+
+
+

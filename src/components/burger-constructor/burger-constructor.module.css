@@ -6,6 +6,7 @@
     max-height: 280px;
     overflow-y: scroll;
     scrollbar-width: thin;
+    scrollbar-color: #2F2F37 #8585AD;
 }
 
 .box_small {

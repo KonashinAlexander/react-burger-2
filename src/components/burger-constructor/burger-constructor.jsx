@@ -5,7 +5,7 @@ import cn from 'classnames'
 import style from './burger-constructor.module.css'
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-
+import { ingredientsPropType } from "../../utils/prop-types";
 
 
 
@@ -14,8 +14,8 @@ export const BurgerConstructor = ( {constructorIngredients}) => {
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => {setShowModal(false)}
 
-    const bun = useMemo(()=>constructorIngredients.filter(data => data.name === 'Краторная булка N-200i'),[]);    
-    const otherIngredients = useMemo(()=>constructorIngredients.filter(data => data.name !== 'Краторная булка N-200i'),[]);
+    const bun = useMemo(()=>constructorIngredients.filter(data => data.name === 'Краторная булка N-200i'),[constructorIngredients]);    
+    const otherIngredients = useMemo(()=>constructorIngredients.filter(data => data.name !== 'Краторная булка N-200i'),[constructorIngredients]);
 
     return (
         <>
@@ -80,19 +80,7 @@ export const BurgerConstructor = ( {constructorIngredients}) => {
 }
 
 BurgerConstructor.propTypes = {
-    constructorIngredients: PropTypes.arrayOf(PropTypes.shape({
-        __v: PropTypes.number,
-        _id: PropTypes.string,
-        calories: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        fat: PropTypes.number,
-        image: PropTypes.string,
-        image_large: PropTypes.string,
-        image_mobile: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        proteins: PropTypes.number,
-        type: PropTypes.string
-    })).isRequired
+    constructorIngredients: PropTypes.arrayOf(PropTypes.shape(
+     ingredientsPropType
+    )).isRequired
 }
-
