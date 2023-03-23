@@ -6,10 +6,12 @@ import style from './burger-constructor.module.css'
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { ingredientsPropType } from "../../utils/prop-types";
+import { useSelector } from "react-redux/es/exports";
 
 
+export const BurgerConstructor = () => {   
 
-export const BurgerConstructor = ( {constructorIngredients}) => {   
+    const constructorIngredients = useSelector(state => state.ingredientsStore.data)
 
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => {setShowModal(false)}
@@ -79,8 +81,8 @@ export const BurgerConstructor = ( {constructorIngredients}) => {
     )    
 }
 
-BurgerConstructor.propTypes = {
-    constructorIngredients: PropTypes.arrayOf(PropTypes.shape(
-     ingredientsPropType
-    )).isRequired
-}
+// BurgerConstructor.propTypes = {
+//     constructorIngredients: PropTypes.arrayOf(PropTypes.shape(
+//      ingredientsPropType
+//     )).isRequired
+// }
