@@ -10,8 +10,8 @@ import { useSelector } from "react-redux/es/exports";
 
 
 export const BurgerConstructor = () => {   
-
-    const constructorIngredients = useSelector(state => state.ingredientsStore.data)
+    
+    const { data: constructorIngredients, isLoading, error } = useSelector(state => state.ingredientsStore)
 
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => {setShowModal(false)}

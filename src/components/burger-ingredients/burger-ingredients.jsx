@@ -11,7 +11,7 @@ import { useSelector } from "react-redux/es/exports";
 export const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState('buns');
-    const ingredients = useSelector(state => state.ingredientsStore.data)
+    const { data: ingredients, isLoading, error } = useSelector(state => state.ingredientsStore)
     
     const buns = useMemo(()=>ingredients.filter (item => item.type === 'bun'),[ingredients]);
     const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[ingredients]);
