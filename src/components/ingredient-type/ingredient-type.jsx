@@ -5,12 +5,14 @@ import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-compon
 import style from './ingredient-type.module.css'
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-
+import { useDispatch } from "react-redux";
+import { addConstructor } from "../../services/reducers/constructor";
 
 export const IngredientType = ({title, id, ingredients}) => {
+    const dispatch = useDispatch()
 
     const [showModal, setShowModal] = useState(null);
-    const closeModal = () => {setShowModal(null)}
+    const closeModal = () => {setShowModal(null)};
 
     return (
         <section className={title}>
@@ -20,7 +22,10 @@ export const IngredientType = ({title, id, ingredients}) => {
                                                 key={data._id}
                                                 {...data}
                                                 count = {1} 
-                                                onClick={() => {setShowModal(data)}}
+                                                onClick={() => {
+                                                    dispatch(addConstructor(data));
+                                                    setShowModal(data)
+                                                }}
                                              />)
                 }
             </div>

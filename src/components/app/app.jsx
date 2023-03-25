@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import cn from 'classnames';
-import { getIngredients } from "../../utils/api"
 import { AppHeader } from "../app-header/app-header"
 import { BurgerConstructor } from "../burger-constructor/burger-constructor"
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients"
@@ -15,7 +14,7 @@ export const Application = () => {
 
     useEffect(() => {
         dispatch(fetchIngredients())
-    }, [ dispatch])
+    }, [dispatch])
 
     return (     
         <div className={style.app}>

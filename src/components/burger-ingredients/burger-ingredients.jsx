@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
@@ -29,7 +28,6 @@ export const BurgerIngredients = () => {
                     
         }       
     }
-
 
     return ( 
         <div className={cn(style.container)}>

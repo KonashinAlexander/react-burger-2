@@ -11,8 +11,10 @@ export const getIngredients = () => {
             .then(checkResponse)
             .then(dataIngredients => {
                 if(dataIngredients.success) {
+                    console.log('getIngredients succeed')
                     return dataIngredients.data
                 }
             })
-            .catch(err=>{console.log(err)})
+            .catch(err=>{console.log('getIngredients error >>',err)})
 }
+
