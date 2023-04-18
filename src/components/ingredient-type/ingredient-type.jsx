@@ -7,6 +7,7 @@ import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch } from "react-redux";
 import { addConstructor } from "../../services/reducers/constructor";
+import { addCurrentIngredient } from "../../services/reducers/currentIngredient";
 
 export const IngredientType = ({title, id, ingredients}) => {
     const dispatch = useDispatch()
@@ -25,6 +26,7 @@ export const IngredientType = ({title, id, ingredients}) => {
                                                 onClick={() => {
                                                     dispatch(addConstructor(data));
                                                     setShowModal(data)
+                                                    dispatch(addCurrentIngredient(data))
                                                 }}
                                                 
                                              />)

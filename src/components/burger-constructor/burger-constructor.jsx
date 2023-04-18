@@ -1,15 +1,12 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import React, { useState, useMemo } from "react"
-import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames'
 import style from './burger-constructor.module.css'
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { ingredientsPropType } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { removeConstructor } from "../../services/reducers/constructor";
-
-
+import { icrementOrderId } from "../../services/reducers/order";
 
 export const BurgerConstructor = () => {   
     
@@ -19,7 +16,9 @@ export const BurgerConstructor = () => {
     const otherIngredientsCost = useMemo(()=>ingredients.map((data) => {return data.price}).reduce((sum, current) => {return sum + current}, 0), [ingredients])
    
     const [showModal, setShowModal] = useState(false);
-    const closeModal = () => {setShowModal(false)}
+    const closeModal = () => {setShowModal(false)};
+
+    const orderId = useSelector(state=>state.orderStore.orderId)
 
     const dispatch = useDispatch();
 
@@ -72,11 +71,18 @@ export const BurgerConstructor = () => {
                         <p className={cn('text', 'text_type_digits-medium', 'mr-4')}>{bunCost * 2 + otherIngredientsCost}</p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <Button htmlType="button" size="large" onClick={() => {setShowModal(true)}}>Оформить заказ</Button>
+                    <Button htmlType="button" size="large" onClick={() => {
+                                                                    setShowModal(true)
+                                                                    dispatch(icrementOrderId())
+                        }}>
+                        Оформить заказ
+                    </Button>
                 </div>
 
-                {showModal && <Modal onClose={closeModal}><OrderDetails orderId={12345} />              
-                </Modal>}
+                {
+                showModal && <Modal onClose={closeModal}><OrderDetails orderId={orderId} />              
+                </Modal>
+                }
 
               
 

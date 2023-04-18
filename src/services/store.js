@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     ingredientsStore: ingredients,
     constructorStore: constructor,
-    currentStore: currentIngredient,
+    currentIngredientStore: currentIngredient,
     orderStore: order
   },
 })

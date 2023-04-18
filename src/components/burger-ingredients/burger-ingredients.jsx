@@ -10,7 +10,7 @@ import { useSelector } from "react-redux/es/exports";
 export const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState('buns');
-    const { data: ingredients, isLoading, error } = useSelector(state => state.ingredientsStore)
+    const { data: ingredients } = useSelector(state => state.ingredientsStore)
     
     const buns = useMemo(()=>ingredients.filter (item => item.type === 'bun'),[ingredients]);
     const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[ingredients]);
@@ -21,11 +21,9 @@ export const BurgerIngredients = () => {
             setCurrent(tab);
             const title = document.getElementById(tab);
             if (title) title.scrollIntoView( {behavior: "smooth"} );
-
         } catch (err) {                        
             alert(err)
-            console.log(err)   
-                    
+            console.log(err)                       
         }       
     }
 

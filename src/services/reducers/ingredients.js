@@ -36,13 +36,11 @@ export const ingredientsSlice = createSlice({
             state.error = null
         })
         .addCase(fetchIngredients.fulfilled, (state, action) => {
-            console.log('fetchIngredients fulfilled >>', action)
             state.isLoading = false;
             state.data = action.payload;
             state.error = null
         })
         .addCase(fetchIngredients.rejected, (state, action) => {
-            console.log('fetchIngredients rejected >>', action)
             state.isLoading = false;
             state.error = action.payload;
         })

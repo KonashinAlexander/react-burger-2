@@ -1,5 +1,6 @@
 export const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients'
 
+
 export const checkResponse = (res) => {
     return res.ok 
             ? res.json() 
@@ -11,7 +12,6 @@ export const getIngredients = () => {
             .then(checkResponse)
             .then(dataIngredients => {
                 if(dataIngredients.success) {
-                    console.log('getIngredients succeed')
                     return dataIngredients.data
                 }
             })

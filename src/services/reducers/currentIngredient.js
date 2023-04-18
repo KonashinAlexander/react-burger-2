@@ -8,9 +8,14 @@ export const currentSlice = createSlice({
   name: 'currentIngredient',
   initialState,
   reducers: {    
-  
+    addCurrentIngredient: (state, action) => { 
+      state.currentIndgredient = action.payload
+    },
+    removeCurrentIngredient: (state, action) => {
+      state.currentIndgredient = {}
     }
+  }
 })
 
 export default currentSlice.reducer
-// export const { addConstructor, removeConstructor } = constructorSlice.actions;
+export const { addCurrentIngredient, removeCurrentIngredient } = currentSlice.actions;
