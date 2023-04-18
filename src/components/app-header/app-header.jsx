@@ -5,8 +5,6 @@ import style from './app-header.module.css';
 import cn from 'classnames';
 
 
-
-
 export const AppHeader = () => {
     
     return (

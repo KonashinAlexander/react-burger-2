@@ -6,7 +6,9 @@ import style from './burger-constructor.module.css'
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { ingredientsPropType } from "../../utils/prop-types";
-import { useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { removeConstructor } from "../../services/reducers/constructor";
+
 
 
 export const BurgerConstructor = () => {   
@@ -18,6 +20,8 @@ export const BurgerConstructor = () => {
    
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => {setShowModal(false)}
+
+    const dispatch = useDispatch();
 
     return ( 
         <>
@@ -44,7 +48,8 @@ export const BurgerConstructor = () => {
                                             key={data._id} 
                                             thumbnail={data.image} 
                                             text={data.name}
-                                            isLocked={false}/>   
+                                            isLocked={false}
+                                            handleClose={()=>dispatch(removeConstructor())}/>   
                                         </div>
                                         )
                     }     

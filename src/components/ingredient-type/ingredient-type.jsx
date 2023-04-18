@@ -26,6 +26,7 @@ export const IngredientType = ({title, id, ingredients}) => {
                                                     dispatch(addConstructor(data));
                                                     setShowModal(data)
                                                 }}
+                                                
                                              />)
                 }
             </div>
