@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  orderId: 0
+  orderId: 0,
+  orderName: ''
 } 
 
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {    
-      icrementOrderId: (state) => {
-        state.orderId += 1
+      updateOrderDetails: (state, action) => {
+        state.orderId += action.payload.order.number
+        state.orderName = action.payload.name
       }
     }
 })
 
 export default orderSlice.reducer
-export const { icrementOrderId } = orderSlice.actions;
+export const { updateOrderDetails } = orderSlice.actions;
