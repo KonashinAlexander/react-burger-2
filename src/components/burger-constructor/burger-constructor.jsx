@@ -1,5 +1,6 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import React, { useState, useMemo } from "react"
+import { useDrop } from 'react-dnd'
 import cn from 'classnames'
 import style from './burger-constructor.module.css'
 import { Modal } from "../modal/modal";
@@ -8,16 +9,28 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import { removeConstructor } from "../../services/reducers/constructor";
 import { updateOrderDetails } from "../../services/reducers/order";
 import { checkResponse, API_URL } from "../../utils/api";
+import { addConstructor } from "../../services/reducers/constructor"
+import { addCurrentIngredient } from "../../services/reducers/currentIngredient";
 
 export const BurgerConstructor = () => {   
+
+    const [{isOver}, drop] = useDrop(() => ({
+        accept: 'ingredient',
+        drop: (item)=>{
+            dispatch(addConstructor(item))
+            dispatch(addCurrentIngredient(item))
+        },
+    }))
     
     const dispatch = useDispatch();
+    const buns = useSelector(state => state.constructorStore.buns) 
     const ingredients = useSelector(state => state.constructorStore.ingredients) 
     const ingredientsIds = useSelector(state => state.constructorStore.ingredientsIds) 
     const {orderId, orderName} = useSelector(state=>state.orderStore)
 
-    const buns = ingredients.filter(item => item.type === 'bun')
+    
     const otherIngredients = ingredients.filter(item => item.type !== 'bun')
+
     const bunsCost = useMemo(()=>buns.map((data) => {return data.price}).reduce((sum, current) => {return sum + current}, 0), [ingredients])
     const otherIngredientsCost = useMemo(()=>otherIngredients.map((data) => {return data.price}).reduce((sum, current) => {return sum + current}, 0), [ingredients])
    
@@ -38,7 +51,6 @@ export const BurgerConstructor = () => {
             .then(dataOrder => {
                 if(dataOrder.success) {
                     dispatch(updateOrderDetails(dataOrder))
-                    // return dataOrder.data
                 }
             })
             .catch(err=>{console.log('getOrder error >>', err)})
@@ -53,7 +65,7 @@ export const BurgerConstructor = () => {
                     {buns.map((data) =>  <ConstructorElement 
                                         {...data} 
                                         type='top' 
-                                        key={data._id} 
+                                        key={data.uuid} 
                                         thumbnail={data.image} 
                                         text={`${data.name} (Верх)`}
                                         isLocked={true}
@@ -63,17 +75,17 @@ export const BurgerConstructor = () => {
 
               
             
-                <div className={cn(style.box_big, 'mt-4')}>
+                <div className={cn(style.box_big, 'mt-4')} ref={drop}>
                     {otherIngredients.map((data) => 
-                                        <div className={cn(style.box_flex)} key={data._id} >
+                                        <div className={cn(style.box_flex)} key={data.uuid} >
                                             <DragIcon className={cn(style.icon)} />
                                             <ConstructorElement 
                                             {...data} 
-                                            key={data._id} 
+                                            key={data.uuid} 
                                             thumbnail={data.image} 
                                             text={data.name}
                                             isLocked={false}
-                                            handleClose={()=>dispatch(removeConstructor(data.uuid))}/>   
+                                            handleClose={()=>dispatch(removeConstructor(data))}/>   
                                         </div>
                                         )
                     }     
@@ -83,7 +95,7 @@ export const BurgerConstructor = () => {
                     {buns.map((data) => <ConstructorElement 
                                         {...data} 
                                         type='bottom' 
-                                        key={data._id} 
+                                        key={data.uuid} 
                                         thumbnail={data.image} 
                                         text={`${data.name} (Низ)`}
                                         isLocked={true}

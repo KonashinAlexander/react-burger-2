@@ -1,42 +1,30 @@
 import React, { useEffect, useState } from "react";
 import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames';
-import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './ingredient-type.module.css'
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useDispatch } from "react-redux";
-import { addConstructor } from "../../services/reducers/constructor";
-import { addCurrentIngredient } from "../../services/reducers/currentIngredient";
+import { useDispatch, useSelector } from "react-redux";
+import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 
 export const IngredientType = ({title, id, ingredients}) => {
     const dispatch = useDispatch()
-
-    const [showModal, setShowModal] = useState(null);
-    const closeModal = () => {setShowModal(null)};
+    const ingredientsIds = useSelector(state => state.constructorStore.ingredientsIds) 
+    // const bunsIds = useSelector(state => state.constructorStore.bunsIds) 
 
     return (
         <section className={title}>
             <h2 className={cn(style.title, "text", "text_type_main-medium")} id={id}>{title}</h2>
             <div className={cn(style.list, 'mb-10', 'pl-4', 'pr-4')}>
-                {ingredients?.map(data => <BurgerIngredient 
+                {ingredients?.map(data => <BurgerIngredient
                                                 key={data._id}
                                                 {...data}
-                                                count = {1} 
-                                                onClick={() => {
-                                                    dispatch(addConstructor(data));
-                                                    setShowModal(data)
-                                                    dispatch(addCurrentIngredient(data))
-                                                }}
-                                                
+                                                count = {ingredientsIds.filter(id => id === data._id).length} 
+                                                // countBuns = {bunsIds.filter(id => id === data._id).length}                                        
                                              />)
                 }
             </div>
-
-            {showModal && <Modal title='Детали ингредиента' onClose={closeModal}>
-                 <IngredientDetails data={showModal}/>
-            </Modal>}
-            
+         
         </section>
     )
 

@@ -1,9 +1,10 @@
 import React from "react"
 import cn from 'classnames';
 import style from './ingredient-details.module.css';
-
+import PropTypes, { number, string } from 'prop-types';
 
 export const IngredientDetails = ({data}) => {
+     
     return (
        <>
             <img src={data.image_large}></img>
@@ -24,4 +25,21 @@ export const IngredientDetails = ({data}) => {
             </ul>
         </>        
     )
+}
+
+IngredientDetails.propTypes = {
+    data: PropTypes.shape({
+        __v: PropTypes.number,
+        _id: PropTypes.string,
+        calories: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        fat: PropTypes.number,
+        image: string,
+        image_large: PropTypes.string,
+        image_mobile: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number,
+        proteins: PropTypes.number,
+        type: PropTypes.string
+    })
 }
