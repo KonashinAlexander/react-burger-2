@@ -65,7 +65,7 @@ export const BurgerConstructor = () => {
                 thumbnail={data.image} 
                 text={data.name}
                 isLocked={true}
-                index={index}
+                index={index}                
             />
         )
       },[])
@@ -83,7 +83,7 @@ export const BurgerConstructor = () => {
                 <div className={style.box_small}>                    
                     {buns.map((data, i) => renderBuns(data, i))}
                 </div>   
-           
+                       
                 <ol className={cn(style.box_big, 'mt-4')} ref={drop} >
                     {otherIngredients.map((data, i) => renderOtherIngredients(data, i))}     
                 </ol>

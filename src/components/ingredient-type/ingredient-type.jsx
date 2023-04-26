@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames';
 import style from './ingredient-type.module.css'
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 
@@ -11,7 +9,7 @@ const IngredientType = ({title, id, ingredients}, ref) => {
     const dispatch = useDispatch()
     const ingredientsIds = useSelector(state => state.constructorStore.ingredientsIds) 
     const bunsIds = useSelector(state => state.constructorStore.bunsIds) 
-    const ids = ingredientsIds.concat(bunsIds)
+    const ids = ingredientsIds.concat(bunsIds).concat(bunsIds)
     
     return (
         <section className={title} ref={ref}>

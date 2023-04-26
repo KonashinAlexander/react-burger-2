@@ -17,19 +17,17 @@ export const constructorSlice = createSlice({
       switch (action.payload.type) {
         case 'bun':
           state.buns.splice(0, 1, {...action.payload, uuid: uuidv4()})
-          state.bunsIds.splice(0, 1, action.payload._id);
-          // state.ingredientsIds.splice(0, 1, action.payload._id); 
-          // state.ingredientsIds.push(action.payload._id); 
+          state.bunsIds = state.buns.map(item=>item._id)
           break;             
         default:
           state.ingredients.push({...action.payload, uuid: uuidv4()});
-          state.ingredientsIds.push(action.payload._id);           
+          state.ingredientsIds = state.ingredients.map(item=>item._id)         
           break;
       }      
    },
     removeConstructor: (state, action) => {
       state.ingredients = state.ingredients.filter(item=>{return item.uuid !== action.payload.uuid})
-      state.ingredientsIds = state.ingredientsIds.filter(item=>item !== action.payload._id)
+      state.ingredientsIds = state.ingredients.map(item=>item._id)
     },
     moveIngredients: (state, action) => {       
       state.ingredients = update(state.ingredients, {
