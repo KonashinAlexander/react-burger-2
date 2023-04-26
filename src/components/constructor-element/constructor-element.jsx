@@ -68,6 +68,7 @@ const ConstructorElementItem = ({ id, index, image, name, price, ...props}) => {
     <li className={style.box_flex} ref={ref} data-handler-id={handlerId}>
         <DragIcon />
         <ConstructorElement 
+            
             thumbnail={image} 
             text={name}
             price={price}

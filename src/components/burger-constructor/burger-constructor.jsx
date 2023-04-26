@@ -56,16 +56,16 @@ export const BurgerConstructor = () => {
             .catch(err=>{console.log('getOrder error >>', err)})
       }
 
-      const renderBuns = useCallback((data, index) => {
+      const renderBuns = useCallback((data, index, pose, type) => {
         return (
             <ConstructorElement 
                 {...data} 
-                // type={'top' | 'bottom'}
+                type={type}
                 key={data.uuid} 
                 thumbnail={data.image} 
-                text={data.name}
+                text={`${data.name} ${pose}`}
                 isLocked={true}
-                index={index}                
+                index={index}                            
             />
         )
       },[])
@@ -81,7 +81,7 @@ export const BurgerConstructor = () => {
             <div className={cn(style.container, 'pt-25')}> 
 
                 <div className={style.box_small}>                    
-                    {buns.map((data, i) => renderBuns(data, i))}
+                    {buns.map((data, i, pose, type) => renderBuns(data, i, pose='(Верх)', type='top'))}
                 </div>   
                        
                 <ol className={cn(style.box_big, 'mt-4')} ref={drop} >
@@ -89,7 +89,7 @@ export const BurgerConstructor = () => {
                 </ol>
 
                 <div className={style.box_small}>                    
-                    {buns.map((data, i) => renderBuns(data, i))}
+                    {buns.map((data, i, pose, type) => renderBuns(data, i, pose="(Низ)", type='bottom'))}
                 </div> 
 
                 <div className={cn(style.box__total_flex, 'pt-10 p-4')}>
