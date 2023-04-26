@@ -10,10 +10,9 @@ import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 const IngredientType = ({title, id, ingredients}, ref) => {
     const dispatch = useDispatch()
     const ingredientsIds = useSelector(state => state.constructorStore.ingredientsIds) 
-    // const bunsIds = useSelector(state => state.constructorStore.bunsIds) 
-    // const ref = useRef(null)
-    // console.log(title, ref.current.getBoundingClientRect().top)
-
+    const bunsIds = useSelector(state => state.constructorStore.bunsIds) 
+    const ids = ingredientsIds.concat(bunsIds)
+    
     return (
         <section className={title} ref={ref}>
             <h2 className={cn(style.title, "text", "text_type_main-medium")} id={id}>{title}</h2>
@@ -21,9 +20,8 @@ const IngredientType = ({title, id, ingredients}, ref) => {
                 {ingredients?.map(data => <BurgerIngredient
                                                 key={data._id}
                                                 {...data}
-                                                count = {ingredientsIds.filter(id => id === data._id).length} 
-                                                // countBuns = {bunsIds.filter(id => id === data._id).length}                                        
-                                             />)
+                                                count = {ids.filter(id => id === data._id).length} 
+                                            />)
                 }
             </div>         
         </section>

@@ -18,7 +18,8 @@ export const constructorSlice = createSlice({
         case 'bun':
           state.buns.splice(0, 1, {...action.payload, uuid: uuidv4()})
           state.bunsIds.splice(0, 1, action.payload._id);
-          state.ingredientsIds.splice(0, 1, action.payload._id); 
+          // state.ingredientsIds.splice(0, 1, action.payload._id); 
+          // state.ingredientsIds.push(action.payload._id); 
           break;             
         default:
           state.ingredients.push({...action.payload, uuid: uuidv4()});

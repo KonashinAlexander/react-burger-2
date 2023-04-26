@@ -60,12 +60,13 @@ export const BurgerConstructor = () => {
         return (
             <ConstructorElement 
                 {...data} 
-                // type='top' 
+                // type={'top' | 'bottom'}
                 key={data.uuid} 
                 thumbnail={data.image} 
-                text={`${data.name} (Верх)`}
+                text={data.name}
                 isLocked={true}
-                index={index}/>
+                index={index}
+            />
         )
       },[])
 
@@ -74,17 +75,6 @@ export const BurgerConstructor = () => {
             <ConstructorElementItem {...data} key={data.uuid} index={index} id={index}/>
         )
       },[])
-
-    //   const moveItem = useCallback((dragIndex, hoverIndex) => {
-    //         setCards((prevCards)=>
-    //             update(prevCards, {
-    //                 $splice: [
-    //                     [dragIndex, 1],
-    //                     [hoverIndex, 0, prevCards[dragIndex]]
-    //                 ]
-    //             })
-    //         )
-    //   },[])
 
     return ( 
         <>
