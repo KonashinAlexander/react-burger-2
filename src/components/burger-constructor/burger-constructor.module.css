@@ -9,6 +9,7 @@
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #2F2F37 #8585AD;
+    padding: 0;
 }
 
 .box_small {

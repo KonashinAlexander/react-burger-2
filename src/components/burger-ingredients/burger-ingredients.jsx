@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
-import { IngredientType } from "../ingredient-type/ingredient-type";
-import { ingredientsPropType } from "../../utils/prop-types";
+import  IngredientType  from "../ingredient-type/ingredient-type";
 import { useSelector } from "react-redux/es/exports";
 
 
@@ -16,7 +15,24 @@ export const BurgerIngredients = () => {
     const main = useMemo(()=>ingredients.filter (item => item.type === 'main'),[ingredients]);
     const sauce = useMemo(()=>ingredients.filter (item => item.type === 'sauce'),[ingredients]);
 
-    function handleClickTab (tab) {
+    const primaryRef = useRef(null);
+	const bunsRef = useRef(null);
+    const mainRef = useRef(null);
+    const sauceRef = useRef(null);
+
+	const handleScroll = () => {      
+		if (primaryRef && bunsRef && sauceRef && mainRef && primaryRef.current && bunsRef.current && sauceRef.current && mainRef.current) {
+			const bunDistance = Math.abs(primaryRef.current.getBoundingClientRect().top - bunsRef.current.getBoundingClientRect().top)
+			const sauceDistance = Math.abs(primaryRef.current.getBoundingClientRect().top - sauceRef.current.getBoundingClientRect().top)
+			const mainDistance = Math.abs(primaryRef.current.getBoundingClientRect().top - mainRef.current.getBoundingClientRect().top)
+			const minDistance = Math.min(bunDistance, sauceDistance, mainDistance);
+			const currentHeader = minDistance === bunDistance
+				? 'buns' : minDistance === sauceDistance ? 'sauce' : 'main';
+			setCurrent(prevState => (currentHeader === prevState ? prevState : currentHeader))
+		}
+	}
+
+	function handleClickTab (tab) {
         try {
             setCurrent(tab);
             const title = document.getElementById(tab);
@@ -43,15 +59,13 @@ export const BurgerIngredients = () => {
                     </Tab>                
             </section>
 
-            <section className={cn(style.ingredients)}>
-                <IngredientType title='Булки' id='buns' ingredients={buns} />
-                <IngredientType title='Начинки' id='main' ingredients={main} />
-                <IngredientType title='Соусы' id='sauce' ingredients={sauce} />
+            <section className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
+                <IngredientType title='Булки' id='buns' ingredients={buns} ref={bunsRef}/>
+                <IngredientType title='Начинки' id='main' ingredients={main} ref={mainRef}/>
+                <IngredientType title='Соусы' id='sauce' ingredients={sauce} ref={sauceRef}/>
             </section>
-
             
         </div>
-
     )
 }
 

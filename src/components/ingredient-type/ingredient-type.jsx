@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes, { number, string } from 'prop-types';
 import cn from 'classnames';
 import style from './ingredient-type.module.css'
@@ -7,13 +7,15 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 
-export const IngredientType = ({title, id, ingredients}) => {
+const IngredientType = ({title, id, ingredients}, ref) => {
     const dispatch = useDispatch()
     const ingredientsIds = useSelector(state => state.constructorStore.ingredientsIds) 
     // const bunsIds = useSelector(state => state.constructorStore.bunsIds) 
+    // const ref = useRef(null)
+    // console.log(title, ref.current.getBoundingClientRect().top)
 
     return (
-        <section className={title}>
+        <section className={title} ref={ref}>
             <h2 className={cn(style.title, "text", "text_type_main-medium")} id={id}>{title}</h2>
             <div className={cn(style.list, 'mb-10', 'pl-4', 'pr-4')}>
                 {ingredients?.map(data => <BurgerIngredient
@@ -23,11 +25,9 @@ export const IngredientType = ({title, id, ingredients}) => {
                                                 // countBuns = {bunsIds.filter(id => id === data._id).length}                                        
                                              />)
                 }
-            </div>
-         
+            </div>         
         </section>
     )
-
 }
 
 IngredientType.propTypes = {
@@ -48,3 +48,5 @@ IngredientType.propTypes = {
         type: PropTypes.string
     }))
 }
+
+export default React.forwardRef(IngredientType)
