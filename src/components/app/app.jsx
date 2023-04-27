@@ -17,15 +17,15 @@ export const Application = () => {
         dispatch(fetchIngredients())
     }, [dispatch])
 
-    return (    
+    return (
         <DndProvider backend={HTML5Backend}>
             <div className={style.app}>
-                <AppHeader />            
-                <main className={style.main}>                    
+                <AppHeader />
+                <main className={style.main}>
                     <BurgerIngredients />
-                    <BurgerConstructor />                    
-                </main>     
-            </div> 
-        </DndProvider>            
+                    <BurgerConstructor />
+                </main>
+            </div>
+        </DndProvider>
     )
 }

@@ -1,20 +1,22 @@
-import {useRef, useCallback} from 'react'
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useRef, useCallback } from 'react'
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './constructor-element.module.css'
 import { useDispatch } from 'react-redux'
 import { removeConstructor, moveIngredients } from "../../services/reducers/constructor";
 import { useDrag, useDrop } from 'react-dnd';
+import { ingredientsPropType } from "../../utils/prop-types";
+import PropTypes from 'prop-types';
 
 
-const ConstructorElementItem = ({ id, index, image, name, price, ...props}) => {
-    const dispatch = useDispatch();
+const ConstructorElementItem = ({ id, index, image, name, price, ...props }) => {
+  const dispatch = useDispatch();
 
-    const ref = useRef(null)
-    
-    const moveElement = useCallback((dragIndex, hoverIndex) => {
-      dispatch(moveIngredients([dragIndex, hoverIndex]))
-    },[])
-  
+  const ref = useRef(null)
+
+  const moveElement = useCallback((dragIndex, hoverIndex) => {
+    dispatch(moveIngredients([dragIndex, hoverIndex]))
+  }, [])
+
   const [{ handlerId }, drop] = useDrop({
     accept: 'item',
     collect(monitor) {
@@ -26,27 +28,27 @@ const ConstructorElementItem = ({ id, index, image, name, price, ...props}) => {
       if (!ref.current) {
         return
       }
-     
+
       const dragIndex = item.index
       const hoverIndex = index
 
       if (dragIndex === hoverIndex) {
         return
       }
-      
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()     
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2    
-      const clientOffset = monitor.getClientOffset()     
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top     
-     
+
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+      const clientOffset = monitor.getClientOffset()
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }
-      
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-     
+
       moveElement(dragIndex, hoverIndex)
       item.index = hoverIndex
     },
@@ -62,20 +64,28 @@ const ConstructorElementItem = ({ id, index, image, name, price, ...props}) => {
     }),
   })
 
-    drag(drop(ref))
+  drag(drop(ref))
 
   return (
     <li className={style.box_flex} ref={ref} data-handler-id={handlerId}>
-        <DragIcon />
-        <ConstructorElement 
-            
-            thumbnail={image} 
-            text={name}
-            price={price}
-            handleClose={()=>dispatch(removeConstructor(props))}
-        />
+      <DragIcon />
+      <ConstructorElement
+
+        thumbnail={image}
+        text={name}
+        price={price}
+        handleClose={() => dispatch(removeConstructor(props))}
+      />
     </li>
   )
 }
 
 export default ConstructorElementItem
+
+ConstructorElementItem.propTypes = {
+  id: PropTypes.number,
+  index: PropTypes.number,
+  props: PropTypes.arrayOf(
+    PropTypes.shape(ingredientsPropType)
+  )
+}
