@@ -7,7 +7,6 @@ import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { ingredientsPropType } from "../../utils/prop-types";
 import PropTypes from 'prop-types';
 
-
 export const BurgerIngredient = (props) => {
   const [showModal, setShowModal] = useState(null);
   const closeModal = () => {
@@ -24,7 +23,10 @@ export const BurgerIngredient = (props) => {
 
   return (
     <>
-      <div className={styles.ingredient_box} onClick={() => setShowModal(props)} ref={drag}>
+      <div className={styles.ingredient_box}
+        onClick={() => setShowModal(props)}
+        ref={drag}
+      >
         {props.count > 0 ? (
           <div className={styles.counter}>
             <p className={styles.counter__num}>{props.count}</p>
