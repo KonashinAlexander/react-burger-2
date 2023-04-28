@@ -10,8 +10,7 @@ import style from './burger-constructor.module.css';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { fetchOrder, updateOrderDetails } from '../../services/reducers/order';
-import { getOrderDetails } from '../../utils/api';
+import { fetchOrder } from '../../services/reducers/order';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
@@ -62,8 +61,7 @@ export const BurgerConstructor = () => {
 
   const getOrder = (ingredientsIds) => {
     const newOrder = { ingredients: ingredientsIds };
-    // getOrderDetails(newOrder);
-    dispatch(fetchOrder(newOrder))
+    dispatch(fetchOrder(newOrder));
   };
 
   const renderBuns = useCallback((data, index, pose, type) => {
@@ -94,7 +92,8 @@ export const BurgerConstructor = () => {
         </div>
 
         <ol className={cn(style.box_big, 'mt-4')} ref={drop}>
-          {otherIngredients.map((data, i) => renderOtherIngredients(data, i))}
+          {otherIngredients.map(renderOtherIngredients)}
+          {/* {otherIngredients.map((data, i) => renderOtherIngredients(data, i))} */}
         </ol>
 
         <div className={style.box_small}>
@@ -115,7 +114,6 @@ export const BurgerConstructor = () => {
             size="large"
             onClick={() => {
               setShowModal(true);
-              // dispatch(fetchOrder())
               getOrder(ingredientsIds);
             }}
           >

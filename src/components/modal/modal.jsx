@@ -5,7 +5,6 @@ import style from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { useDispatch } from "react-redux";
-import { removeCurrentIngredient } from "../../services/reducers/currentIngredient";
 
 const modalRoot = document.querySelector('#modals')
 
@@ -17,7 +16,6 @@ export const Modal = ({ title, onClose, children }) => {
     function closeOnEsc(e) {
       if (e.key === "Escape" || e.key === "Esc") {
         onClose();
-        dispatch(removeCurrentIngredient())
       }
     }
 
@@ -35,7 +33,6 @@ export const Modal = ({ title, onClose, children }) => {
           <h1 className={style.title}>{title}</h1>
           <CloseIcon onClick={() => {
             onClose()
-            dispatch(removeCurrentIngredient())
           }} />
         </div>
         {children}
