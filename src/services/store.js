@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+
 import ingredients from './reducers/ingredients';
 import constructor from './reducers/constructor';
 import currentIngredient from './reducers/currentIngredient';
@@ -11,7 +12,7 @@ const store = configureStore({
     constructorStore: constructor,
     currentIngredientStore: currentIngredient,
     orderStore: order
-  },
+  }
 })
 
 export default store;

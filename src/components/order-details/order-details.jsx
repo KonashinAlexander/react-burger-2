@@ -1,9 +1,13 @@
 import cn from 'classnames';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import image from '../../images/done.svg';
 import style from './order-details.module.css';
 
-export const OrderDetails = ({ orderId, orderName }) => {
+export const OrderDetails = () => {
+
+    const { orderId, orderName } = useSelector((state) => state.orderStore);
+
     return (
         <>
             <p className={cn(style.digits, 'text', 'text_type_digits-large')}>{orderId}</p>
@@ -16,7 +20,7 @@ export const OrderDetails = ({ orderId, orderName }) => {
     )
 }
 
-OrderDetails.propTypes = {
-    orderId: PropTypes.number,
-    orderName: PropTypes.string
-} 
+// OrderDetails.propTypes = {
+//     orderId: PropTypes.number,
+//     orderName: PropTypes.string
+// } 

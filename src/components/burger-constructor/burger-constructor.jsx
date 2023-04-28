@@ -10,8 +10,8 @@ import style from './burger-constructor.module.css';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { updateOrderDetails } from '../../services/reducers/order';
-import { checkResponse, API_URL } from '../../utils/api';
+import { fetchOrder, updateOrderDetails } from '../../services/reducers/order';
+import { getOrderDetails } from '../../utils/api';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
@@ -29,7 +29,6 @@ export const BurgerConstructor = () => {
   const buns = useSelector((state) => state.constructorStore.buns);
   const ingredients = useSelector((state) => state.constructorStore.ingredients);
   const ingredientsIds = useSelector((state) => state.constructorStore.ingredientsIds);
-  const { orderId, orderName } = useSelector((state) => state.orderStore);
 
   const otherIngredients = ingredients.filter((item) => item.type !== 'bun');
 
@@ -63,23 +62,8 @@ export const BurgerConstructor = () => {
 
   const getOrder = (ingredientsIds) => {
     const newOrder = { ingredients: ingredientsIds };
-
-    return fetch(`${API_URL}/orders`, {
-      method: 'POST',
-      body: JSON.stringify(newOrder),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(checkResponse)
-      .then((dataOrder) => {
-        if (dataOrder.success) {
-          dispatch(updateOrderDetails(dataOrder));
-        }
-      })
-      .catch((err) => {
-        console.log('getOrder error >>', err);
-      });
+    // getOrderDetails(newOrder);
+    dispatch(fetchOrder(newOrder))
   };
 
   const renderBuns = useCallback((data, index, pose, type) => {
@@ -131,6 +115,7 @@ export const BurgerConstructor = () => {
             size="large"
             onClick={() => {
               setShowModal(true);
+              // dispatch(fetchOrder())
               getOrder(ingredientsIds);
             }}
           >
@@ -140,9 +125,10 @@ export const BurgerConstructor = () => {
 
         {showModal && (
           <Modal onClose={closeModal}>
-            <OrderDetails orderId={orderId} orderName={orderName} />
+            <OrderDetails />
           </Modal>
         )}
+
       </div>
     </>
   );
