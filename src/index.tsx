@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './services/store';
+import { Provider } from 'react-redux';
+import { Application } from './components/app/app';
+import ErrorBoundary from './components/error-boundary/error-boundary';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <Application />
+      </ErrorBoundary>
+    </Provider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

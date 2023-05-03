@@ -14,5 +14,3 @@ export const ingredientsPropType = {
     proteins: PropTypes.number,
     type: PropTypes.string
 }
-
-
