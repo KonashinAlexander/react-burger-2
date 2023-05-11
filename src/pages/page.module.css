@@ -1,0 +1,17 @@
+.page {
+    background-color: aqua;
+    /* position: relative; */
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    position: absolute;
+    width: 480px;
+    height: 430px;
+    left: calc(50% - 480px/2);
+    top: 288px;
+    gap: 24px
+}
