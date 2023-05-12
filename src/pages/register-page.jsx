@@ -11,7 +11,7 @@ function RegisterPage() {
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
-                    value={'value'}
+
                 />
                 <Input
                     type={'text'}
@@ -21,7 +21,7 @@ function RegisterPage() {
                 <PasswordInput />
                 <Button htmlType="button" type="primary" size="medium">Зарегистрироваться</Button>
                 <p>Уде зарегистрированы?
-                    <Link to='/login'>Войти</Link>                </p>
+                    <Link to='/login' className='ml-4'>Войти</Link>                </p>
 
             </div>
         </div>

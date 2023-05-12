@@ -14,11 +14,11 @@ function ResetPage() {
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    value={'value'}
+
                 />
                 <Button htmlType="button" type="primary" size="medium">Сохранить</Button>
-                <p>Вспомнили пароль?
-                    <Link to='/register'>Войти</Link>
+                <p >Вспомнили пароль?
+                    <Link to='/register' className='ml-4'>Войти</Link>
                 </p>
 
             </div>

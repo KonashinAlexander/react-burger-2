@@ -11,15 +11,15 @@ function LoginPage() {
                 <Input
                     type={'text'}
                     placeholder={'E-mail'}
-                    value={'value'}
+
                 />
                 <PasswordInput />
                 <Button htmlType="button" type="primary" size="medium">Войти</Button>
                 <p>Вы - новый пользователь?
-                    <Link to='/register'>Зарегистрироваться</Link>
+                    <Link to='/register' className='ml-4'>Зарегистрироваться</Link>
                 </p>
                 <p>Забыли пароль?
-                    <Link to='/forgot-password'>Восстановить пароль</Link>
+                    <Link to='/forgot-password' className='ml-4'>Восстановить пароль</Link>
                 </p>
             </div>
         </div>

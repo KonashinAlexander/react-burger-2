@@ -11,12 +11,12 @@ function ForgotPage() {
                 <Input
                     type={'text'}
                     placeholder={'Укажите e-mail'}
-                    value={'value'}
+
                 />
                 {/* <PasswordInput /> */}
                 <Button htmlType="button" type="primary" size="medium">Восстановить</Button>
                 <p>Вспомнили пароль?
-                    <Link to='/register'>Войти</Link>
+                    <Link to='/register' className='ml-4'>Войти</Link>
                 </p>
 
             </div>
