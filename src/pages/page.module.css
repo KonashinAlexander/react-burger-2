@@ -11,7 +11,33 @@
     position: absolute;
     width: 480px;
     height: 430px;
-    left: calc(50% - 480px/2);
-    top: 288px;
-    gap: 24px
+    /* left: calc(50% - 480px/2);
+    top: 288px; */
+    gap: 24px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 }
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    position: absolute;
+    width: 320px;
+    height: 192px;
+    left: calc(20% - 480px/2);
+    top: 228px;
+    /* top: 0;
+    left: 0; */
+    /* transform: translate(-50%, -50%); */
+    /* text-align: start; */
+}
+
+
+
+
+/* * {
+    outline: 1px solid greenyellow;
+} */

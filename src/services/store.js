@@ -4,6 +4,7 @@ import ingredients from './reducers/ingredients';
 import constructor from './reducers/constructor';
 import currentIngredient from './reducers/currentIngredient';
 import order from './reducers/order';
+import user from './reducers/user';
 
 
 const store = configureStore({
@@ -11,7 +12,8 @@ const store = configureStore({
     ingredientsStore: ingredients,
     constructorStore: constructor,
     currentIngredientStore: currentIngredient,
-    orderStore: order
+    orderStore: order,
+    userStore: user
   }
 })
 

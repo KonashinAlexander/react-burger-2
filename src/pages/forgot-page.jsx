@@ -2,6 +2,7 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import React from 'react';
 import style from './page.module.css'
 import { Link } from 'react-router-dom';
+import { getPasswordReset } from '../utils/api'
 
 function ForgotPage() {
     return (
@@ -13,8 +14,7 @@ function ForgotPage() {
                     placeholder={'Укажите e-mail'}
 
                 />
-                {/* <PasswordInput /> */}
-                <Button htmlType="button" type="primary" size="medium">Восстановить</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={getPasswordReset}>Восстановить</Button>
                 <p>Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

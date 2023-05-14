@@ -15,9 +15,9 @@ code {
     monospace;
 }
 
-* {
+/* * {
   outline: 1px solid greenyellow;
-}
+} */
 
 .main {
   max-width: 1240px;
