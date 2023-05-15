@@ -1,49 +1,62 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { changePassword } from '../utils/api';
 
 function ResetPage() {
 
-    const [code, setCode] = React.useState('')
-    const onCodeChange = e => {
-        setCode(e.target.value)
+    const navigate = useNavigate();
+
+    const moveToLoginPage = async (form) => {
+        changePassword(form)
+        navigate('/login', { replace: true });
     }
 
-    const [password, setPassword] = React.useState('')
-    const onPasswordChange = e => {
-        setPassword(e.target.value)
+    const [form, setForm] = useState({ token: '', password: '' })
+    const onChange = e => {
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
+
+
+    // const [code, setCode] = React.useState('')
+    // const onCodeChange = e => {
+    //     setCode(e.target.value)
+    // }
+
+    // const [password, setPassword] = React.useState('')
+    // const onPasswordChange = e => {
+    //     setPassword(e.target.value)
+    // }
 
     return (
         <div className={style.page}>
-            <div className={style.box}>
+            <form className={style.box}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 <PasswordInput
                     placeholder={'Введите новый пароль'}
-                    onChange={onPasswordChange}
-                    value={password}
+                    onChange={onChange}
+                    value={form.password}
                     name={'password'}
                     extraClass="mb-2"
                 />
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    onChange={onCodeChange}
-                    value={code}
-                    name={'code'}
+                    onChange={onChange}
+                    value={form.token}
+                    name={'token'}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1"
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={changePassword}>Сохранить</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => moveToLoginPage(form)}>Сохранить</Button>
                 <p >Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>
 
-            </div>
+            </form>
         </div>
     )
 }

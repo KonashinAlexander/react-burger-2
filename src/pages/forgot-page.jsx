@@ -1,10 +1,18 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import style from './page.module.css'
-import { Link } from 'react-router-dom';
-import { getPasswordReset } from '../utils/api'
+import { Link, useNavigate } from 'react-router-dom';
+import { getNewToken, getPasswordReset } from '../utils/api'
 
 function ForgotPage() {
+    const navigate = useNavigate();
+
+    const moveToResetPage = async () => {
+        getPasswordReset()
+        getNewToken()
+        navigate('/reset-password', { replace: true });
+    }
+
     return (
         <div className={style.page}>
             <div className={style.box}>
@@ -14,7 +22,7 @@ function ForgotPage() {
                     placeholder={'Укажите e-mail'}
 
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={getPasswordReset}>Восстановить</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={moveToResetPage}>Восстановить</Button>
                 <p>Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

@@ -2,10 +2,9 @@ import React from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
 import { Link } from 'react-router-dom';
-import { createUser } from '../utils/api'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchUser } from '../services/reducers/user';
+import { fetchUserCreate } from '../services/reducers/user';
 
 function RegisterPage() {
     const dispatch = useDispatch();
@@ -15,8 +14,8 @@ function RegisterPage() {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const login = form => {
-        dispatch(fetchUser(form))
+    const registerNewUser = form => {
+        dispatch(fetchUserCreate(form))
     }
 
     return (
@@ -43,7 +42,7 @@ function RegisterPage() {
                     name='password'
                     onChange={onChange}
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => login(form)}>Зарегистрироваться</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => registerNewUser(form)}>Зарегистрироваться</Button>
                 <p>Уже зарегистрированы?
                     <Link to='/login' className='ml-4'>Войти</Link></p>
 
