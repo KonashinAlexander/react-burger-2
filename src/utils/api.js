@@ -31,11 +31,10 @@ export const getOrderDetails = (newOrder) => request(
   }
 });
 
-const email = { "email": "konashin.alexander@yandex.ru" }
-export const getPasswordReset = () => request(
+export const getPasswordReset = (email) => request(
   "password-reset", {
   method: 'POST',
-  body: JSON.stringify(email),
+  body: JSON.stringify({ "email": email }),
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
   }
@@ -69,13 +68,23 @@ export const loginUser = (form) => request(
   }
 });
 
-export const getUserInfo = (form, accessToken) => request(
+export const getUserInfo = () => request(
   "auth/user", {
-  method: 'POST',
+  method: 'GET',
+  body: JSON.stringify(),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken
+  }
+});
+
+export const updateUserInfo = (form) => request(
+  "auth/user", {
+  method: 'PATCH',
   body: JSON.stringify(form),
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
-    Authorization: accessToken
+    Authorization: localStorage.accessToken
   }
 });
 
@@ -85,11 +94,12 @@ export const getNewToken = () => request(
   body: JSON.stringify({ "token": localStorage.refreshToken }),
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken
   }
 });
 
 export const getExit = () => request(
-  "auth/login", {
+  "auth/logout", {
   method: 'POST',
   body: JSON.stringify({ "token": localStorage.refreshToken }),
   headers: {

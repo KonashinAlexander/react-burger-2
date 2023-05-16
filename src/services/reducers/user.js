@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createUser, loginUser } from '../../utils/api';
+import { createUser, loginUser, updateUserInfo } from '../../utils/api';
 
 
 const initialState = {
@@ -21,7 +21,7 @@ export const fetchUserLogin = createAsyncThunk(
             localStorage.setItem('accessToken', data.accessToken)
             localStorage.setItem('refreshToken', data.refreshToken)
             localStorage.setItem('user', JSON.stringify(data.user))
-            document.cookie = "token=123"
+            document.cookie = `token=${data.refreshToken}`
 
             return fulfillWithValue(data);
         } catch (error) {
@@ -42,6 +42,29 @@ export const fetchUserCreate = createAsyncThunk(
             if (Object.prototype.toString.call(data) !== '[object Object]') {
                 throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
             }
+            return fulfillWithValue(data);
+        } catch (error) {
+            if (error.statusCode) {
+                return rejectWithValue(error);
+            }
+            console.log('fetch error >>', error)
+            return rejectWithValue({ message: 'ошибка на стороне сервера' })
+        }
+    }
+)
+
+
+export const fetchUserUpdate = createAsyncThunk(
+    'user/fetchUser',
+    async (form, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
+        try {
+            const data = await updateUserInfo(form);
+
+            if (Object.prototype.toString.call(data) !== '[object Object]') {
+                throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
+            }
+            localStorage.setItem('user', JSON.stringify(data.user))
+
             return fulfillWithValue(data);
         } catch (error) {
             if (error.statusCode) {
@@ -85,6 +108,22 @@ export const userSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchUserCreate.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUserUpdate.pending, (state, action) => {
+                state.isLoading = true;
+                state.error = null
+            })
+            .addCase(fetchUserUpdate.fulfilled, (state, action) => {
+                state.isLoading = false;
+                // state.user = action.payload;
+                state.error = null
+            })
+            .addCase(fetchUserUpdate.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

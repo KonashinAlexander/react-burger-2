@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { Link } from "react-router-dom";
 
 
+
 export const AppHeader = () => {
 
     return (
@@ -22,7 +23,7 @@ export const AppHeader = () => {
                 </div>
 
                 <Logo />
-                <Link to="/profile" className={cn(style.link, style.link_active)}>
+                <Link to="/profile" className={cn(style.link, style.link_active)} >
                     <ProfileIcon type='secondary' />
                     <span className="text text_type_main-default text_color_inactive ml-2" >Личный кабинет</span>
                 </Link>

@@ -11,21 +11,20 @@ function LoginPage() {
     const dispatch = useDispatch();
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();
-    const data = useSelector(state => state.userStore)
-
 
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
     const moveToHomePage = async () => {
-        if (data.user.success) {
+        if (document.cookie) {
             navigate('/', { replace: true });
         }
     }
 
     const loginUser = form => {
         dispatch(fetchUserLogin(form));
+        document.cookie = `password=${form.password}`
         moveToHomePage()
     }
 
