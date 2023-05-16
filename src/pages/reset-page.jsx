@@ -1,7 +1,7 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { changePassword } from '../utils/api';
 
 function ResetPage() {
@@ -18,16 +18,11 @@ function ResetPage() {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-
-    // const [code, setCode] = React.useState('')
-    // const onCodeChange = e => {
-    //     setCode(e.target.value)
-    // }
-
-    // const [password, setPassword] = React.useState('')
-    // const onPasswordChange = e => {
-    //     setPassword(e.target.value)
-    // }
+    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+        return (
+            <Navigate to="/" replace />
+        );
+    }
 
     return (
         <div className={style.page}>

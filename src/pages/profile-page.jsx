@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Button, EditIcon, Input, PasswordInput, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input, PasswordInput, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getExit, getNewToken, getUserInfo } from '../utils/api';
 import { useDispatch } from 'react-redux';
 import { fetchUserUpdate } from '../services/reducers/user'
@@ -71,8 +71,8 @@ function ProfilePage() {
                     <Button htmlType="button" type="primary" size="medium" onClick={onCancelClick}>Отмена</Button>
                     <Button htmlType="button" type="primary" size="medium" onClick={() => onSaveClick(form)}>Сохранить</Button>
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button>
+                {/* <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button> */}
 
             </form>
         </>

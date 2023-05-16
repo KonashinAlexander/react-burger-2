@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchUserCreate } from '../services/reducers/user';
@@ -16,6 +16,12 @@ function RegisterPage() {
 
     const registerNewUser = form => {
         dispatch(fetchUserCreate(form))
+    }
+
+    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+        return (
+            <Navigate to="/" replace />
+        );
     }
 
     return (

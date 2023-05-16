@@ -1,7 +1,7 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { getNewToken, getPasswordReset } from '../utils/api'
 
 function ForgotPage() {
@@ -12,6 +12,12 @@ function ForgotPage() {
         getPasswordReset(email)
         getNewToken()
         navigate('/reset-password', { replace: true });
+    }
+
+    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+        return (
+            <Navigate to="/" replace />
+        );
     }
 
     return (

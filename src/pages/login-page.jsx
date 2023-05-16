@@ -1,7 +1,7 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState, useSyncExternalStore } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import user, { fetchUserLogin } from '../services/reducers/user';
 
@@ -26,6 +26,12 @@ function LoginPage() {
         dispatch(fetchUserLogin(form));
         document.cookie = `password=${form.password}`
         moveToHomePage()
+    }
+
+    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+        return (
+            <Navigate to="/" replace />
+        );
     }
 
     return (

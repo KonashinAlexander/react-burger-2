@@ -16,6 +16,7 @@ import ProfilePage from "../../pages/profile-page";
 import IngredientPage from "../../pages/ingredient-page";
 import NotFoundPage from "../../pages/not-found-page";
 import HomePage from "../../pages/home-page";
+import ProtectedRoute from "../protected-route/protected-route";
 
 export const Application = () => {
 
@@ -36,7 +37,7 @@ export const Application = () => {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/forgot-password" element={<ForgotPage />} />
                     <Route path="/reset-password" element={<ResetPage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
                     <Route path="/ingredients/:id" element={<IngredientPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
