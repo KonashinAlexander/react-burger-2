@@ -1,17 +1,19 @@
-import { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styles from '../burger-ingredient/burger-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modal } from '../modal/modal';
-import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { ingredientsPropType } from "../../utils/prop-types";
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addIngredientDetails } from '../../services/reducers/ingredientDetails';
 
 export const BurgerIngredient = (props) => {
-  const [showModal, setShowModal] = useState(null);
-  const closeModal = () => {
-    setShowModal(null);
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const openModal = () => {
+    dispatch(addIngredientDetails(props))
+  }
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'ingredient',
@@ -24,7 +26,7 @@ export const BurgerIngredient = (props) => {
   return (
     <>
       <div className={styles.ingredient_box}
-        onClick={() => setShowModal(props)}
+        onClick={openModal}
         ref={drag}
       >
         {props.count > 0 ? (
@@ -41,12 +43,6 @@ export const BurgerIngredient = (props) => {
         </div>
         <p className="text text_type_main-default">{props.name}</p>
       </div>
-
-      {showModal && (
-        <Modal title="Детали ингредиента" onClose={closeModal}>
-          <IngredientDetails data={showModal} />
-        </Modal>
-      )}
     </>
   );
 };

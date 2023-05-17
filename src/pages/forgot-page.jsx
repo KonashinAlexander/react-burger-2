@@ -11,7 +11,7 @@ function ForgotPage() {
     const moveToResetPage = async () => {
         getPasswordReset(email)
         getNewToken()
-        navigate('/reset-password', { replace: true });
+        navigate('/reset-password', { replace: false });
     }
 
     if (Object.prototype.toString.call(localStorage.user) === '[object String]') {

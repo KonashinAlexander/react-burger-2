@@ -13,6 +13,9 @@
 
 .link_active {
     color: var(--text-primary-color);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 .nav {
@@ -25,5 +28,5 @@
 }
 
 .box {
-    display: flex;    
+    display: flex;
 }
