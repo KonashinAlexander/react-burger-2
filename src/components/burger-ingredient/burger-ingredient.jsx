@@ -3,16 +3,18 @@ import styles from '../burger-ingredient/burger-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientsPropType } from "../../utils/prop-types";
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addIngredientDetails } from '../../services/reducers/ingredientDetails';
 
 export const BurgerIngredient = (props) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
   const openModal = () => {
+    localStorage.setItem('ingredient', JSON.stringify(props))
     dispatch(addIngredientDetails(props))
+
   }
 
   const [{ isDragging }, drag] = useDrag(() => ({

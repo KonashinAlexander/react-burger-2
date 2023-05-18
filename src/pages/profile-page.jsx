@@ -43,7 +43,7 @@ function ProfilePage() {
                 <Tab value="Профиль" active={current === 'Профиль'} onClick={setCurrent}>Профиль</Tab>
                 <Tab value="История заказов" active={current === 'История заказов'} onClick={setCurrent}>История заказов</Tab>
                 <Tab value="Выход" active={current === 'Выход'} onClick={onExitClick}>Выход</Tab>
-                <p>В этом разделе вы можете изменить свои персональные данные</p>
+                <p className="text text_type_main-small text_color_inactive mt-20">В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
             <form className={style.box}>
                 <Input

@@ -22,8 +22,10 @@ import { removeIngredientDetails } from "../../services/reducers/ingredientDetai
 export const Application = () => {
     const dispatch = useDispatch();
     const details = useSelector(state => state.detailsStore.ingredientDetails)
+    const ingredient = JSON.parse(localStorage.getItem('ingredient'))
 
     const closeModal = () => {
+        localStorage.removeItem('ingredient')
         dispatch(removeIngredientDetails())
     };
 
@@ -47,9 +49,9 @@ export const Application = () => {
                     </Route>
                 </Routes>
 
-                {(JSON.stringify(details) !== '{}') && (
+                {ingredient && (
                     <Modal title="Детали ингредиента" onClose={closeModal}>
-                        <IngredientDetails data={details} />
+                        <IngredientDetails data={ingredient} />
                     </Modal>
                 )}
 
