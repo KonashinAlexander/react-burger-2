@@ -7,6 +7,7 @@ import { changePassword } from '../utils/api';
 function ResetPage() {
 
     const navigate = useNavigate();
+    const { state } = useLocation()
 
     const moveToLoginPage = async (form) => {
         changePassword(form)
@@ -18,7 +19,7 @@ function ResetPage() {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+    if (Object.prototype.toString.call(localStorage.user) === '[object String]' || (state !== '/forgot-password')) {
         return (
             <Navigate to="/" replace />
         );
