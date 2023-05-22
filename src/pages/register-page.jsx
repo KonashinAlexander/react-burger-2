@@ -18,12 +18,6 @@ function RegisterPage() {
         dispatch(fetchUserCreate(form))
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
-        return (
-            <Navigate to="/" replace />
-        );
-    }
-
     return (
         <div className={style.page}>
             <form className={style.box}>

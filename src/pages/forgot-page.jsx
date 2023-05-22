@@ -14,11 +14,11 @@ function ForgotPage() {
         navigate('/reset-password', { replace: true, state: '/forgot-password' });
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
-        return (
-            <Navigate to="/" replace />
-        );
-    }
+    // if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+    //     return (
+    //         <Navigate to="/" replace />
+    //     );
+    // }
 
     return (
         <div className={style.page}>

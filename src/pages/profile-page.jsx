@@ -12,10 +12,10 @@ function ProfilePage() {
     const navigate = useNavigate();
 
     const user = (localStorage.user) ? JSON.parse(localStorage.user) : { name: '', email: '' }
-    const pass = document.cookie.split(';').find(item => item.includes('password')).split('=')[1]
+    // const pass = document.cookie.split(';').find(item => item.includes('password')).split('=')[1]
 
     const [current, setCurrent] = React.useState('Профиль')
-    const [form, setForm] = useState({ name: user.name, email: user.email, password: pass })
+    const [form, setForm] = useState({ name: user.name, email: user.email, password: 'password' })
 
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });

@@ -26,14 +26,14 @@ export const AppHeader = () => {
                         <span className="text text_type_main-default ml-2" >Личный кабинет</span>
                     </NavLink>
                 </nav>
-                {/* <nav>
+                <nav>
                     <NavLink to="/login" className="m-4">login</NavLink>
                     <NavLink to="/register" className="m-4">register</NavLink>
                     <NavLink to="/forgot-password" className="m-4">forgot-password</NavLink>
                     <NavLink to="/reset-password" className="m-4">reset-password</NavLink>
                     <NavLink to="/profile" className="m-4">profile</NavLink>
                     <NavLink to="/" className="m-4">home</NavLink>
-                </nav> */}
+                </nav>
             </header>
             <Outlet />
         </>

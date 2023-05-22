@@ -13,22 +13,18 @@ export const fetchUserLogin = createAsyncThunk(
     async (form, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
         try {
             const data = await loginUser(form);
-
-            if (Object.prototype.toString.call(data) !== '[object Object]') {
+            if (!data) {
                 throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
             }
-
             localStorage.setItem('accessToken', data.accessToken)
             localStorage.setItem('refreshToken', data.refreshToken)
             localStorage.setItem('user', JSON.stringify(data.user))
             document.cookie = `token=${data.refreshToken}`
-
             return fulfillWithValue(data);
         } catch (error) {
             if (error.statusCode) {
                 return rejectWithValue(error);
             }
-            console.log('fetch error >>', error)
             return rejectWithValue({ message: 'ошибка на стороне сервера' })
         }
     }
@@ -39,7 +35,7 @@ export const fetchUserCreate = createAsyncThunk(
     async (form, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
         try {
             const data = await createUser(form);
-            if (Object.prototype.toString.call(data) !== '[object Object]') {
+            if (!data) {
                 throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
             }
             return fulfillWithValue(data);
@@ -47,7 +43,7 @@ export const fetchUserCreate = createAsyncThunk(
             if (error.statusCode) {
                 return rejectWithValue(error);
             }
-            console.log('fetch error >>', error)
+
             return rejectWithValue({ message: 'ошибка на стороне сервера' })
         }
     }
@@ -59,18 +55,16 @@ export const fetchUserUpdate = createAsyncThunk(
     async (form, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
         try {
             const data = await updateUserInfo(form);
-
-            if (Object.prototype.toString.call(data) !== '[object Object]') {
+            if (!data) {
                 throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
             }
             localStorage.setItem('user', JSON.stringify(data.user))
-
             return fulfillWithValue(data);
         } catch (error) {
             if (error.statusCode) {
                 return rejectWithValue(error);
             }
-            console.log('fetch error >>', error)
+
             return rejectWithValue({ message: 'ошибка на стороне сервера' })
         }
     }
@@ -120,7 +114,6 @@ export const userSlice = createSlice({
             })
             .addCase(fetchUserUpdate.fulfilled, (state, action) => {
                 state.isLoading = false;
-                // state.user = action.payload;
                 state.error = null
             })
             .addCase(fetchUserUpdate.rejected, (state, action) => {

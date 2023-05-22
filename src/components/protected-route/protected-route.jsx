@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 function ProtectedRoute({ element }) {
-    return (Object.prototype.toString.call(localStorage.user) === '[object String]')
-        ? element
-        : <Navigate to="/login" replace />
-}
+    const location = useLocation()
 
+    switch (location.pathname) {
+        case '/profile':
+            return (Object.prototype.toString.call(localStorage.user) === '[object String]')
+                ? element
+                : <Navigate to="/login" replace />
+
+
+            break;
+
+        default:
+            return (Object.prototype.toString.call(localStorage.user) === '[object String]')
+                ? <Navigate to="/" replace />
+                : element
+
+            break;
+    }
+}
 
 export default ProtectedRoute

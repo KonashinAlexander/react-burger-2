@@ -19,7 +19,7 @@ function ResetPage() {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]' || (state !== '/forgot-password')) {
+    if (state !== '/forgot-password') {
         return (
             <Navigate to="/" replace />
         );

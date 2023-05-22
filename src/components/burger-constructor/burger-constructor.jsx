@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
@@ -14,7 +14,7 @@ import { fetchOrder } from '../../services/reducers/order';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor = () => {
   const [{ isOver }, drop] = useDrop(() => ({
@@ -100,7 +100,7 @@ export const BurgerConstructor = () => {
 
         <ol className={cn(style.box_big, 'mt-4')} ref={drop}>
           {otherIngredients.map(renderOtherIngredients)}
-          {/* {otherIngredients.map((data, i) => renderOtherIngredients(data, i))} */}
+
         </ol>
 
         <div className={style.box_small}>
