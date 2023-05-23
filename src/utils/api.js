@@ -1,48 +1,3 @@
-// export const API_URL = 'https://norma.nomoreparties.space/api';
-
-// function request(url, options) {
-//   return fetch(url, options).then(checkResponse)
-// }
-
-// export const checkResponse = (res) => {
-//   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-// };
-
-// export const getIngredients = () => {
-//   return fetch(`${API_URL}/ingredients`)
-//     .then(checkResponse)
-//     .then((dataIngredients) => {
-//       if (dataIngredients.success) {
-//         return dataIngredients.data;
-//       }
-//     })
-//   // .catch((err) => {
-//   //   console.log('getIngredients error >>', err);
-//   // });
-// };
-
-// export const getOrderDetails = (newOrder) => {
-
-//   return fetch(`${API_URL}/orders`, {
-//     method: 'POST',
-//     body: JSON.stringify(newOrder),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//   })
-//     .then(checkResponse)
-//     .then((dataOrder) => {
-//       if (dataOrder.success) {
-//         return dataOrder;
-//       }
-//     })
-//   // .catch((err) => {
-//   //   console.log('getOrder error >>', err);
-//   // });
-// };
-
-
-
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 const checkResponse = (res) => {
@@ -60,7 +15,6 @@ const checkSuccess = (res) => {
 };
 
 const request = (endpoint, options) => {
-
   return fetch(`${BASE_URL}${endpoint}`, options)
     .then(checkResponse)
     .then(checkSuccess);
@@ -76,3 +30,81 @@ export const getOrderDetails = (newOrder) => request(
     'Content-type': 'application/json; charset=UTF-8',
   }
 });
+
+export const getPasswordReset = (email) => request(
+  "password-reset", {
+  method: 'POST',
+  body: JSON.stringify({ "email": email }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  }
+});
+
+export const changePassword = (form) => request(
+  "password-reset/reset", {
+  method: 'POST',
+  body: JSON.stringify(form),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  }
+});
+
+export const createUser = (form) => request(
+  "auth/register", {
+  method: 'POST',
+  body: JSON.stringify(form),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  }
+});
+
+export const loginUser = (form) => request(
+  "auth/login", {
+  method: 'POST',
+  body: JSON.stringify(form),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken,
+  }
+});
+
+export const getUserInfo = () => request(
+  "auth/user", {
+  method: 'GET',
+  body: JSON.stringify(),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken
+  }
+});
+
+export const updateUserInfo = (form) => request(
+  "auth/user", {
+  method: 'PATCH',
+  body: JSON.stringify(form),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken
+  }
+});
+
+export const getNewToken = () => request(
+  "auth/token", {
+  method: 'POST',
+  body: JSON.stringify({ "token": localStorage.refreshToken }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    Authorization: localStorage.accessToken
+  }
+});
+
+export const getExit = () => request(
+  "auth/logout", {
+  method: 'POST',
+  body: JSON.stringify({ "token": localStorage.refreshToken }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  }
+});
+
+

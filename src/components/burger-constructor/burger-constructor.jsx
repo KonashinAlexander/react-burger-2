@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
@@ -14,6 +14,7 @@ import { fetchOrder } from '../../services/reducers/order';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const BurgerConstructor = () => {
   const [{ isOver }, drop] = useDrop(() => ({
@@ -25,6 +26,7 @@ export const BurgerConstructor = () => {
   }));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const buns = useSelector((state) => state.constructorStore.buns);
   const ingredients = useSelector((state) => state.constructorStore.ingredients);
   const ingredientsIds = useSelector((state) => state.constructorStore.ingredientsIds);
@@ -42,6 +44,7 @@ export const BurgerConstructor = () => {
         }, 0),
     [ingredients],
   );
+
   const otherIngredientsCost = useMemo(
     () =>
       otherIngredients
@@ -60,8 +63,12 @@ export const BurgerConstructor = () => {
   };
 
   const getOrder = (ingredientsIds) => {
-    const newOrder = { ingredients: ingredientsIds };
-    dispatch(fetchOrder(newOrder));
+    if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
+      const newOrder = { ingredients: ingredientsIds }
+      dispatch(fetchOrder(newOrder))
+    } else {
+      navigate('/login')
+    }
   };
 
   const renderBuns = useCallback((data, index, pose, type) => {

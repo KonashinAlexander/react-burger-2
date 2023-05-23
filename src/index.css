@@ -18,3 +18,11 @@ code {
 /* * {
   outline: 1px solid greenyellow;
 } */
+
+.main {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
