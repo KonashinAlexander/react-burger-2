@@ -23,6 +23,11 @@ function LoginPage() {
         }
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        loginUser(form)
+    }
+
     const loginUser = form => {
         dispatch(fetchUserLogin(form));
         document.cookie = `password=${form.password}`
@@ -31,7 +36,7 @@ function LoginPage() {
 
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Вход</p>
                 <Input
                     type={'text'}
@@ -45,7 +50,7 @@ function LoginPage() {
                     name='password'
                     onChange={onChange}
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => loginUser(form)}>Войти</Button>
+                <Button htmlType="submit" type="primary" size="medium">Войти</Button>
                 <p>Вы - новый пользователь?
                     <Link to='/register' className='ml-4'>Зарегистрироваться</Link>
                 </p>

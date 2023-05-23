@@ -14,6 +14,11 @@ function ResetPage() {
         navigate('/login', { replace: true });
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        moveToLoginPage(form)
+    }
+
     const [form, setForm] = useState({ token: '', password: '' })
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,7 +32,7 @@ function ResetPage() {
 
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 <PasswordInput
                     placeholder={'Введите новый пароль'}
@@ -47,7 +52,7 @@ function ResetPage() {
                     size={'default'}
                     extraClass="ml-1"
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => moveToLoginPage(form)}>Сохранить</Button>
+                <Button htmlType="button" type="primary" size="medium">Сохранить</Button>
                 <p >Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

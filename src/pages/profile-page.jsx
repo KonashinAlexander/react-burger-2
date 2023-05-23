@@ -11,7 +11,7 @@ function ProfilePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const user = (localStorage.user) ? JSON.parse(localStorage.user) : { name: '', email: '' }
+    const user = (localStorage.getItem('user')) ? JSON.parse(localStorage.user) : { name: '', email: '' }
     // const pass = document.cookie.split(';').find(item => item.includes('password')).split('=')[1]
 
     const [current, setCurrent] = React.useState('Профиль')
@@ -27,6 +27,11 @@ function ProfilePage() {
         localStorage.clear()
         document.cookie = "password="
         navigate('/login', { replace: true })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        onSaveClick(form)
     }
 
     const onSaveClick = (form) => {
@@ -45,7 +50,7 @@ function ProfilePage() {
                 <Tab value="Выход" active={current === 'Выход'} onClick={onExitClick}>Выход</Tab>
                 <p className="text text_type_main-small text_color_inactive mt-20">В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -69,10 +74,10 @@ function ProfilePage() {
                 />
                 <div className={style.box_small}>
                     <Button htmlType="button" type="primary" size="medium" onClick={onCancelClick}>Отмена</Button>
-                    <Button htmlType="button" type="primary" size="medium" onClick={() => onSaveClick(form)}>Сохранить</Button>
+                    <Button htmlType="submit" type="primary" size="medium">Сохранить</Button>
                 </div>
-                {/* <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button> */}
+                <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button>
 
             </form>
         </>

@@ -18,9 +18,14 @@ function RegisterPage() {
         dispatch(fetchUserCreate(form))
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        registerNewUser(form)
+    }
+
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Регистрация</p>
                 <Input
                     type={'text'}
@@ -42,7 +47,7 @@ function RegisterPage() {
                     name='password'
                     onChange={onChange}
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => registerNewUser(form)}>Зарегистрироваться</Button>
+                <Button htmlType="submit" type="primary" size="medium">Зарегистрироваться</Button>
                 <p>Уже зарегистрированы?
                     <Link to='/login' className='ml-4'>Войти</Link></p>
 
