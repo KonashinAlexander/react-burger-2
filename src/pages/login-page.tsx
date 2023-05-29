@@ -1,19 +1,14 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState, useSyncExternalStore } from 'react';
+import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import user, { fetchUserLogin } from '../services/reducers/user';
+import { Link, useNavigate } from 'react-router-dom';
+import { postUserLogin } from '../utils/api';
 
-
-
-function LoginPage() {
-    const dispatch = useDispatch();
+const LoginPage: React.FC = () => {
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();
 
-
-    const onChange = e => {
+    const onChange = (e: { target: { name: any; value: any; }; }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
@@ -23,13 +18,13 @@ function LoginPage() {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         loginUser(form)
     }
 
-    const loginUser = form => {
-        dispatch(fetchUserLogin(form));
+    const loginUser = (form: { email: string; password: string; }) => {
+        postUserLogin(form)
         document.cookie = `password=${form.password}`
         moveToHomePage()
     }

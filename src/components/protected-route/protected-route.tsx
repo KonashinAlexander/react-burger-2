@@ -1,7 +1,11 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { getUserInfo } from '../../utils/api';
+import React, { FC } from 'react';
 
-function ProtectedRoute({ element }) {
+type TProtectRouteProps = {
+    element: JSX.Element;
+}
+
+const ProtectedRoute: FC<TProtectRouteProps> = ({ element }) => {
     const location = useLocation()
 
     switch (location.pathname) {

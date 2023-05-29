@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { Button, Input, PasswordInput, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
 import { useNavigate } from 'react-router-dom';
-import { getExit, getNewToken, getUserInfo } from '../utils/api';
-import { useDispatch } from 'react-redux';
-import { fetchUserUpdate } from '../services/reducers/user'
+import { getExit, getNewToken, getUserInfo, updateUserInfo } from '../utils/api';
 
-
-function ProfilePage() {
-    const dispatch = useDispatch();
+const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
 
     const user = (localStorage.getItem('user')) ? JSON.parse(localStorage.user) : { name: '', email: '' }
@@ -17,11 +13,11 @@ function ProfilePage() {
     const [current, setCurrent] = React.useState('Профиль')
     const [form, setForm] = useState({ name: user.name, email: user.email, password: 'password' })
 
-    const onChange = e => {
+    const onChange = (e: { target: { name: any; value: any; }; }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const onExitClick = (e) => {
+    const onExitClick = (e: React.SetStateAction<string>) => {
         setCurrent(e)
         getExit()
         localStorage.clear()
@@ -29,13 +25,9 @@ function ProfilePage() {
         navigate('/login', { replace: true })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        onSaveClick(form)
-    }
-
-    const onSaveClick = (form) => {
-        dispatch(fetchUserUpdate(form))
+        updateUserInfo(form)
     }
 
     const onCancelClick = () => {
@@ -76,8 +68,8 @@ function ProfilePage() {
                     <Button htmlType="button" type="primary" size="medium" onClick={onCancelClick}>Отмена</Button>
                     <Button htmlType="submit" type="primary" size="medium">Сохранить</Button>
                 </div>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
-                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button>
+                {/* <Button htmlType="button" type="primary" size="medium" onClick={() => getUserInfo()}>getUserInfo</Button>
+                <Button htmlType="button" type="primary" size="medium" onClick={() => getNewToken()}>getNewToken</Button> */}
 
             </form>
         </>

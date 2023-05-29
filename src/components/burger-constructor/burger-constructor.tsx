@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
@@ -11,13 +11,15 @@ import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { fetchOrder } from '../../services/reducers/order';
-import { addConstructor } from '../../services/reducers/constructor';
+import { addConstructor, selectConstructorBuns, selectConstructorIngredients } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
 import { useNavigate } from 'react-router-dom';
+import { TConctrElemProps } from '../../utils/prop-types';
+import { AppDispatch } from '../../services/store';
 
-export const BurgerConstructor = () => {
-  const [{ isOver }, drop] = useDrop(() => ({
+export const BurgerConstructor: React.FC = () => {
+  const [, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop: (item) => {
       dispatch(addConstructor(item));
@@ -25,36 +27,35 @@ export const BurgerConstructor = () => {
     },
   }));
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const buns = useSelector((state) => state.constructorStore.buns);
-  const ingredients = useSelector((state) => state.constructorStore.ingredients);
-  const ingredientsIds = useSelector((state) => state.constructorStore.ingredientsIds);
+  const buns = useSelector(selectConstructorBuns);
+  const ingredients = useSelector(selectConstructorIngredients);
 
-  const otherIngredients = ingredients.filter((item) => item.type !== 'bun');
+  const otherIngredients = ingredients.filter((item: { type: string; }) => item.type !== 'bun');
 
   const bunsCost = useMemo(
     () =>
       buns
-        .map((data) => {
+        .map((data: { price: number; }) => {
           return data.price;
         })
-        .reduce((sum, current) => {
+        .reduce((sum: number, current: number) => {
           return sum + current;
         }, 0),
-    [ingredients],
+    [buns],
   );
 
   const otherIngredientsCost = useMemo(
     () =>
       otherIngredients
-        .map((data) => {
+        .map((data: { price: number; }) => {
           return data.price;
         })
-        .reduce((sum, current) => {
+        .reduce((sum: number, current: number) => {
           return sum + current;
         }, 0),
-    [ingredients],
+    [otherIngredients],
   );
 
   const [showModal, setShowModal] = useState(false);
@@ -62,39 +63,37 @@ export const BurgerConstructor = () => {
     setShowModal(false);
   };
 
-  const getOrder = (ingredientsIds) => {
+  const getOrder = () => {
     if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
-      const newOrder = { ingredients: ingredientsIds }
-      dispatch(fetchOrder(newOrder))
+      dispatch(fetchOrder())
     } else {
       navigate('/login')
     }
   };
 
-  const renderBuns = useCallback((data, index, pose, type) => {
+  const renderBuns = useCallback((data: TConctrElemProps, index: number, pose: string, type: "top" | "bottom") => {
     return (
       <ConstructorElement
-        {...data}
+        price={0} {...data}
         type={type}
         key={data.uuid}
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
-        index={index}
-      />
+        index={index} />
     );
   }, []);
 
-  const renderOtherIngredients = useCallback((data, index) => {
-    return <ConstructorElementItem {...data} key={data.uuid} index={index} id={index} />;
+  const renderOtherIngredients = useCallback((data: TConctrElemProps, index: number) => {
+    return <ConstructorElementItem __v={0} _id={''} calories={0} carbohydrates={0} fat={0} image_large={''} image_mobile={''} proteins={0} price={0} {...data} key={data.uuid} index={index} id={index} />;
   }, []);
 
   return (
     <>
       <div className={cn(style.container, 'pt-25')}>
         <div className={style.box_small}>
-          {buns.map((data, i, pose, type) =>
-            renderBuns(data, i, (pose = '(Верх)'), (type = 'top')),
+          {buns.map((data: TConctrElemProps, index: number, pose: string, type: string) =>
+            renderBuns(data, index, (pose = '(Верх)'), (type = 'top'))
           )}
         </div>
 
@@ -104,7 +103,7 @@ export const BurgerConstructor = () => {
         </ol>
 
         <div className={style.box_small}>
-          {buns.map((data, i, pose, type) =>
+          {buns.map((data: TConctrElemProps, i: number, pose: string, type: string) =>
             renderBuns(data, i, (pose = '(Низ)'), (type = 'bottom')),
           )}
         </div>
@@ -121,7 +120,7 @@ export const BurgerConstructor = () => {
             size="large"
             onClick={() => {
               setShowModal(true);
-              getOrder(ingredientsIds);
+              getOrder();
             }}
           >
             Оформить заказ
@@ -129,7 +128,7 @@ export const BurgerConstructor = () => {
         </div>
 
         {showModal && (
-          <Modal onClose={closeModal}>
+          <Modal onClose={closeModal} title={''}>
             <OrderDetails />
           </Modal>
         )}
@@ -139,8 +138,4 @@ export const BurgerConstructor = () => {
   );
 };
 
-// BurgerConstructor.propTypes = {
-//     constructorIngredients: PropTypes.arrayOf(PropTypes.shape(
-//      ingredientsPropType
-//     )).isRequired
-// }
+

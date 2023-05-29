@@ -2,15 +2,22 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import style from './app-header.module.css';
 import cn from 'classnames';
 import { Outlet, NavLink } from "react-router-dom";
+import React from 'react';
 
-const setActive = ({ isActive }) => isActive ? style.link_active : style.link
 
-export const AppHeader = () => {
+type TActive = {
+    isActive: boolean
+}
+
+const setActive = ({ isActive }: TActive) => isActive ? style.link_active : style.link
+
+export const AppHeader: React.FC = () => {
+
     return (
         <>
             <header className={cn(style.header, 'pt-4', 'pb-4')}>
                 <nav className={style.nav}>
-                    {/* <div className={style.box}></div> */}
+
                     <NavLink to="/" className={setActive}>
                         <BurgerIcon type="primary" />
                         <span className="text text_type_main-default ml-2 mr-2" >Конструктор</span>

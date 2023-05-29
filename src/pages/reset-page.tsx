@@ -4,23 +4,23 @@ import style from './page.module.css'
 import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { changePassword } from '../utils/api';
 
-function ResetPage() {
+const ResetPage: React.FC = () => {
 
     const navigate = useNavigate();
     const { state } = useLocation()
 
-    const moveToLoginPage = async (form) => {
+    const moveToLoginPage = async (form: { token: string; password: string; }) => {
         changePassword(form)
         navigate('/login', { replace: true });
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         moveToLoginPage(form)
     }
 
     const [form, setForm] = useState({ token: '', password: '' })
-    const onChange = e => {
+    const onChange = (e: { target: { name: any; value: any; }; }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 

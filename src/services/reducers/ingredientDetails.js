@@ -11,7 +11,7 @@ export const detailsSlice = createSlice({
     addIngredientDetails: (state, action) => {
       state.ingredientDetails = action.payload
     },
-    removeIngredientDetails: (state, action) => {
+    removeIngredientDetails: (state) => {
       state.ingredientDetails = {}
     }
   }

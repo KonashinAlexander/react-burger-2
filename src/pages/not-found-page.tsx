@@ -2,7 +2,7 @@ import React from 'react';
 import style from './page.module.css'
 import { Link } from 'react-router-dom';
 
-function NotFoundPage() {
+const NotFoundPage: React.FC = () => {
     return (
         <div className={style.page}>
             <div className={style.box}>

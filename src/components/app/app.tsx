@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,11 +18,18 @@ import ProtectedRoute from "../protected-route/protected-route";
 import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
+import { TIngredientsDetailsType } from "../../utils/prop-types";
 
-export const Application = () => {
-    const dispatch = useDispatch();
-    const details = useSelector(state => state.detailsStore.ingredientDetails)
-    const ingredient = JSON.parse(localStorage.getItem('ingredient'))
+interface IDetailsStore {
+    detailsStore: {
+        ingredientDetails: TIngredientsDetailsType;
+    }
+}
+
+export const Application: React.FC = () => {
+    const dispatch: any = useDispatch();
+    const details = useSelector((state: IDetailsStore) => state.detailsStore.ingredientDetails)
+    const ingredient = JSON.parse(localStorage.getItem('ingredient')!)
 
     const closeModal = () => {
         localStorage.removeItem('ingredient')

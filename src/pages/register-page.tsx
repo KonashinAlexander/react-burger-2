@@ -1,26 +1,21 @@
 import React from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchUserCreate } from '../services/reducers/user';
+import { createUser } from '../utils/api';
 
-function RegisterPage() {
-    const dispatch = useDispatch();
+const RegisterPage: React.FC = () => {
+
     const [form, setForm] = useState({ name: '', email: '', password: '' })
 
-    const onChange = e => {
+    const onChange = (e: { target: { name: string; value: string; }; }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const registerNewUser = form => {
-        dispatch(fetchUserCreate(form))
-    }
-
-    const handleSubmit = e => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        registerNewUser(form)
+        createUser(form)
     }
 
     return (

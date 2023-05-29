@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetchIngredients',
-    async (_, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
+    async (_, { rejectWithValue, fulfillWithValue }) => {
         try {
             const data = await getIngredients();
             if (!Array.isArray(data)) {
@@ -31,7 +31,7 @@ export const ingredientsSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-            .addCase(fetchIngredients.pending, (state, action) => {
+            .addCase(fetchIngredients.pending, (state) => {
                 state.isLoading = true;
                 state.error = null
             })

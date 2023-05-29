@@ -1,23 +1,21 @@
 import { useDrag } from 'react-dnd';
 import styles from '../burger-ingredient/burger-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientsPropType } from "../../utils/prop-types";
-import PropTypes from 'prop-types';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { TBurgerIngredientsProps } from "../../utils/prop-types";
 import { useDispatch } from 'react-redux';
 import { addIngredientDetails } from '../../services/reducers/ingredientDetails';
+import React from 'react';
 
-export const BurgerIngredient = (props) => {
+export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
+
   const dispatch = useDispatch();
-
 
   const openModal = () => {
     localStorage.setItem('ingredient', JSON.stringify(props))
     dispatch(addIngredientDetails(props))
-
   }
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: 'ingredient',
     item: props,
     collect: (monitor) => ({
@@ -49,8 +47,4 @@ export const BurgerIngredient = (props) => {
   );
 };
 
-BurgerIngredient.propTypes = {
-  props: PropTypes.arrayOf(
-    PropTypes.shape(ingredientsPropType)
-  )
-}
+
