@@ -4,16 +4,17 @@ import style from './page.module.css'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { createUser } from '../utils/api';
+import { TFormChange, TPreventDefault } from '../utils/prop-types';
 
 const RegisterPage: React.FC = () => {
 
     const [form, setForm] = useState({ name: '', email: '', password: '' })
 
-    const onChange = (e: { target: { name: string; value: string; }; }) => {
+    const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: TPreventDefault) => {
         e.preventDefault()
         createUser(form)
     }

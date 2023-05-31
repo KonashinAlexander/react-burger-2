@@ -1,14 +1,8 @@
+import { TChangePassForm, TForm, TLoginForm } from "./prop-types";
+
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
-// type TRes = {
-//   success: TRes;
-//   data: any; 
-//   ok: any; 
-//   json: () => any; 
-//   status: any; 
-// }
-
-const checkResponse = (res: { ok: any; json: () => any; status: any; }) => {
+const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
@@ -48,7 +42,7 @@ export const getPasswordReset = (email: string) => request(
   }
 });
 
-export const changePassword = (form: any) => request(
+export const changePassword = (form: TChangePassForm) => request(
   "password-reset/reset", {
   method: 'POST',
   body: JSON.stringify(form),
@@ -57,7 +51,7 @@ export const changePassword = (form: any) => request(
   }
 });
 
-export const createUser = (form: { name: string; email: string; password: string; }) => request(
+export const createUser = (form: TForm) => request(
   "auth/register", {
   method: 'POST',
   body: JSON.stringify(form),
@@ -66,7 +60,7 @@ export const createUser = (form: { name: string; email: string; password: string
   }
 });
 
-export const postUserLogin = (form: { email: string; password: string; }) => request(
+export const postUserLogin = (form: TLoginForm) => request(
   "auth/login", {
   method: 'POST',
   body: JSON.stringify(form),
@@ -92,7 +86,7 @@ export const getUserInfo = () => request(
   }
 });
 
-export const updateUserInfo = (form: { name: any; email: any; password: string; }) => request(
+export const updateUserInfo = (form: TForm) => request(
   "auth/user", {
   method: 'PATCH',
   body: JSON.stringify(form),

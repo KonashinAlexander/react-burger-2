@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import style from './page.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { postUserLogin } from '../utils/api';
+import { TFormChange, TLoginForm, TPreventDefault } from '../utils/prop-types';
 
 const LoginPage: React.FC = () => {
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();
 
-    const onChange = (e: { target: { name: any; value: any; }; }) => {
+    const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
@@ -18,12 +19,12 @@ const LoginPage: React.FC = () => {
         }
     }
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: TPreventDefault) => {
         e.preventDefault()
         loginUser(form)
     }
 
-    const loginUser = (form: { email: string; password: string; }) => {
+    const loginUser = (form: TLoginForm) => {
         postUserLogin(form)
         document.cookie = `password=${form.password}`
         moveToHomePage()

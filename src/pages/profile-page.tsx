@@ -3,17 +3,18 @@ import { Button, Input, PasswordInput, Tab } from '@ya.praktikum/react-developer
 import style from './page.module.css'
 import { useNavigate } from 'react-router-dom';
 import { getExit, getNewToken, getUserInfo, updateUserInfo } from '../utils/api';
+import { TFormChange, TPreventDefault, TUser } from '../utils/prop-types';
 
 const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
 
-    const user = (localStorage.getItem('user')) ? JSON.parse(localStorage.user) : { name: '', email: '' }
+    const user: TUser = (localStorage.getItem('user')) ? JSON.parse(localStorage.user) : { name: '', email: '' }
     // const pass = document.cookie.split(';').find(item => item.includes('password')).split('=')[1]
 
     const [current, setCurrent] = React.useState('Профиль')
     const [form, setForm] = useState({ name: user.name, email: user.email, password: 'password' })
 
-    const onChange = (e: { target: { name: any; value: any; }; }) => {
+    const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
@@ -25,7 +26,7 @@ const ProfilePage: React.FC = () => {
         navigate('/login', { replace: true })
     }
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: TPreventDefault) => {
         e.preventDefault()
         updateUserInfo(form)
     }

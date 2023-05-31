@@ -32,11 +32,6 @@ export  type TBurgerIngredientsProps = {
     count: number;
   } & TIngredientsType
 
-export  type TForm = {
-    name: string;
-    email: string;
-    password: string;
-}
 
 export  interface IIngredientsStore {
     ingredientsStore: {
@@ -62,7 +57,7 @@ export type TDetailsStore = {
 }
   
 export type TConctrElemProps = {
-    name: any;
+    name: string;
     image: string;
     data: TIngredientsType;
     count: number;
@@ -71,3 +66,35 @@ export type TConctrElemProps = {
     pose: string;
     type: string
   }
+  
+export  type TFormChange = { 
+    target: { 
+        name: string; 
+        value: string; 
+    }; 
+}
+
+export type TPreventDefault = {
+  preventDefault: () => void;
+}
+
+export type TUser = {
+  name: string;
+  email: string;
+}
+
+export type TLoginForm = { 
+  email: string; 
+  password: string; 
+}
+
+export type TChangePassForm = { 
+  token: string; 
+  password: string; 
+}
+
+export type TForm = {
+  name: string;
+  email: string;
+  password: string;
+}
