@@ -10,9 +10,10 @@ const initialState = {
 
 export const fetchOrder = createAsyncThunk(
   'order/fetchOrder',
-  async (newOrder, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
+  async (_, { dispatch, getState, rejectWithValue, fulfillWithValue }) => {
     try {
-      const data = await getOrderDetails(newOrder);
+      const newOrder = getState().constructorStore.ingredientsIds
+      const data = await getOrderDetails({ ingredients: newOrder });
       if (Object.prototype.toString.call(data) !== '[object Object]') {
         throw new Error({ message: 'Ошибка в получении данных', statusCode: 404 })
       }
@@ -21,7 +22,6 @@ export const fetchOrder = createAsyncThunk(
       if (error.statusCode) {
         return rejectWithValue(error);
       }
-      console.log(error)
       return rejectWithValue({ message: 'ошибка на стороне сервера' })
     }
   }
@@ -32,20 +32,17 @@ export const orderSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrder.pending, (state, action) => {
-
+      .addCase(fetchOrder.pending, (state) => {
         state.isLoading = true;
         state.error = null
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
-
         state.isLoading = false;
         state.orderId += action.payload.order.number
         state.orderName = action.payload.name
         state.error = null
       })
       .addCase(fetchOrder.rejected, (state, action) => {
-
         state.isLoading = false;
         state.error = action.payload;
       })

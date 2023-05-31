@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,11 +18,18 @@ import ProtectedRoute from "../protected-route/protected-route";
 import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
+import { TIngredientsDetailsType } from "../../utils/prop-types";
 
-export const Application = () => {
-    const dispatch = useDispatch();
-    const details = useSelector(state => state.detailsStore.ingredientDetails)
-    const ingredient = JSON.parse(localStorage.getItem('ingredient'))
+interface IDetailsStore {
+    detailsStore: {
+        ingredientDetails: TIngredientsDetailsType;
+    }
+}
+
+export const Application: React.FC = () => {
+    const dispatch: any = useDispatch();
+    const details = useSelector((state: IDetailsStore) => state.detailsStore.ingredientDetails)
+    const ingredient = JSON.parse(localStorage.getItem('ingredient')!)
 
     const closeModal = () => {
         localStorage.removeItem('ingredient')
@@ -39,10 +46,10 @@ export const Application = () => {
                 <Routes>
                     <Route path="/" element={<AppHeader />}>
                         <Route index element={<HomePage />} />
-                        <Route path="login" element={<LoginPage />} />
-                        <Route path="register" element={<RegisterPage />} />
-                        <Route path="forgot-password" element={<ForgotPage />} />
-                        <Route path="reset-password" element={<ResetPage />} />
+                        <Route path="login" element={<ProtectedRoute element={<LoginPage />} />} />
+                        <Route path="register" element={<ProtectedRoute element={<RegisterPage />} />} />
+                        <Route path="forgot-password" element={<ProtectedRoute element={<ForgotPage />} />} />
+                        <Route path="reset-password" element={<ProtectedRoute element={<ResetPage />} />} />
                         <Route path="profile" element={<ProtectedRoute element={<ProfilePage />} />} />
                         <Route path="ingredients/:id" element={<IngredientPage />} />
                         <Route path="*" element={<NotFoundPage />} />

@@ -1,19 +1,15 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState, useSyncExternalStore } from 'react';
+import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import user, { fetchUserLogin } from '../services/reducers/user';
+import { Link, useNavigate } from 'react-router-dom';
+import { postUserLogin } from '../utils/api';
+import { TFormChange, TLoginForm, TPreventDefault } from '../utils/prop-types';
 
-
-
-function LoginPage() {
-    const dispatch = useDispatch();
+const LoginPage: React.FC = () => {
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();
 
-
-    const onChange = e => {
+    const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
@@ -23,21 +19,20 @@ function LoginPage() {
         }
     }
 
-    const loginUser = form => {
-        dispatch(fetchUserLogin(form));
+    const handleSubmit = (e: TPreventDefault) => {
+        e.preventDefault()
+        loginUser(form)
+    }
+
+    const loginUser = (form: TLoginForm) => {
+        postUserLogin(form)
         document.cookie = `password=${form.password}`
         moveToHomePage()
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
-        return (
-            <Navigate to="/" replace />
-        );
-    }
-
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Вход</p>
                 <Input
                     type={'text'}
@@ -51,7 +46,7 @@ function LoginPage() {
                     name='password'
                     onChange={onChange}
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => loginUser(form)}>Войти</Button>
+                <Button htmlType="submit" type="primary" size="medium">Войти</Button>
                 <p>Вы - новый пользователь?
                     <Link to='/register' className='ml-4'>Зарегистрироваться</Link>
                 </p>

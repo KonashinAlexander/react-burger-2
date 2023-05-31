@@ -1,24 +1,24 @@
-import { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, SetStateAction } from "react";
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
 import IngredientType from "../ingredient-type/ingredient-type";
 import { useSelector } from "react-redux/es/exports";
+import { IIngredientsStore } from "../../utils/prop-types";
 
-
-export const BurgerIngredients = () => {
+export const BurgerIngredients: React.FC = () => {
 
     const [current, setCurrent] = useState('buns');
-    const { data: ingredients } = useSelector(state => state.ingredientsStore)
+    const { data: ingredients } = useSelector((state: IIngredientsStore) => state.ingredientsStore)
 
     const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
     const main = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
     const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
 
-    const primaryRef = useRef(null);
-    const bunsRef = useRef(null);
-    const mainRef = useRef(null);
-    const sauceRef = useRef(null);
+    const primaryRef = useRef<HTMLDivElement>(null);
+    const bunsRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
+    const sauceRef = useRef<HTMLDivElement>(null);
 
     const handleScroll = () => {
         if (primaryRef && bunsRef && sauceRef && mainRef && primaryRef.current && bunsRef.current && sauceRef.current && mainRef.current) {
@@ -32,7 +32,7 @@ export const BurgerIngredients = () => {
         }
     }
 
-    function handleClickTab(tab) {
+    function handleClickTab(tab: string) {
         try {
             setCurrent(tab);
             const title = document.getElementById(tab);
@@ -59,11 +59,11 @@ export const BurgerIngredients = () => {
                 </Tab>
             </section>
 
-            <section className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
+            <div className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
                 <IngredientType title='Булки' id='buns' ingredients={buns} ref={bunsRef} />
                 <IngredientType title='Начинки' id='main' ingredients={main} ref={mainRef} />
                 <IngredientType title='Соусы' id='sauce' ingredients={sauce} ref={sauceRef} />
-            </section>
+            </div>
 
         </div>
     )

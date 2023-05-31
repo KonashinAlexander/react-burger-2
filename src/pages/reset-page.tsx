@@ -3,23 +3,29 @@ import React, { useState } from 'react';
 import style from './page.module.css'
 import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { changePassword } from '../utils/api';
+import { TChangePassForm, TFormChange, TPreventDefault } from '../utils/prop-types';
 
-function ResetPage() {
+const ResetPage: React.FC = () => {
 
     const navigate = useNavigate();
     const { state } = useLocation()
 
-    const moveToLoginPage = async (form) => {
+    const moveToLoginPage = async (form: TChangePassForm) => {
         changePassword(form)
         navigate('/login', { replace: true });
     }
 
+    const handleSubmit = (e: TPreventDefault) => {
+        e.preventDefault()
+        moveToLoginPage(form)
+    }
+
     const [form, setForm] = useState({ token: '', password: '' })
-    const onChange = e => {
+    const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]' || (state !== '/forgot-password')) {
+    if (state !== '/forgot-password') {
         return (
             <Navigate to="/" replace />
         );
@@ -27,7 +33,7 @@ function ResetPage() {
 
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 <PasswordInput
                     placeholder={'Введите новый пароль'}
@@ -47,7 +53,7 @@ function ResetPage() {
                     size={'default'}
                     extraClass="ml-1"
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={() => moveToLoginPage(form)}>Сохранить</Button>
+                <Button htmlType="button" type="primary" size="medium">Сохранить</Button>
                 <p >Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

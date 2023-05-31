@@ -1,10 +1,10 @@
-import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import style from './page.module.css'
-import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getNewToken, getPasswordReset } from '../utils/api'
 
-function ForgotPage() {
+const ForgotPage: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
 
@@ -14,11 +14,11 @@ function ForgotPage() {
         navigate('/reset-password', { replace: true, state: '/forgot-password' });
     }
 
-    if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
-        return (
-            <Navigate to="/" replace />
-        );
-    }
+    // if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
+    //     return (
+    //         <Navigate to="/" replace />
+    //     );
+    // }
 
     return (
         <div className={style.page}>

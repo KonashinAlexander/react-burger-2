@@ -3,10 +3,11 @@ import style from './page.module.css'
 import cn from 'classnames';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
+import { IIngredientsStore } from '../utils/prop-types';
 
-function IngredientPage() {
+const IngredientPage: React.FC = () => {
     const { id } = useParams()
-    const details = useSelector(state => state.ingredientsStore.data);
+    const details = useSelector((state: IIngredientsStore) => state.ingredientsStore.data);
     const item = details.filter(item => item._id === id)[0]
 
     return (
