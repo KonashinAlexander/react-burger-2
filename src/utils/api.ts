@@ -24,7 +24,7 @@ const request = async (endpoint: string, options?: RequestInit | undefined) => {
 
 export const getIngredients = () => request("ingredients").then(res => res.data);
 
-export const getOrderDetails = (newOrder: void) => request(
+export const getOrderDetails = (newOrder: object) => request(
   "orders", {
   method: 'POST',
   body: JSON.stringify(newOrder),

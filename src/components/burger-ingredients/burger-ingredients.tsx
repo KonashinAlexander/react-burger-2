@@ -1,15 +1,14 @@
-import React, { useState, useMemo, useRef, SetStateAction } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
 import IngredientType from "../ingredient-type/ingredient-type";
-import { useSelector } from "react-redux/es/exports";
-import { IIngredientsStore } from "../../utils/prop-types";
+import { useAppSelector } from "../../services/hooks";
 
 export const BurgerIngredients: React.FC = () => {
 
     const [current, setCurrent] = useState('buns');
-    const { data: ingredients } = useSelector((state: IIngredientsStore) => state.ingredientsStore)
+    const { data: ingredients } = useAppSelector((state) => state.ingredientsStore)
 
     const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
     const main = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);

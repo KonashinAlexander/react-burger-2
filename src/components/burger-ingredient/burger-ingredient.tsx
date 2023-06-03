@@ -2,13 +2,13 @@ import { useDrag } from 'react-dnd';
 import styles from '../burger-ingredient/burger-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TBurgerIngredientsProps } from "../../utils/prop-types";
-import { useDispatch } from 'react-redux';
 import { addIngredientDetails } from '../../services/reducers/ingredientDetails';
 import React from 'react';
+import { useAppDispatch } from '../../services/hooks';
 
 export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const openModal = () => {
     localStorage.setItem('ingredient', JSON.stringify(props))

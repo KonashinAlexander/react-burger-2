@@ -5,7 +5,6 @@ import currentIngredient from './reducers/currentIngredient';
 import order from './reducers/order';
 import ingredientDetails from './reducers/ingredientDetails';
 
-
 const store = configureStore({
   reducer: {
     ingredientsStore: ingredients,

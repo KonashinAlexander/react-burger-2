@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
+import { TConstructorIngredients } from '../../utils/prop-types';
 
-const initialState = {
+type TConstructorState = {
+  buns: TConstructorIngredients[],
+  bunsIds: string[],
+  ingredients: TConstructorIngredients[],
+  ingredientsIds: string[],
+}
+
+const initialState: TConstructorState = {
   buns: [],
   bunsIds: [],
   ingredients: [],
@@ -39,9 +47,6 @@ export const constructorSlice = createSlice({
     }
   }
 })
-
-export const selectConstructorBuns = state => state.constructorStore.buns
-export const selectConstructorIngredients = state => state.constructorStore.ingredients
 
 export default constructorSlice.reducer
 export const { addConstructor, removeConstructor, moveIngredients } = constructorSlice.actions;

@@ -1,10 +1,9 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import cn from 'classnames';
 import style from './ingredient-type.module.css'
-import { useSelector } from "react-redux";
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 import { TIngredientsType } from "../../utils/prop-types";
-
+import { useAppSelector } from "../../services/hooks";
 
 type TTypeProps = {
     title: string;
@@ -12,19 +11,10 @@ type TTypeProps = {
     ingredients: TIngredientsType[];
 }
 
-interface IConstructorStore {
-    constructorStore: {
-        buns: TIngredientsType[],
-        bunsIds: string[],
-        ingredients: TIngredientsType[],
-        ingredientsIds: string[],
-    }
-}
-
 const IngredientType = forwardRef<HTMLDivElement, TTypeProps>(({ title, id, ingredients }, ref) => {
 
-    const ingredientsIds = useSelector((state: IConstructorStore) => state.constructorStore.ingredientsIds)
-    const bunsIds = useSelector((state: IConstructorStore) => state.constructorStore.bunsIds)
+    const ingredientsIds = useAppSelector((state) => state.constructorStore.ingredientsIds)
+    const bunsIds = useAppSelector((state) => state.constructorStore.bunsIds)
     const ids = ingredientsIds.concat(bunsIds).concat(bunsIds)
 
     return (

@@ -18,6 +18,12 @@ export type TIngredientsDetailsType = TIngredientsType & {
     count: number;
 }
 
+export type TConstructorIngredients = TIngredientsDetailsType & {
+  uuid: string;
+  pose: string;
+  position: 'bottom' | 'top';
+}
+
 export type TConstructorElementItemProps = TIngredientsType & {
     id: number;
     index: number;

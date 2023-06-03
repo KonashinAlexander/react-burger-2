@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TIngredientsDetailsType } from '../../utils/prop-types';
 
-const initialState = {
+type TCurrentState = {
+  currentIndgredient: TIngredientsDetailsType | {};
+}
+
+const initialState: TCurrentState = {
   currentIndgredient: {}
 }
 

@@ -1,13 +1,13 @@
 import React, { useRef, useCallback } from 'react'
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './constructor-element.module.css'
-import { useDispatch } from 'react-redux'
 import { removeConstructor, moveIngredients } from "../../services/reducers/constructor";
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
 import { TConstructorElementItemProps } from "../../utils/prop-types";
+import { useAppDispatch } from '../../services/hooks';
 
 const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, index, image, name, price, ...props }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null)
 
@@ -74,7 +74,7 @@ const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, in
         price={price}
         handleClose={() => dispatch(removeConstructor(props))}
         isLocked={false}
-        type={'top'} />
+      />
     </li>
   )
 }

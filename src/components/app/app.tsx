@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppHeader } from "../app-header/app-header"
 import style from './app.module.css'
 import { fetchIngredients } from "../../services/reducers/ingredients";
@@ -18,17 +17,11 @@ import ProtectedRoute from "../protected-route/protected-route";
 import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
-import { TIngredientsDetailsType } from "../../utils/prop-types";
-
-interface IDetailsStore {
-    detailsStore: {
-        ingredientDetails: TIngredientsDetailsType;
-    }
-}
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 
 export const Application: React.FC = () => {
-    const dispatch: any = useDispatch();
-    const details = useSelector((state: IDetailsStore) => state.detailsStore.ingredientDetails)
+    const dispatch: any = useAppDispatch();
+    const details = useAppSelector((state) => state.detailsStore.ingredientDetails)
     const ingredient = JSON.parse(localStorage.getItem('ingredient')!)
 
     const closeModal = () => {

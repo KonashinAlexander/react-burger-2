@@ -1,21 +1,11 @@
 import cn from 'classnames';
-import { useSelector } from 'react-redux';
 import image from '../../images/done.svg';
 import style from './order-details.module.css';
 import React from 'react';
-
-interface IOrderStore {
-    orderStore: {
-        orderId: number,
-        orderName: string,
-        isLoading: boolean,
-        error: undefined
-    }
-}
+import { useAppSelector } from '../../services/hooks';
 
 export const OrderDetails: React.FC = () => {
-
-    const { orderId, orderName } = useSelector((state: IOrderStore) => state.orderStore);
+    const { orderId, orderName } = useAppSelector((state) => state.orderStore);
 
     return (
         <>

@@ -9,14 +9,13 @@ import cn from 'classnames';
 import style from './burger-constructor.module.css';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { fetchOrder } from '../../services/reducers/order';
-import { addConstructor, selectConstructorBuns, selectConstructorIngredients } from '../../services/reducers/constructor';
+import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
 import { useNavigate } from 'react-router-dom';
-import { TConctrElemProps } from '../../utils/prop-types';
-import { AppDispatch } from '../../services/store';
+import { TConctrElemProps, TConstructorIngredients } from '../../utils/prop-types';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 
 export const BurgerConstructor: React.FC = () => {
   const [, drop] = useDrop(() => ({
@@ -27,20 +26,20 @@ export const BurgerConstructor: React.FC = () => {
     },
   }));
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const buns = useSelector(selectConstructorBuns);
-  const ingredients = useSelector(selectConstructorIngredients);
+  const buns = useAppSelector(state => state.constructorStore.buns);
+  const ingredients = useAppSelector(state => state.constructorStore.ingredients);
 
-  const otherIngredients = ingredients.filter((item: { type: string; }) => item.type !== 'bun');
+  const otherIngredients = ingredients.filter((item) => item.type !== 'bun');
 
   const bunsCost = useMemo(
     () =>
       buns
-        .map((data: { price: number; }) => {
+        .map((data) => {
           return data.price;
         })
-        .reduce((sum: number, current: number) => {
+        .reduce((sum, current) => {
           return sum + current;
         }, 0),
     [buns],
@@ -49,10 +48,10 @@ export const BurgerConstructor: React.FC = () => {
   const otherIngredientsCost = useMemo(
     () =>
       otherIngredients
-        .map((data: { price: number; }) => {
+        .map((data) => {
           return data.price;
         })
-        .reduce((sum: number, current: number) => {
+        .reduce((sum, current) => {
           return sum + current;
         }, 0),
     [otherIngredients],
@@ -71,29 +70,36 @@ export const BurgerConstructor: React.FC = () => {
     }
   };
 
-  const renderBuns = useCallback((data: TConctrElemProps, index: number, pose: string, type: "top" | "bottom") => {
+  const renderBuns = useCallback((data: TConstructorIngredients, index: number, pose: string) => {
     return (
       <ConstructorElement
-        price={0} {...data}
-        type={type}
+        {...data}
         key={data.uuid}
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
-        index={index} />
+        index={index}
+        type={data.position} />
     );
   }, []);
 
-  const renderOtherIngredients = useCallback((data: TConctrElemProps, index: number) => {
-    return <ConstructorElementItem __v={0} _id={''} calories={0} carbohydrates={0} fat={0} image_large={''} image_mobile={''} proteins={0} price={0} {...data} key={data.uuid} index={index} id={index} />;
+  const renderOtherIngredients = useCallback((data: TConstructorIngredients, index: number) => {
+    return (
+      <ConstructorElementItem
+        {...data}
+        key={data.uuid}
+        index={index}
+        id={index}
+        type={data.type} />
+    );
   }, []);
 
   return (
     <>
       <div className={cn(style.container, 'pt-25')}>
         <div className={style.box_small}>
-          {buns.map((data: TConctrElemProps, index: number, pose: string, type: string) =>
-            renderBuns(data, index, (pose = '(Верх)'), (type = 'top'))
+          {buns.map((data: TConstructorIngredients, index: number) =>
+            renderBuns(data, index, "(Верх)")
           )}
         </div>
 
@@ -103,8 +109,8 @@ export const BurgerConstructor: React.FC = () => {
         </ol>
 
         <div className={style.box_small}>
-          {buns.map((data: TConctrElemProps, i: number, pose: string, type: string) =>
-            renderBuns(data, i, (pose = '(Низ)'), (type = 'bottom')),
+          {buns.map((data, index) =>
+            renderBuns(data, index, "(Низ)"),
           )}
         </div>
 
