@@ -9,6 +9,7 @@ const IngredientPage: React.FC = () => {
     const { id } = useParams()
     const details = useSelector((state: IIngredientsStore) => state.ingredientsStore.data);
     const item = details.filter(item => item._id === id)[0]
+    console.log(item)
 
     return (
         <div className={style.box}>
@@ -29,6 +30,7 @@ const IngredientPage: React.FC = () => {
                 </li>
             </ul>
         </div>
+
     )
 }
 

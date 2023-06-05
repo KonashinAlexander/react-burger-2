@@ -4,13 +4,15 @@ import { BurgerConstructor } from '../components/burger-constructor/burger-const
 import { BurgerIngredients } from '../components/burger-ingredients/burger-ingredients';
 import { useAppSelector } from '../services/hooks';
 
+
 const HomePage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const ingredient = useAppSelector((state) => state.detailsStore.ingredientDetails._id)
+    const ingredients = useAppSelector((state) => state.detailsStore.ingredientDetails._id)
+    console.log(searchParams)
 
     useEffect(() => {
-        setSearchParams({ ingredient })
-    }, [ingredient])
+        setSearchParams({ ingredients })
+    }, [ingredients])
 
 
     return (
