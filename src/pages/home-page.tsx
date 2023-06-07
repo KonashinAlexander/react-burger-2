@@ -8,7 +8,7 @@ import { useAppSelector } from '../services/hooks';
 const HomePage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const ingredients = useAppSelector((state) => state.detailsStore.ingredientDetails._id)
-    console.log(searchParams)
+
 
     useEffect(() => {
         setSearchParams({ ingredients })

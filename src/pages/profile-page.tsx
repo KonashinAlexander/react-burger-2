@@ -26,6 +26,11 @@ const ProfilePage: React.FC = () => {
         navigate('/login', { replace: true })
     }
 
+    const onHistoryClick = (e: React.SetStateAction<string>) => {
+        setCurrent(e)
+        navigate('/profile/orders/:id', { replace: true })
+    }
+
     const handleSubmit = (e: TPreventDefault) => {
         e.preventDefault()
         updateUserInfo(form)
@@ -39,7 +44,7 @@ const ProfilePage: React.FC = () => {
         <>
             <nav className={style.navigation}>
                 <Tab value="Профиль" active={current === 'Профиль'} onClick={setCurrent}>Профиль</Tab>
-                <Tab value="История заказов" active={current === 'История заказов'} onClick={setCurrent}>История заказов</Tab>
+                <Tab value="История заказов" active={current === 'История заказов'} onClick={onHistoryClick}>История заказов</Tab>
                 <Tab value="Выход" active={current === 'Выход'} onClick={onExitClick}>Выход</Tab>
                 <p className="text text_type_main-small text_color_inactive mt-20">В этом разделе вы можете изменить свои персональные данные</p>
             </nav>

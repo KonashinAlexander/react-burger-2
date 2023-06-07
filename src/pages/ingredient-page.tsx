@@ -5,11 +5,29 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { IIngredientsStore } from '../utils/prop-types';
 
+const item = {
+    _id: "643d69a5c3f7b9001cfa093c",
+    name: "Краторная булка N-200i",
+    type: "bun",
+    proteins: 80,
+    fat: 24,
+    carbohydrates: 53,
+    calories: 420,
+    price: 1255,
+    image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    __v: 0,
+}
+
 const IngredientPage: React.FC = () => {
     const { id } = useParams()
-    const details = useSelector((state: IIngredientsStore) => state.ingredientsStore.data);
-    const item = details.filter(item => item._id === id)[0]
+
+    console.log(id)
+    // const details = useSelector((state: IIngredientsStore) => state.ingredientsStore.data);
+    // const item = details.filter(item => item._id === id)[0]
     console.log(item)
+
 
     return (
         <div className={style.box}>

@@ -11,7 +11,6 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const openModal = () => {
-    console.log(props._id)
     localStorage.setItem('ingredients', JSON.stringify(props))
     dispatch(addIngredientDetails(props))
   }

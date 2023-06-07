@@ -19,6 +19,19 @@
     width: 100%;
 }
 
+.box_order {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    position: absolute;
+    width: 480px;
+    height: 560px;
+    gap: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
 .navigation {
     display: flex;
     flex-direction: column;
