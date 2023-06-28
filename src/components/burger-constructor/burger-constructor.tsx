@@ -9,15 +9,16 @@ import cn from 'classnames';
 import style from './burger-constructor.module.css';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
-import { fetchOrder } from '../../services/reducers/order';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
 import { useNavigate } from 'react-router-dom';
-import { TConctrElemProps, TConstructorIngredients } from '../../utils/prop-types';
+import { TConstructorIngredients } from '../../utils/prop-types';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { usePostOrdersMutation } from '../../services/rtk/orders'
 
 export const BurgerConstructor: React.FC = () => {
+
   const [, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop: (item) => {
@@ -28,15 +29,17 @@ export const BurgerConstructor: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const buns = useAppSelector(state => state.constructorStore.buns);
-  const ingredients = useAppSelector(state => state.constructorStore.ingredients);
+  const { ingredients, ingredientsIds, buns, bunsIds } = useAppSelector(state => state.constructorStore);
 
-  const otherIngredients = ingredients.filter((item) => item.type !== 'bun');
+  const [postOrder, result] = usePostOrdersMutation({
+    fixedCacheKey: 'shared-postOrder',
+  })
+
 
   const bunsCost = useMemo(
     () =>
       buns
-        .map((data) => {
+        .map((data: { price: any; }) => {
           return data.price;
         })
         .reduce((sum, current) => {
@@ -47,14 +50,14 @@ export const BurgerConstructor: React.FC = () => {
 
   const otherIngredientsCost = useMemo(
     () =>
-      otherIngredients
+      ingredients
         .map((data) => {
           return data.price;
         })
         .reduce((sum, current) => {
           return sum + current;
         }, 0),
-    [otherIngredients],
+    [ingredients],
   );
 
   const [showModal, setShowModal] = useState(false);
@@ -62,13 +65,13 @@ export const BurgerConstructor: React.FC = () => {
     setShowModal(false);
   };
 
-  const getOrder = () => {
-    if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
-      dispatch(fetchOrder())
-    } else {
-      navigate('/login')
-    }
-  };
+  // const getOrder = () => {
+  //   if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
+  //     dispatch(fetchOrder())
+  //   } else {
+  //     navigate('/login')
+  //   }
+  // };
 
   const renderBuns = useCallback((data: TConstructorIngredients, index: number, pose: string) => {
     return (
@@ -94,6 +97,11 @@ export const BurgerConstructor: React.FC = () => {
     );
   }, []);
 
+
+  const handlePostOrder = async () => {
+    await postOrder(ingredientsIds)
+  }
+
   return (
     <>
       <div className={cn(style.container, 'pt-25')}>
@@ -104,7 +112,7 @@ export const BurgerConstructor: React.FC = () => {
         </div>
 
         <ol className={cn(style.box_big, 'mt-4')} ref={drop}>
-          {otherIngredients.map(renderOtherIngredients)}
+          {ingredients.map(renderOtherIngredients)}
 
         </ol>
 
@@ -126,7 +134,8 @@ export const BurgerConstructor: React.FC = () => {
             size="large"
             onClick={() => {
               setShowModal(true);
-              getOrder();
+              handlePostOrder()
+              // getOrder();
             }}
           >
             Оформить заказ

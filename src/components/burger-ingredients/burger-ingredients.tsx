@@ -3,16 +3,16 @@ import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
 import IngredientType from "../ingredient-type/ingredient-type";
-import { useAppSelector } from "../../services/hooks";
+import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
 
+    const { data } = useGetIngredientsQuery('')
     const [current, setCurrent] = useState('buns');
-    const { data: ingredients } = useAppSelector((state) => state.ingredientsStore)
 
-    const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
-    const main = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
-    const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+    const buns = useMemo(() => data?.data.filter(item => item.type === 'bun'), [data?.data]);
+    const main = useMemo(() => data?.data.filter(item => item.type === 'main'), [data?.data]);
+    const sauce = useMemo(() => data?.data.filter(item => item.type === 'sauce'), [data?.data]);
 
     const primaryRef = useRef<HTMLDivElement>(null);
     const bunsRef = useRef<HTMLDivElement>(null);

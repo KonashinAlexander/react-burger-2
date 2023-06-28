@@ -1,6 +1,7 @@
 import { TChangePassForm, TForm, TLoginForm } from "./prop-types";
 
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
+export const WS_URL_ALL = "wss://norma.nomoreparties.space/orders/all";
 
 const checkResponse = (res: Response) => {
   if (res.ok) {

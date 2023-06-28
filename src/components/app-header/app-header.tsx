@@ -22,7 +22,7 @@ export const AppHeader: React.FC = () => {
                         <BurgerIcon type="primary" />
                         <span className="text text_type_main-default ml-2 mr-2" >Конструктор</span>
                     </NavLink>
-                    <NavLink to="/login" className={setActive}>
+                    <NavLink to="/feed" className={setActive}>
                         <ListIcon type="secondary" />
                         <span className="text text_type_main-default ml-2" >Лента заказов</span>
                     </NavLink>

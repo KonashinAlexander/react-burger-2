@@ -104,3 +104,32 @@ export type TForm = {
   email: string;
   password: string;
 }
+
+export type TSingleOrderDetails = {
+  _id: string,
+  createdAt: string,
+  ingredients: string[],
+  name: string,
+  number: number,
+  status: string,
+  updatedAt: string,
+}
+
+export type TFeedOrderItemProps = {
+  props: TSingleOrderDetails,
+  onClick: ()=>void,
+  id: number,
+}
+
+export interface IOrdersListState {
+  orders: TSingleOrderDetails[],
+  success: boolean,
+  total: number,
+  totalToday: number,
+}
+
+export type TIngredientsState = {
+  data: TIngredientsType[],
+  isLoading: boolean,
+  error: {message: string} | null
+}

@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useSearchParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppHeader } from "../app-header/app-header"
 import style from './app.module.css'
-import { fetchIngredients } from "../../services/reducers/ingredients";
 import LoginPage from "../../pages/login-page";
 import RegisterPage from "../../pages/register-page";
 import ForgotPage from "../../pages/forgot-page";
@@ -22,8 +21,6 @@ import DinamicRenderPage from "../../pages/dinamic-page";
 import FeedPage from "../../pages/feed-page";
 import FeedOrderPage from "../../pages/feed-order-page";
 import ProfileOrdersHistoryPage from "../../pages/propfile-orders-page";
-import ProfileOrderPage from "../../pages/profile -order-page";
-
 
 export const Application: React.FC = () => {
     const dispatch: any = useAppDispatch();
@@ -35,9 +32,9 @@ export const Application: React.FC = () => {
         dispatch(removeIngredientDetails())
     };
 
-    useEffect(() => {
-        dispatch(fetchIngredients())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchIngredients())
+    // }, [dispatch])
 
     return (
         <DndProvider backend={HTML5Backend}>

@@ -1,50 +1,70 @@
-import React from 'react'
-import FeedOrderItem from '../components/feed-order-item/feed-order-item'
-
-const list = [1234, 2567, 38909, 43456, 56543, 62345, 1234, 1234, 1234,]
-const list2 = [17654, 27898, 39383, 47524]
+import React, { useState } from 'react'
+import FeedOrderItem from '../components/feed-order-item/feed-order-item';
+import { Modal } from '../components/modal/modal';
+import { useGetOrdersQuery } from '../services/rtk/web-socket';
+import { WS_URL_ALL } from '../utils/api';
 
 const FeedPage: React.FC = () => {
+    const { data } = useGetOrdersQuery(WS_URL_ALL);
+    const [showModal, setShowModal] = useState(false);
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const openModal = () => {
+        setShowModal(true);
+    };
 
     return (
         <section style={{ width: '100%', margin: '0, auto' }}>
             <h1 className="text text_type_main-large m-6">Лента заказов</h1>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '24px', gap: '16px' }}>
-                <div style={{ height: '680px', width: '95%', overflow: 'scroll' }}>
+                <div style={{ height: '680px', width: '95%', overflow: 'scroll', boxSizing: 'border-box' }}>
                     {
-                        list.map((item, index) => <FeedOrderItem key={index} props={item} />)
+                        data?.orders.map((item, index) => <FeedOrderItem key={index} id={index} props={item} onClick={openModal} />)
                     }
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', height: '650px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '350px', overflow: 'scroll' }}>
-                        <div style={{ width: '48%' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '350px' }}>
+                        <div>
                             <p className="text text_type_main-medium">Готовы:</p>
-                            <div className="text text_type_digits-default">
+                            <div
+                                className="text text_type_digits-default"
+                                style={{ display: 'grid', gridTemplateRows: 'repeat(10, 1fr)', gridAutoFlow: 'column dense' }}>
                                 {
-                                    list.map((item, index) => <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item}</p>)
+                                    data?.orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
                                 }
                             </div>
                         </div>
-                        <div style={{ width: '48%' }}>
+                        <div>
                             <p className="text text_type_main-medium">В работе:</p>
                             <div className="text text_type_digits-default">
                                 {
-                                    list2.map((item, index) => <p key={index} style={{ margin: '4px' }}>{item}</p>)
+                                    data?.orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
                                 }
                             </div>
                         </div>
                     </div>
                     <div>
                         <p className="text text_type_main-medium">Выполнено за все время:</p>
-                        <p className="text text_type_digits-large">123</p>
+                        <p className="text text_type_digits-large">{data?.total}</p>
                     </div>
                     <div>
                         <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-                        <p className="text text_type_digits-large">123</p>
+                        <p className="text text_type_digits-large">{data?.totalToday}</p>
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <Modal onClose={closeModal} title={'Modal'}>
+
+                </Modal>
+            )}
         </section>
+
+
 
     )
 }

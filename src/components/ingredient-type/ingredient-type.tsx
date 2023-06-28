@@ -8,7 +8,7 @@ import { useAppSelector } from "../../services/hooks";
 type TTypeProps = {
     title: string;
     id: string;
-    ingredients: TIngredientsType[];
+    ingredients: TIngredientsType[] | undefined;
 }
 
 const IngredientType = forwardRef<HTMLDivElement, TTypeProps>(({ title, id, ingredients }, ref) => {
