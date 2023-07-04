@@ -1,14 +1,16 @@
-import { Navigate, useLocation, Outlet } from 'react-router-dom'
-import { FC, useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom'
+import { FC } from 'react';
 import { useAppSelector } from '../../services/hooks';
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
+import { useGetUserQuery } from '../../services/reducers/authApiSlice';
 
 type TProtectRouteProps = {
     element: JSX.Element;
 }
 
 const PrivateRoute: FC<TProtectRouteProps> = ({ element }) => {
-
+    const data = useGetUserQuery('')
+    console.log(data)
     const currentAccessToken = useAppSelector(selectCurrentAccessToken)
     const location = useLocation()
 
@@ -17,9 +19,6 @@ const PrivateRoute: FC<TProtectRouteProps> = ({ element }) => {
             ? element
             : <Navigate to='/login' state={{ from: location }} replace />
     )
-
-
-
 }
 
 export default PrivateRoute
