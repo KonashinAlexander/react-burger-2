@@ -1,12 +1,15 @@
 import React from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './page.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { createUser } from '../utils/api';
 import { TFormChange, TPreventDefault } from '../utils/prop-types';
+import { useRegisterUserMutation } from '../services/reducers/authApiSlice';
 
 const RegisterPage: React.FC = () => {
+    const navigate = useNavigate()
+
+    const [registerUser] = useRegisterUserMutation()
 
     const [form, setForm] = useState({ name: '', email: '', password: '' })
 
@@ -14,9 +17,15 @@ const RegisterPage: React.FC = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e: TPreventDefault) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        createUser(form)
+
+        await registerUser(form)
+            .unwrap()
+            .then(res => {
+                navigate('/login', { replace: true });
+            })
+            .catch(err => alert(err.data?.message))
     }
 
     return (
@@ -29,6 +38,7 @@ const RegisterPage: React.FC = () => {
                     value={form.name}
                     name='name'
                     onChange={onChange}
+                    required
                 />
                 <Input
                     type={'text'}
@@ -36,14 +46,22 @@ const RegisterPage: React.FC = () => {
                     value={form.email}
                     name='email'
                     onChange={onChange}
-
+                    required
                 />
                 <PasswordInput
                     value={form.password}
                     name='password'
                     onChange={onChange}
+                    required
                 />
-                <Button htmlType="submit" type="primary" size="medium">Зарегистрироваться</Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    disabled={(form.name === '' || form.email === '' || form.password === '')}
+                >
+                    Зарегистрироваться
+                </Button>
                 <p>Уже зарегистрированы?
                     <Link to='/login' className='ml-4'>Войти</Link></p>
 

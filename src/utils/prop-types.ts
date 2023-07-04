@@ -117,8 +117,8 @@ export type TSingleOrderDetails = {
 
 export type TFeedOrderItemProps = {
   props: TSingleOrderDetails,
-  onClick: ()=>void,
-  id: number,
+  // onClick: ()=>void,
+  // id: number,
 }
 
 export interface IOrdersListState {

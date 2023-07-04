@@ -2,36 +2,41 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import React, { useState } from 'react';
 import style from './page.module.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { postUserLogin } from '../utils/api';
-import { TFormChange, TLoginForm, TPreventDefault } from '../utils/prop-types';
+import { TFormChange, TPreventDefault } from '../utils/prop-types';
+import { useLoginUserMutation } from '../services/reducers/authApiSlice';
+import { useAppDispatch } from '../services/hooks';
+import { setCredentials } from '../services/reducers/authSlice';
 
 const LoginPage: React.FC = () => {
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+
+    const [postLogin, { isLoading }] = useLoginUserMutation({
+        fixedCacheKey: 'shared-login'
+    })
 
     const onChange = (e: TFormChange) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-    const moveToHomePage = async () => {
-        if (document.cookie) {
-            navigate('/', { replace: true });
-        }
-    }
-
-    const handleSubmit = (e: TPreventDefault) => {
+    const handleSubmit = async (e: TPreventDefault) => {
         e.preventDefault()
-        loginUser(form)
+        await postLogin(form)
+            .unwrap()
+            .then(res => {
+                dispatch(setCredentials(res))
+                localStorage.setItem('user', JSON.stringify(res.user))
+                localStorage.setItem('accessToken', res.accessToken)
+                document.cookie = `refreshToken=${res.refreshToken}`
+                navigate('/', { replace: true })
+            })
+            .catch(err => alert(err.data.message))
     }
 
-    const loginUser = (form: TLoginForm) => {
-        postUserLogin(form)
-        document.cookie = `password=${form.password}`
-        moveToHomePage()
-    }
-
-    return (
-        <div className={style.page}>
+    const content = isLoading
+        ? <h1>Loading...</h1>
+        : <div className={style.page}>
             <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Вход</p>
                 <Input
@@ -40,13 +45,15 @@ const LoginPage: React.FC = () => {
                     value={form.email}
                     name='email'
                     onChange={onChange}
+                    required
                 />
                 <PasswordInput
                     value={form.password}
                     name='password'
                     onChange={onChange}
+                    required
                 />
-                <Button htmlType="submit" type="primary" size="medium">Войти</Button>
+                <Button htmlType="submit" type="primary" size="medium" disabled={(form.password === '' || form.email === '')} >Войти</Button>
                 <p>Вы - новый пользователь?
                     <Link to='/register' className='ml-4'>Зарегистрироваться</Link>
                 </p>
@@ -55,7 +62,9 @@ const LoginPage: React.FC = () => {
                 </p>
             </form>
         </div>
-    )
+
+    return content
+
 }
 
 export default LoginPage

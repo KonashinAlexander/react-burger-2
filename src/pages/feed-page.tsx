@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FeedOrderItem from '../components/feed-order-item/feed-order-item';
 import { Modal } from '../components/modal/modal';
+import OrderInfo from '../components/order-info/order-info';
 import { useGetOrdersQuery } from '../services/rtk/web-socket';
 import { WS_URL_ALL } from '../utils/api';
 
@@ -12,17 +13,13 @@ const FeedPage: React.FC = () => {
         setShowModal(false);
     };
 
-    const openModal = () => {
-        setShowModal(true);
-    };
-
     return (
         <section style={{ width: '100%', margin: '0, auto' }}>
             <h1 className="text text_type_main-large m-6">Лента заказов</h1>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '24px', gap: '16px' }}>
                 <div style={{ height: '680px', width: '95%', overflow: 'scroll', boxSizing: 'border-box' }}>
                     {
-                        data?.orders.map((item, index) => <FeedOrderItem key={index} id={index} props={item} onClick={openModal} />)
+                        data?.orders.map(item => <FeedOrderItem key={item._id} props={item} />)
                     }
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -39,7 +36,7 @@ const FeedPage: React.FC = () => {
                         </div>
                         <div>
                             <p className="text text_type_main-medium">В работе:</p>
-                            <div className="text text_type_digits-default">
+                            <div className="text text_type_digits-default" style={{ overflow: 'scroll', maxHeight: '90%' }}>
                                 {
                                     data?.orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
                                 }

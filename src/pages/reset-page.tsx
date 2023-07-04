@@ -2,22 +2,24 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import React, { useState } from 'react';
 import style from './page.module.css'
 import { Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
-import { changePassword } from '../utils/api';
-import { TChangePassForm, TFormChange, TPreventDefault } from '../utils/prop-types';
+import { TFormChange, TPreventDefault } from '../utils/prop-types';
+import { useChangePassMutation } from '../services/reducers/authApiSlice';
 
 const ResetPage: React.FC = () => {
+
+    const [changePass] = useChangePassMutation()
 
     const navigate = useNavigate();
     const { state } = useLocation()
 
-    const moveToLoginPage = async (form: TChangePassForm) => {
-        changePassword(form)
-        navigate('/login', { replace: true });
-    }
-
-    const handleSubmit = (e: TPreventDefault) => {
+    const handleSubmit = async (e: TPreventDefault) => {
         e.preventDefault()
-        moveToLoginPage(form)
+        await changePass(form)
+            .unwrap()
+            .then(res => {
+                navigate('/login', { replace: true });
+            })
+            .catch(err => alert(err.data?.message))
     }
 
     const [form, setForm] = useState({ token: '', password: '' })
@@ -53,7 +55,14 @@ const ResetPage: React.FC = () => {
                     size={'default'}
                     extraClass="ml-1"
                 />
-                <Button htmlType="button" type="primary" size="medium">Сохранить</Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    disabled={(form.password === '' || form.token === '')}
+                >
+                    Сохранить
+                </Button>
                 <p >Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

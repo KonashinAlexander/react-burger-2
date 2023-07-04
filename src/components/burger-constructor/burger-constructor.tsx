@@ -35,7 +35,6 @@ export const BurgerConstructor: React.FC = () => {
     fixedCacheKey: 'shared-postOrder',
   })
 
-
   const bunsCost = useMemo(
     () =>
       buns
@@ -135,8 +134,8 @@ export const BurgerConstructor: React.FC = () => {
             onClick={() => {
               setShowModal(true);
               handlePostOrder()
-              // getOrder();
             }}
+            disabled={ingredientsIds.length === 0}
           >
             Оформить заказ
           </Button>

@@ -2,27 +2,28 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import React, { useState } from 'react';
 import style from './page.module.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { getNewToken, getPasswordReset } from '../utils/api'
+import { useResetPassMutation } from '../services/reducers/authApiSlice';
 
 const ForgotPage: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
 
-    const moveToResetPage = async () => {
-        getPasswordReset(email)
-        getNewToken()
-        navigate('/reset-password', { replace: true, state: '/forgot-password' });
-    }
+    const [resetPass] = useResetPassMutation()
 
-    // if (Object.prototype.toString.call(localStorage.user) === '[object String]') {
-    //     return (
-    //         <Navigate to="/" replace />
-    //     );
-    // }
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault()
+
+        await resetPass(email)
+            .unwrap()
+            .then(res => {
+                navigate('/reset-password', { replace: true, state: '/forgot-password' });
+            })
+            .catch(err => alert(err.data?.message))
+    }
 
     return (
         <div className={style.page}>
-            <form className={style.box}>
+            <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 <Input
                     type={'text'}
@@ -30,9 +31,15 @@ const ForgotPage: React.FC = () => {
                     value={email}
                     name='email'
                     onChange={(e) => setEmail(e.target.value)}
-
                 />
-                <Button htmlType="button" type="primary" size="medium" onClick={moveToResetPage}>Восстановить</Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    disabled={email === ''}
+                >
+                    Восстановить
+                </Button>
                 <p>Вспомнили пароль?
                     <Link to='/register' className='ml-4'>Войти</Link>
                 </p>

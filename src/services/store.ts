@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-
 import rootReducer from './reducers';
+import { authApi } from './rtk/authorization';
 import { ingredientsApi } from './rtk/ingredients';
 import { ordersApi } from './rtk/orders';
 import { webSocketApi } from './rtk/web-socket';
@@ -13,6 +13,8 @@ const store = configureStore({
             .concat(webSocketApi.middleware)
             .concat(ingredientsApi.middleware)
             .concat(ordersApi.middleware)
+            .concat(authApi.middleware)
+
   },
 })
 

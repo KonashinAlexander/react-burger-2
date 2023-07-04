@@ -10,6 +10,10 @@ export const OrderDetails: React.FC = () => {
         fixedCacheKey: 'shared-postOrder',
     })
 
+    if (result.error) {
+        return <p className="text text_type_main-medium">Для заказа добавьте ингредиенты</p>
+    }
+
     return (
         <>
             <p className={cn(style.digits, 'text', 'text_type_digits-large')}>{result.data?.order.number}</p>

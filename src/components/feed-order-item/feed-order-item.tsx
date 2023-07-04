@@ -5,7 +5,7 @@ import { TFeedOrderItemProps, TIngredientsType } from '../../utils/prop-types';
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
 
 
-const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props, onClick, id }) => {
+const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
 
     const { data } = useGetIngredientsQuery('');
     const orderIdsList = props.ingredients;
@@ -27,7 +27,7 @@ const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props, onClick, id }) =>
     const time = date.toLocaleTimeString()
 
     return (
-        <div className={styles.box_big} onClick={onClick}>
+        <div className={styles.box_big} >
             <div className={styles.box_small}>
                 <p className="text text_type_digits-default">#{props.number}</p>
                 {
