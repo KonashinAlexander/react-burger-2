@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { TConstructorIngredients } from '../../utils/prop-types';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { usePostOrdersMutation } from '../../services/rtk/orders'
+import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
 export const BurgerConstructor: React.FC = () => {
 
@@ -30,6 +31,8 @@ export const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { ingredients, ingredientsIds, buns, bunsIds } = useAppSelector(state => state.constructorStore);
+  const currentAccessToken = useAppSelector(selectCurrentAccessToken)
+
 
   const [postOrder, result] = usePostOrdersMutation({
     fixedCacheKey: 'shared-postOrder',
@@ -98,7 +101,11 @@ export const BurgerConstructor: React.FC = () => {
 
 
   const handlePostOrder = async () => {
-    await postOrder(ingredientsIds)
+    if (currentAccessToken) {
+      await postOrder(ingredientsIds)
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
