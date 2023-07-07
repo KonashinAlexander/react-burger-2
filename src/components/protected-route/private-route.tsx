@@ -10,7 +10,6 @@ type TProtectRouteProps = {
 
 const PrivateRoute: FC<TProtectRouteProps> = ({ element }) => {
     const data = useGetUserQuery('')
-    console.log(data)
     const currentAccessToken = useAppSelector(selectCurrentAccessToken)
     const location = useLocation()
 

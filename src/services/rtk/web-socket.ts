@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface IOrder {
+export interface IOrder {
     createdAt: string;
     ingredients: Array<string>;
     name: string;
@@ -10,7 +10,7 @@ interface IOrder {
     _id: string;
   }
   
-  interface IOrdersData {
+  export interface IOrdersData {
     success: boolean;
     orders: Array<IOrder>;
     total: number;

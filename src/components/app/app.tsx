@@ -18,9 +18,10 @@ import { removeIngredientDetails } from "../../services/reducers/ingredientDetai
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import FeedPage from "../../pages/feed-page";
 import FeedOrderPage from "../../pages/feed-order-page";
-import ProfileOrdersHistoryPage from "../../pages/propfile-orders-page";
 import PrivateRoute from "../protected-route/private-route";
 import UnauthorizedRoute from "../protected-route/auth-route";
+import { FormPage } from "../../pages/form-page";
+import ProfileOrdersPage from "../../pages/profile-order-page";
 
 export const Application: React.FC = () => {
     const dispatch: any = useAppDispatch();
@@ -58,8 +59,10 @@ export const Application: React.FC = () => {
                         </Route>
 
                         {/* private routes*/}
-                        <Route path="profile" element={<PrivateRoute element={<ProfilePage />} />} />
-                        <Route path="profile/orders" element={<PrivateRoute element={<ProfileOrdersHistoryPage />} />} />
+                        <Route path="profile" element={<PrivateRoute element={<ProfilePage />} />} >
+                            <Route path='' element={<FormPage />} />
+                            <Route path='orders' element={<ProfileOrdersPage />} />
+                        </Route>
                         <Route path="profile/orders/:id" element={<PrivateRoute element={<FeedOrderPage />} />} />
 
 

@@ -7,6 +7,7 @@ const UnauthorizedRoute: FC = () => {
 
     const currentAccessToken = useAppSelector(selectCurrentAccessToken)
     const location = useLocation()
+    console.log(currentAccessToken)
 
     return (
         !currentAccessToken

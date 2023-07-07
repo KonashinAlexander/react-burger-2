@@ -1,27 +1,25 @@
 import React, { useState } from 'react'
 import FeedOrderItem from '../components/feed-order-item/feed-order-item';
 import { Modal } from '../components/modal/modal';
-import { useGetOrdersQuery } from '../services/rtk/web-socket';
+import { OrderHistory } from '../components/order-history/order-history';
+import { useGetOrdersQuery, IOrdersData } from '../services/rtk/web-socket';
 import { WS_URL_ALL } from '../utils/api';
 
 const FeedPage: React.FC = () => {
     const { data, isLoading } = useGetOrdersQuery(WS_URL_ALL);
     const [showModal, setShowModal] = useState(false);
+    const orders = data ? data.orders : []
 
     const closeModal = () => {
         setShowModal(false);
     };
 
-    const renderOrders = () => {
-        return data?.orders.map(item => <FeedOrderItem key={item._id} props={item} />)
-    }
-
     const renderOrdersReady = () => {
-        return data?.orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
+        return orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
     }
 
     const renderOrdersInProgress = () => {
-        return data?.orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
+        return orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
     }
 
     const content = isLoading
@@ -29,11 +27,8 @@ const FeedPage: React.FC = () => {
         : <section style={{ width: '100%', margin: '0, auto' }}>
             <h1 className="text text_type_main-large m-6">Лента заказов</h1>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '24px', gap: '16px' }}>
-                <div style={{ height: '680px', width: '95%', overflow: 'scroll', boxSizing: 'border-box' }}>
-                    {
-                        renderOrders()
-                    }
-                </div>
+                <OrderHistory orders={orders} />
+
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '350px' }}>
                         <div>
