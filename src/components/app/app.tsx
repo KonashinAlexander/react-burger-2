@@ -60,8 +60,8 @@ export const Application: React.FC = () => {
 
                         {/* private routes*/}
                         <Route path="profile" element={<PrivateRoute element={<ProfilePage />} />} >
-                            <Route path='' element={<FormPage />} />
-                            <Route path='orders' element={<ProfileOrdersPage />} />
+                            <Route path='' element={<PrivateRoute element={<FormPage />} />} />
+                            <Route path='orders' element={<PrivateRoute element={<ProfileOrdersPage />} />} />
                         </Route>
                         <Route path="profile/orders/:id" element={<PrivateRoute element={<FeedOrderPage />} />} />
 

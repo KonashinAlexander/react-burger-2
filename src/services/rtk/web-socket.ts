@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "../store";
 
 export interface IOrder {
     createdAt: string;
@@ -17,11 +18,11 @@ export interface IOrder {
     totalToday: number;
   }
 
-
+  
 export const webSocketApi = createApi({
     reducerPath: "webSocketApi",
     baseQuery: fetchBaseQuery({
-      baseUrl: "/",
+      baseUrl: '/'
     }),
     endpoints: (build) => ({
       getOrders: build.query<IOrdersData, string>({
@@ -46,6 +47,7 @@ export const webSocketApi = createApi({
           ws.close();
         },
       }),
+      
     }),
   });
   

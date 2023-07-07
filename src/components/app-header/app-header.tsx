@@ -33,7 +33,7 @@ export const AppHeader: React.FC = () => {
                         <span className="text text_type_main-default ml-2" >Личный кабинет</span>
                     </NavLink>
                 </nav>
-                <nav>
+                {/* <nav>
                     <NavLink to="/login" className="m-4" style={{ color: 'white' }}>login</NavLink>
                     <NavLink to="/register" className="m-4" style={{ color: 'white' }}>register</NavLink>
                     <NavLink to="/forgot-password" className="m-4" style={{ color: 'white' }}>forgot-password</NavLink>
@@ -47,7 +47,7 @@ export const AppHeader: React.FC = () => {
                     <NavLink to="/ingredients/:id" className="m-4" style={{ color: 'white' }}>ingredients ID</NavLink>
 
                     <NavLink to="/" className="m-4" style={{ color: 'white' }}>home</NavLink>
-                </nav>
+                </nav> */}
             </header>
             <Outlet />
         </>

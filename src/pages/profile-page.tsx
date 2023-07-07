@@ -4,7 +4,7 @@ import style from './page.module.css'
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useLogoutUserMutation } from '../services/reducers/authApiSlice';
 import { logout } from '../services/reducers/authSlice';
-// import { UserForm } from '../components/user-form/user-form';
+
 
 const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
