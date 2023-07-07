@@ -1,5 +1,6 @@
 
 export type TIngredientsType = {
+    count: number;
     __v: number,
     _id: string,
     calories: number,
@@ -11,7 +12,8 @@ export type TIngredientsType = {
     name: string,
     price: number,
     proteins: number,
-    type: string
+    type: string,
+    
 }
 
 export type TIngredientsDetailsType = TIngredientsType & {

@@ -1,25 +1,37 @@
 import React, { useState } from 'react'
 import FeedOrderItem from '../components/feed-order-item/feed-order-item';
 import { Modal } from '../components/modal/modal';
-import OrderInfo from '../components/order-info/order-info';
 import { useGetOrdersQuery } from '../services/rtk/web-socket';
 import { WS_URL_ALL } from '../utils/api';
 
 const FeedPage: React.FC = () => {
-    const { data } = useGetOrdersQuery(WS_URL_ALL);
+    const { data, isLoading } = useGetOrdersQuery(WS_URL_ALL);
     const [showModal, setShowModal] = useState(false);
 
     const closeModal = () => {
         setShowModal(false);
     };
 
-    return (
-        <section style={{ width: '100%', margin: '0, auto' }}>
+    const renderOrders = () => {
+        return data?.orders.map(item => <FeedOrderItem key={item._id} props={item} />)
+    }
+
+    const renderOrdersReady = () => {
+        return data?.orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
+    }
+
+    const renderOrdersInProgress = () => {
+        return data?.orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
+    }
+
+    const content = isLoading
+        ? <h1>Loading orders...</h1>
+        : <section style={{ width: '100%', margin: '0, auto' }}>
             <h1 className="text text_type_main-large m-6">Лента заказов</h1>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '24px', gap: '16px' }}>
                 <div style={{ height: '680px', width: '95%', overflow: 'scroll', boxSizing: 'border-box' }}>
                     {
-                        data?.orders.map(item => <FeedOrderItem key={item._id} props={item} />)
+                        renderOrders()
                     }
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -30,7 +42,7 @@ const FeedPage: React.FC = () => {
                                 className="text text_type_digits-default"
                                 style={{ display: 'grid', gridTemplateRows: 'repeat(10, 1fr)', gridAutoFlow: 'column dense' }}>
                                 {
-                                    data?.orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
+                                    renderOrdersReady()
                                 }
                             </div>
                         </div>
@@ -38,7 +50,7 @@ const FeedPage: React.FC = () => {
                             <p className="text text_type_main-medium">В работе:</p>
                             <div className="text text_type_digits-default" style={{ overflow: 'scroll', maxHeight: '90%' }}>
                                 {
-                                    data?.orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
+                                    renderOrdersInProgress()
                                 }
                             </div>
                         </div>
@@ -61,9 +73,7 @@ const FeedPage: React.FC = () => {
             )}
         </section>
 
-
-
-    )
+    return content
 }
 
 export default FeedPage

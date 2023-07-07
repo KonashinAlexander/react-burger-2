@@ -16,7 +16,6 @@ import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import DinamicRenderPage from "../../pages/dinamic-page";
 import FeedPage from "../../pages/feed-page";
 import FeedOrderPage from "../../pages/feed-order-page";
 import ProfileOrdersHistoryPage from "../../pages/propfile-orders-page";
@@ -42,14 +41,13 @@ export const Application: React.FC = () => {
                         {/* public routes*/}
                         <Route index element={<HomePage />} />
                         <Route path="*" element={<NotFoundPage />} />
+                        <Route path="ingredients/:id" element={<IngredientPage />} />
 
-                        <Route path="ingredients" element={<DinamicRenderPage />}>
-                            <Route path=":id" element={<IngredientPage />} />
-                        </Route>
 
-                        <Route path="feed" element={<FeedPage />}>
-                            <Route path=":id" element={<FeedOrderPage />} />
-                        </Route>
+                        <Route path="feed" element={<FeedPage />} />
+                        <Route path="feed/:id" element={<FeedOrderPage />} />
+
+
 
                         {/* routes protected from authorized users*/}
                         <Route element={<UnauthorizedRoute />}>

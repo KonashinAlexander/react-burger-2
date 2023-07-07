@@ -7,7 +7,7 @@ import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
 
-    const { data } = useGetIngredientsQuery('')
+    const { data, isLoading } = useGetIngredientsQuery('')
     const [current, setCurrent] = useState('buns');
 
     const buns = useMemo(() => data?.data.filter(item => item.type === 'bun'), [data?.data]);
@@ -42,20 +42,15 @@ export const BurgerIngredients: React.FC = () => {
         }
     }
 
-    return (
-        <div className={cn(style.container)}>
+    const content = isLoading
+        ? <p>Loading ingredients...</p>
+        : <div className={cn(style.container)}>
             <h1 className={cn(style.title, "text text_type_main-large", 'mt-10')}>Соберите бургер</h1>
 
             <section className={cn(style.tabs, 'mt-5', 'mb-10')}>
-                <Tab value="buns" active={current === 'buns'} onClick={handleClickTab}>
-                    Булки
-                </Tab>
-                <Tab value="main" active={current === 'main'} onClick={handleClickTab}>
-                    Начинки
-                </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={handleClickTab}>
-                    Соусы
-                </Tab>
+                <Tab value="buns" active={current === 'buns'} onClick={handleClickTab}>Булки</Tab>
+                <Tab value="main" active={current === 'main'} onClick={handleClickTab}>Начинки</Tab>
+                <Tab value="sauce" active={current === 'sauce'} onClick={handleClickTab}>Соусы</Tab>
             </section>
 
             <div className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
@@ -65,7 +60,8 @@ export const BurgerIngredients: React.FC = () => {
             </div>
 
         </div>
-    )
+
+    return content
 }
 
 
