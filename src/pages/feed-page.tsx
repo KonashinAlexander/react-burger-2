@@ -24,9 +24,9 @@ const FeedPage: React.FC = () => {
 
     const content = isLoading
         ? <h1>Loading orders...</h1>
-        : <section style={{ width: '100%', margin: '0, auto' }}>
-            <h1 className="text text_type_main-large m-6">Лента заказов</h1>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '24px', gap: '16px' }}>
+        : <section style={{ margin: '0, auto' }}>
+            <h1 className="text text_type_main-large m-6" style={{ textAlign: 'center' }}>Лента заказов</h1>
+            <div className='main'>
                 <OrderHistory orders={orders} />
 
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

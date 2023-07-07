@@ -8,7 +8,10 @@ type TProtectRouteProps = {
     element: JSX.Element;
 }
 
+// const token = document.cookie.split('=')[1]
+
 const PrivateRoute: FC<TProtectRouteProps> = ({ element }) => {
+    // console.log(token)
     const data = useGetUserQuery('')
     const currentAccessToken = useAppSelector(selectCurrentAccessToken)
     const location = useLocation()

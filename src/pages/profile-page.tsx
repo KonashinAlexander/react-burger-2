@@ -4,10 +4,12 @@ import style from './page.module.css'
 import { useNavigate, Outlet } from 'react-router-dom';
 import { useLogoutUserMutation } from '../services/reducers/authApiSlice';
 import { logout } from '../services/reducers/authSlice';
+import { useAppDispatch } from '../services/hooks';
 
 
 const ProfilePage: React.FC = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const refreshToken = document.cookie.split(';').find(item => item.includes('refreshToken'))?.split('=')[1]
     const [logoutUser] = useLogoutUserMutation();
@@ -20,7 +22,7 @@ const ProfilePage: React.FC = () => {
             .unwrap()
             .then(res => {
                 localStorage.clear()
-                logout()
+                dispatch(logout())
                 navigate('/login', { replace: true })
             })
             .catch(err => alert(err.data.message))

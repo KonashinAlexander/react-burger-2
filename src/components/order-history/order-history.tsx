@@ -2,7 +2,7 @@ import { IOrder, IOrdersData } from '../../services/rtk/web-socket';
 import FeedOrderItem from "../feed-order-item/feed-order-item"
 
 type TOrdersProps = {
-    orders: IOrder[]
+    orders: IOrder[] | []
 }
 export const OrderHistory: React.FC<TOrdersProps> = ({ orders }) => {
 

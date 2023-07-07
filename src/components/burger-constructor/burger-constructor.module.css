@@ -5,11 +5,12 @@
     gap: 10px;
     min-height: 400px;
     max-height: 500px;
-    /* background-color: #8585AD; */
+    background-color: #0b0b20;
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #2F2F37 #8585AD;
     padding: 0;
+    border-radius: 10px;
 }
 
 .box_small {

@@ -49,7 +49,9 @@ export const AppHeader: React.FC = () => {
                     <NavLink to="/" className="m-4" style={{ color: 'white' }}>home</NavLink>
                 </nav> */}
             </header>
-            <Outlet />
+            <div className={style.outlet}>
+                <Outlet />
+            </div>
         </>
     )
 }

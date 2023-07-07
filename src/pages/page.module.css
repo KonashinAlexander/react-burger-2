@@ -37,6 +37,7 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    max-width: 1240px;
 
 }
 .profile_outlet {
@@ -45,21 +46,10 @@
 }
 
 .navigation {
-    /* display: flex;
-    flex-direction: column;
-    align-items: flex-start; */
+   
     padding: 0px;
     width: 25%;
-    /* position: absolute;
-    width: 320px;
-    height: 192px;
-    left: calc(20% - 480px/2);
-    top: 30%; */
-    /* box-sizing: border-box; */
-    /* top: 0;
-    left: 0; */
-    /* transform: translate(-50%, -50%); */
-    /* text-align: start; */
+   
 }
 
 .list {

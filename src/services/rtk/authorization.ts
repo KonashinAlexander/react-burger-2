@@ -20,7 +20,7 @@ const baseQuery = fetchBaseQuery({
       }
 })
 
-const refreshToken = document.cookie.split('=')[1] 
+const refreshToken = document.cookie.split('=')[1]
 
 const refreshArgs  = {
       url: 'auth/token',

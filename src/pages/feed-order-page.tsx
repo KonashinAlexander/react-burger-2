@@ -1,11 +1,7 @@
 import React from 'react'
 import style from './page.module.css'
-// import OrderInfo from '../components/order-info/order-info';
-import { useParams, useLocation } from 'react-router-dom';
-import { useGetOrdersQuery } from '../services/rtk/web-socket';
-import { WS_URL_ALL } from '../utils/api';
+import { useLocation } from 'react-router-dom';
 import { useGetIngredientsQuery } from '../services/rtk/ingredients';
-import { TIngredientsType } from '../utils/prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 type TCounts = {
@@ -47,8 +43,6 @@ const FeedOrderPage: React.FC = () => {
         })
     })
 
-    console.log(counts)
-
     const renderIngredients = () => {
         return counts.map((item) => (
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: '16px' }} key={item._id}>
@@ -69,7 +63,6 @@ const FeedOrderPage: React.FC = () => {
     const translateStatus = () => {
         return state.status === 'done' ? 'Выполнен' : 'В работе'
     }
-
 
     const today = new Date()
     const date = new Date(state.createdAt)
@@ -95,7 +88,6 @@ const FeedOrderPage: React.FC = () => {
     }
 
     const sum = counts.reduce((accumulator, item) => accumulator + (item.price * item.count), 0)
-    console.log(sum)
 
     const content = isLoading
         ? <h1>Loading ingredients...</h1>
