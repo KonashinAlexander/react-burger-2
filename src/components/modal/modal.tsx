@@ -34,8 +34,8 @@ export const Modal: React.FC<TModalProps> = ({ title, onClose, children }) => {
         <div className={style.box_title}>
           <h1 className={style.title}>{title}</h1>
           <CloseIcon onClick={() => {
-            onClose()
-          }} />
+            onClose();
+          }} type={"primary"} />
         </div>
         {children}
       </div>

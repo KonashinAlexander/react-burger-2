@@ -111,7 +111,7 @@ const FeedOrderPage: React.FC = () => {
                 }
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <p className="text text_type_digits-default mr-4">{sum}</p>
-                    <CurrencyIcon />
+                    <CurrencyIcon type={'primary'} />
                 </div>
 
             </div>

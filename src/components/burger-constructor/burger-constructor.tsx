@@ -83,7 +83,6 @@ export const BurgerConstructor: React.FC = () => {
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
-        index={index}
         type={data.position} />
     );
   }, []);
