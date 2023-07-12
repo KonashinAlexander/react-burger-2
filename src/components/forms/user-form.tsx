@@ -1,6 +1,6 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react'
-import style from '../../pages/page.module.css'
+import style from './form.module.css'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useLogoutUserMutation, useUpdateUserMutation } from '../../services/reducers/authApiSlice';

@@ -1,4 +1,4 @@
-import { UserForm } from "../components/user-form/user-form"
+import { UserForm } from "../components/forms"
 
 export const FormPage: React.FC = () => {
     return <UserForm />

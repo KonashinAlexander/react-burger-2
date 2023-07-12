@@ -1,4 +1,4 @@
-import { IOrder, IOrdersData } from '../../services/rtk/web-socket';
+import { IOrder } from '../../services/rtk/web-socket';
 import FeedOrderItem from "../feed-order-item/feed-order-item"
 
 type TOrdersProps = {
