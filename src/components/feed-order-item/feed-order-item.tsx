@@ -26,6 +26,7 @@ const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
     const diff = (today.getDay() - date.getDay())
     const time = date.toLocaleTimeString()
 
+
     const renderDay = () => {
         return diff === 0
             ? <p className="text text_type_main-default text_color_inactive">
