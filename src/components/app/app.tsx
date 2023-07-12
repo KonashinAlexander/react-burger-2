@@ -1,31 +1,34 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Routes, Route } from 'react-router-dom';
+import styles from './app.module.css'
 import { AppHeader } from "../app-header/app-header"
-import style from './app.module.css'
-import LoginPage from "../../pages/login-page";
-import RegisterPage from "../../pages/register-page";
-import ForgotPage from "../../pages/forgot-page";
-import ResetPage from "../../pages/reset-page";
-import ProfilePage from "../../pages/profile-page";
-import IngredientPage from "../../pages/ingredient-page";
-import NotFoundPage from "../../pages/not-found-page";
-import HomePage from "../../pages/home-page";
 import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import FeedPage from "../../pages/feed-page";
-import FeedOrderPage from "../../pages/feed-order-page";
+import { useAppDispatch } from '../../services/hooks';
 import PrivateRoute from "../protected-route/private-route";
 import UnauthorizedRoute from "../protected-route/auth-route";
-import { FormPage } from "../../pages/form-page";
-import ProfileOrdersPage from "../../pages/profile-order-page";
+import {
+    FeedOrderPage,
+    FeedPage,
+    ForgotPage,
+    FormPage,
+    HomePage,
+    IngredientPage,
+    LoginPage,
+    NotFoundPage,
+    ProfileOrdersPage,
+    ProfilePage,
+    RegisterPage,
+    ResetPage
+} from '../../pages'
+
 
 export const Application: React.FC = () => {
     const dispatch: any = useAppDispatch();
-    const details = useAppSelector((state) => state.detailsStore.ingredientDetails)
+    // const details = useAppSelector((state) => state.detailsStore.ingredientDetails)
     const ingredient = JSON.parse(localStorage.getItem('ingredients')!)
 
     const closeModal = () => {
@@ -35,7 +38,7 @@ export const Application: React.FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <div className={style.app}>
+            <div className={styles.app}>
                 <Routes>
                     <Route path="/" element={<AppHeader />}>
 
@@ -44,11 +47,8 @@ export const Application: React.FC = () => {
                         <Route path="*" element={<NotFoundPage />} />
                         <Route path="ingredients/:id" element={<IngredientPage />} />
 
-
                         <Route path="feed" element={<FeedPage />} />
                         <Route path="feed/:id" element={<FeedOrderPage />} />
-
-
 
                         {/* routes protected from authorized users*/}
                         <Route element={<UnauthorizedRoute />}>
@@ -64,8 +64,6 @@ export const Application: React.FC = () => {
                             <Route path='orders' element={<PrivateRoute element={<ProfileOrdersPage />} />} />
                         </Route>
                         <Route path="profile/orders/:id" element={<PrivateRoute element={<FeedOrderPage />} />} />
-
-
                     </Route>
                 </Routes>
 
