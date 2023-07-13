@@ -3,12 +3,10 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
-import { Modal } from '../modal/modal';
-import { OrderDetails } from '../order-details/order-details';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
@@ -30,11 +28,11 @@ export const BurgerConstructor: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { ingredients, ingredientsIds, buns, bunsIds } = useAppSelector(state => state.constructorStore);
+  const { ingredients, ingredientsIds, buns } = useAppSelector(state => state.constructorStore);
   const currentAccessToken = useAppSelector(selectCurrentAccessToken)
 
 
-  const [postOrder, result] = usePostOrdersMutation({
+  const [postOrder] = usePostOrdersMutation({
     fixedCacheKey: 'shared-postOrder',
   })
 
@@ -62,18 +60,7 @@ export const BurgerConstructor: React.FC = () => {
     [ingredients],
   );
 
-  const [showModal, setShowModal] = useState(false);
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
-  // const getOrder = () => {
-  //   if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
-  //     dispatch(fetchOrder())
-  //   } else {
-  //     navigate('/login')
-  //   }
-  // };
 
   const renderBuns = useCallback((data: TConstructorIngredients, index: number, pose: string) => {
     return (
@@ -138,7 +125,7 @@ export const BurgerConstructor: React.FC = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              setShowModal(true);
+              // setShowModal(true);
               handlePostOrder()
             }}
             disabled={ingredientsIds.length === 0}
@@ -147,11 +134,6 @@ export const BurgerConstructor: React.FC = () => {
           </Button>
         </div>
 
-        {showModal && (
-          <Modal onClose={closeModal} title={''}>
-            <OrderDetails />
-          </Modal>
-        )}
 
       </div>
     </>

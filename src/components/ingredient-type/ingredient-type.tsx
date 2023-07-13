@@ -21,12 +21,13 @@ const IngredientType = forwardRef<HTMLDivElement, TTypeProps>(({ title, id, ingr
         <div className={title} ref={ref}>
             <h2 className={cn(style.title, "text", "text_type_main-medium")} id={id}>{title}</h2>
             <div className={cn(style.list, 'mb-10', 'pl-4', 'pr-4')}>
-                {ingredients?.map((data) => <BurgerIngredient
-                    key={data._id}
-                    {...data}
-                    count={ids.filter(id => id === data._id).length}
-                />)
-                }
+                {ingredients?.map((data) => (
+                    <BurgerIngredient
+                        key={data._id}
+                        {...data}
+                        count={ids.filter(id => id === data._id).length}
+                    />
+                ))}
             </div>
         </div>
     )

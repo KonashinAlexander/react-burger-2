@@ -36,7 +36,6 @@ export type TConstructorElementItemProps = TIngredientsType & {
   }
 
 export  type TBurgerIngredientsProps = {
-    key: string;
     count: number;
   } & TIngredientsType
 

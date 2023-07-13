@@ -14,8 +14,9 @@ export const IngredientDetails: React.FC<TIngredientDetailsProps> = ({ data }) =
         return <Navigate to='/' />
     } else {
         return (
-            <>
-                <img src={data.image_large}></img>
+            <div className={style.box}>
+
+                <img src={data.image_large} alt={data.name}></img>
                 <p className="text text_type_main-medium text_color_inactive">{data.name}</p>
                 <ul className={style.list}>
                     <li className={cn(style.list_item, 'text', 'text_type_digits-default', 'text_color_inactive')} >
@@ -31,7 +32,7 @@ export const IngredientDetails: React.FC<TIngredientDetailsProps> = ({ data }) =
                         <p className="text text_type_main-default">Углеводы, г</p>{data.carbohydrates}
                     </li>
                 </ul>
-            </>
+            </div>
         )
     }
 }

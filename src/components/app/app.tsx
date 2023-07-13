@@ -1,13 +1,9 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import styles from './app.module.css'
 import { AppHeader } from "../app-header/app-header"
-import { Modal } from '../modal/modal';
-import { IngredientDetails } from '../ingredient-details/ingredient-details';
-import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
-import { useAppDispatch } from '../../services/hooks';
 import PrivateRoute from "../protected-route/private-route";
 import UnauthorizedRoute from "../protected-route/auth-route";
 import {
@@ -22,24 +18,18 @@ import {
     ProfileOrdersPage,
     ProfilePage,
     RegisterPage,
-    ResetPage
+    ResetPage,
+    Modal,
 } from '../../pages'
 
-
 export const Application: React.FC = () => {
-    const dispatch: any = useAppDispatch();
-    // const details = useAppSelector((state) => state.detailsStore.ingredientDetails)
-    const ingredient = JSON.parse(localStorage.getItem('ingredients')!)
-
-    const closeModal = () => {
-        localStorage.removeItem('ingredients')
-        dispatch(removeIngredientDetails())
-    };
+    const location = useLocation()
+    const state = location.state as { backgroundLocation?: Location }
 
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={styles.app}>
-                <Routes>
+                <Routes location={state?.backgroundLocation || location}>
                     <Route path="/" element={<AppHeader />}>
 
                         {/* public routes*/}
@@ -67,11 +57,14 @@ export const Application: React.FC = () => {
                     </Route>
                 </Routes>
 
-                {ingredient && (
-                    <Modal title="Детали ингредиента" onClose={closeModal}>
-                        <IngredientDetails data={ingredient} />
-                    </Modal>
+                {state?.backgroundLocation && (
+                    <Routes>
+                        <Route path="ingredients/:id" element={<Modal />} />
+                        <Route path="feed/:id" element={<Modal />} />
+                        <Route path="profile/orders/:id" element={<PrivateRoute element={<Modal />} />} />
+                    </Routes>
                 )}
+
 
             </div>
         </DndProvider>

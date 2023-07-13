@@ -10,6 +10,7 @@ import ProfileOrdersPage from "./profile-order-page";
 import ProfilePage from "./profile-page";
 import RegisterPage from "./register-page";
 import ResetPage from "./reset-page";
+import Modal from './modal-page';
 
 export {
     FeedOrderPage,
@@ -23,5 +24,6 @@ export {
     ProfileOrdersPage,
     ProfilePage,
     RegisterPage,
-    ResetPage
+    ResetPage,
+    Modal
 }
