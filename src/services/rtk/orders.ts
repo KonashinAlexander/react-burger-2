@@ -14,6 +14,7 @@ const baseQuery = fetchBaseQuery({
 })
 
 export const ordersApi = createApi({
+    tagTypes: ['Orders'],
     reducerPath: 'ordersApi',
     baseQuery: baseQuery,
     endpoints: (build) => ({
@@ -22,7 +23,8 @@ export const ordersApi = createApi({
                 url: 'orders',
                 method: 'POST',
                 body: {ingredients: body},
-            })
+            }),
+            invalidatesTags: ['Orders']
         })
     }),
 })

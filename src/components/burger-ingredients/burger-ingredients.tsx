@@ -7,7 +7,7 @@ import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
 
-    const { data, isLoading } = useGetIngredientsQuery('')
+    const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const [current, setCurrent] = useState('buns');
 
     const buns = useMemo(() => data?.data.filter(item => item.type === 'bun'), [data?.data]);

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import IngredientPage from './ingredient-page';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
+import FeedOrderPage from './feed-order-page';
 
 const modalRoot = document.querySelector('#modals')!
 
@@ -56,7 +57,7 @@ const Modal = () => {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                 }}>
-                    <h2>Детали ингредиента</h2>
+
                     <CloseIcon type={'primary'} onClick={onDismiss} />
                 </div>
                 {
@@ -64,7 +65,7 @@ const Modal = () => {
                 }
 
                 {
-                    isOrder && <h1>ORDER</h1>
+                    isOrder && <FeedOrderPage />
                 }
 
 

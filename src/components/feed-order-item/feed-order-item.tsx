@@ -3,12 +3,14 @@ import React from 'react'
 import styles from './feed-order-item.module.css'
 import { TFeedOrderItemProps, TIngredientsType } from '../../utils/prop-types';
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
-    const navigate = useNavigate();
-    const { data, isLoading } = useGetIngredientsQuery('');
+    const location = useLocation()
+    const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients');
+    // const { data, isLoading } = useGetIngredientsQuery('FeedOrderItem');
+
     const orderIdsList = props.ingredients;
     const list: TIngredientsType[] = [];
 
@@ -51,16 +53,13 @@ const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
         ))
     }
 
-    const handleClick = () => {
-        navigate(`${props._id}`, {
-            replace: true,
-            state: props
-        });
-    }
-
     const content = isLoading
         ? <h1>Loading order details...</h1>
-        : <div className={styles.box_big} onClick={handleClick}>
+        : <Link
+            to={`${props._id}`}
+            state={{ backgroundLocation: location }}
+            className={styles.box_big}
+        >
             <div className={styles.box_small}>
                 <p className="text text_type_digits-default">#{props.number}</p>
                 {
@@ -79,7 +78,7 @@ const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
-        </div>
+        </Link>
 
 
     return content

@@ -8,11 +8,13 @@ interface IingredientsData {
 }
 
 export const ingredientsApi = createApi({
+    tagTypes: ['Ingredients'],
     reducerPath: 'ingredientsApi',
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
     endpoints: (build) => ({
         getIngredients: build.query<IingredientsData, string>({
-            query: () => 'ingredients'
+            query: () => 'ingredients',
+            providesTags: ['Ingredients']
         })
     }),
 })
