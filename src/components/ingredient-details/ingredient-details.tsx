@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import style from './ingredient-details.module.css';
-import { TIngredientsType } from "../../utils/prop-types";
 import { Navigate, useParams } from "react-router-dom";
 import React from 'react';
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';

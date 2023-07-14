@@ -1,8 +1,10 @@
 import React from 'react'
 import style from '../../pages/page.module.css'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
+import { useGetOrdersQuery } from '../../services/rtk/web-socket';
+import { WS_URL_ALL } from '../../utils/api';
 
 type TCounts = {
     _id: string,
@@ -14,11 +16,18 @@ type TCounts = {
 
 export const FeedOrderDetails: React.FC = () => {
 
+    const { id } = useParams()
+    const { data: orders } = useGetOrdersQuery(WS_URL_ALL);
+    const order = orders?.orders.filter(order => order._id === id)[0]
+    const ingredients = order?.ingredients!
+    console.log('order ingredients >>', ingredients)
+
     const { state } = useLocation()
-    const { ingredients } = state
-    const { data, isLoading } = useGetIngredientsQuery('')
+
+    const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const uniqueIds: string[] = Array.from(new Set(ingredients))
     const counts: TCounts[] = []
+    console.log('uniques >>', uniqueIds)
 
     uniqueIds.forEach((item) => {
         const i = {
@@ -119,5 +128,7 @@ export const FeedOrderDetails: React.FC = () => {
         </div>
 
     return content
+
+    // return <h1>Under construction</h1>
 }
 

@@ -9,7 +9,6 @@ import { Link, useLocation } from 'react-router-dom';
 const FeedOrderItem: React.FC<TFeedOrderItemProps> = ({ props }) => {
     const location = useLocation()
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients');
-    // const { data, isLoading } = useGetIngredientsQuery('FeedOrderItem');
 
     const orderIdsList = props.ingredients;
     const list: TIngredientsType[] = [];
