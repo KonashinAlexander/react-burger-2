@@ -5,6 +5,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
 import FeedOrderPage from './feed-order-page';
 import ProfileSingleOrderPage from './propfile-single-order-page';
+import { OrderDetails } from '../components/order-details/order-details';
 
 const modalRoot = document.querySelector('#modals')!
 
@@ -15,8 +16,10 @@ const Modal = () => {
     const isIngredient = useMatch('ingredients/:id')
     const isOrder = useMatch('feed/:id')
     const isProfileOrder = useMatch('profile/orders/:id')
+    const isDetails = useMatch('details')
 
-    console.log(isIngredient, isOrder, isProfileOrder)
+
+    console.log(isIngredient, isOrder, isProfileOrder, isDetails)
 
     function onDismiss() {
         navigate(state.backgroundLocation.pathname)
@@ -56,7 +59,7 @@ const Modal = () => {
                 <div style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
                     alignItems: 'center',
                 }}>
 
@@ -73,6 +76,10 @@ const Modal = () => {
 
                 {
                     isProfileOrder && <ProfileSingleOrderPage />
+                }
+
+                {
+                    isDetails && <OrderDetails />
                 }
 
             </div>

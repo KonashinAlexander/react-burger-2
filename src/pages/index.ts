@@ -11,6 +11,7 @@ import ProfilePage from "./profile-page";
 import RegisterPage from "./register-page";
 import ResetPage from "./reset-page";
 import Modal from './modal-page';
+import ProfileSingleOrderPage from './propfile-single-order-page';
 
 export {
     FeedOrderPage,
@@ -25,5 +26,6 @@ export {
     ProfilePage,
     RegisterPage,
     ResetPage,
-    Modal
+    Modal,
+    ProfileSingleOrderPage
 }

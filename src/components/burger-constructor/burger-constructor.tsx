@@ -10,13 +10,15 @@ import style from './burger-constructor.module.css';
 import { addConstructor } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { TConstructorIngredients } from '../../utils/prop-types';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { usePostOrdersMutation } from '../../services/rtk/orders'
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
+
 export const BurgerConstructor: React.FC = () => {
+  const location = useLocation()
 
   const [, drop] = useDrop(() => ({
     accept: 'ingredient',
@@ -35,6 +37,8 @@ export const BurgerConstructor: React.FC = () => {
   const [postOrder] = usePostOrdersMutation({
     fixedCacheKey: 'shared-postOrder',
   })
+
+
 
   const bunsCost = useMemo(
     () =>
@@ -89,6 +93,7 @@ export const BurgerConstructor: React.FC = () => {
   const handlePostOrder = async () => {
     if (currentAccessToken) {
       await postOrder(ingredientsIds)
+      navigate('/details', { state: { backgroundLocation: location } })
     } else {
       navigate('/login')
     }
@@ -125,7 +130,6 @@ export const BurgerConstructor: React.FC = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              // setShowModal(true);
               handlePostOrder()
             }}
             disabled={ingredientsIds.length === 0}

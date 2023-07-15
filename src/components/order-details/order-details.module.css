@@ -3,6 +3,12 @@
 }
 
 .image {
-    margin: 60px;
+    margin: 20px;
 }
 
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}

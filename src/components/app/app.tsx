@@ -20,7 +20,9 @@ import {
     RegisterPage,
     ResetPage,
     Modal,
+    ProfileSingleOrderPage,
 } from '../../pages'
+
 
 export const Application: React.FC = () => {
     const location = useLocation()
@@ -53,7 +55,7 @@ export const Application: React.FC = () => {
                             <Route path='' element={<PrivateRoute element={<FormPage />} />} />
                             <Route path='orders' element={<PrivateRoute element={<ProfileOrdersPage />} />} />
                         </Route>
-                        <Route path="profile/orders/:id" element={<PrivateRoute element={<FeedOrderPage />} />} />
+                        <Route path="profile/orders/:id" element={<PrivateRoute element={<ProfileSingleOrderPage />} />} />
                     </Route>
                 </Routes>
 
@@ -62,6 +64,7 @@ export const Application: React.FC = () => {
                         <Route path="ingredients/:id" element={<Modal />} />
                         <Route path="feed/:id" element={<Modal />} />
                         <Route path="profile/orders/:id" element={<PrivateRoute element={<Modal />} />} />
+                        <Route path="details" element={<PrivateRoute element={<Modal />} />} />
                     </Routes>
                 )}
 
