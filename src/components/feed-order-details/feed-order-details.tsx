@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../../pages/page.module.css'
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
 import { useGetOrdersQuery } from '../../services/rtk/web-socket';
@@ -14,15 +14,15 @@ type TCounts = {
     name: string,
 }
 
+
+
 export const FeedOrderDetails: React.FC = () => {
 
     const { id } = useParams()
     const { data: orders } = useGetOrdersQuery(WS_URL_ALL);
-    const order = orders?.orders.filter(order => order._id === id)[0]
+    const order = orders?.orders.filter(order => order._id === id)[0]!
     const ingredients = order?.ingredients!
     console.log('order ingredients >>', ingredients)
-
-    const { state } = useLocation()
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const uniqueIds: string[] = Array.from(new Set(ingredients))
@@ -70,11 +70,11 @@ export const FeedOrderDetails: React.FC = () => {
     }
 
     const translateStatus = () => {
-        return state.status === 'done' ? 'Выполнен' : 'В работе'
+        return order?.status === 'done' ? 'Выполнен' : 'В работе'
     }
 
     const today = new Date()
-    const date = new Date(state.createdAt)
+    const date = new Date(order?.createdAt)
     const diff = (today.getDay() - date.getDay())
     const time = date.toLocaleTimeString()
 
@@ -101,8 +101,8 @@ export const FeedOrderDetails: React.FC = () => {
     const content = isLoading
         ? <h1>Loading ingredients...</h1>
         : <div className={style.box_order}>
-            <p className="text text_type_digits-default m-0" style={{ textAlign: 'center' }}>#{state.number}</p>
-            <h1 className="text text_type_main-default m-0">{state.name}</h1>
+            <p className="text text_type_digits-default m-0" style={{ textAlign: 'center' }}>#{order?.number}</p>
+            <h1 className="text text_type_main-default m-0">{order?.name}</h1>
             <p className="text text_type_main-small" style={{ color: '#00CCCC' }}>
                 {
                     translateStatus()

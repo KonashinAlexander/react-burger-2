@@ -12,8 +12,10 @@ const Modal = () => {
     const navigate = useNavigate()
 
     const isIngredient = useMatch('ingredients/:id')
-    const isOrder = useMatch(('feed/:id' || 'profile/orders/id'))
-    console.log(isIngredient, isOrder)
+    const isOrder = useMatch('feed/:id')
+    const isProfileOrder = useMatch('profile/orders/:id')
+
+    console.log(isIngredient, isOrder, isProfileOrder)
 
     function onDismiss() {
         // navigate(-1)
@@ -65,8 +67,9 @@ const Modal = () => {
                 }
 
                 {
-                    isOrder && <FeedOrderPage />
+                    (isOrder || isProfileOrder) && <FeedOrderPage />
                 }
+
 
 
             </div>

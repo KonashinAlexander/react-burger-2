@@ -25,7 +25,7 @@ import {
 export const Application: React.FC = () => {
     const location = useLocation()
     const state = location.state as { backgroundLocation?: Location }
-
+    console.log('app state >>', state)
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={styles.app}>
