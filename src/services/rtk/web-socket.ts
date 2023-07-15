@@ -33,8 +33,10 @@ export const webSocketApi = createApi({
           url,
           { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
         ) {
+        
           const ws = new WebSocket(url);
           try {
+            
             await cacheDataLoaded;
             const listener = (event: MessageEvent) => {
               const data = JSON.parse(event.data);

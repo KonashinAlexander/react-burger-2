@@ -1,0 +1,8 @@
+.box_order {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;    
+    width: 480px;
+    height: 430px;
+    gap: 8px;   
+}

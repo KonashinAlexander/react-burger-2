@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../../pages/page.module.css'
+import style from './feed-order-details.module.css'
 import { useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
@@ -22,12 +22,10 @@ export const FeedOrderDetails: React.FC = () => {
     const { data: orders } = useGetOrdersQuery(WS_URL_ALL);
     const order = orders?.orders.filter(order => order._id === id)[0]!
     const ingredients = order?.ingredients!
-    console.log('order ingredients >>', ingredients)
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const uniqueIds: string[] = Array.from(new Set(ingredients))
     const counts: TCounts[] = []
-    console.log('uniques >>', uniqueIds)
 
     uniqueIds.forEach((item) => {
         const i = {
@@ -54,12 +52,37 @@ export const FeedOrderDetails: React.FC = () => {
 
     const renderIngredients = () => {
         return counts.map((item) => (
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: '16px' }} key={item._id}>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: '16px', gap: '10px' }}>
-                    <img style={{ width: '64px', height: '64px' }} src={item.image} alt={item.name} />
+            <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginRight: '16px'
+            }}
+                key={item._id}
+            >
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginRight: '16px',
+                    gap: '10px'
+                }}>
+                    <img style={{ width: '64px', height: '64px' }}
+                        src={item.image}
+                        alt={item.name}
+                    />
                     <p className='ml-4 mr-4'>{item.name}</p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: '16px', gap: '10px' }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginRight: '16px',
+                    gap: '10px'
+                }}>
                     {item.count}
                     <span>x</span>
                     <p>{item.price}</p>
@@ -101,9 +124,15 @@ export const FeedOrderDetails: React.FC = () => {
     const content = isLoading
         ? <h1>Loading ingredients...</h1>
         : <div className={style.box_order}>
-            <p className="text text_type_digits-default m-0" style={{ textAlign: 'center' }}>#{order?.number}</p>
-            <h1 className="text text_type_main-default m-0">{order?.name}</h1>
-            <p className="text text_type_main-small" style={{ color: '#00CCCC' }}>
+            <p className="text text_type_digits-default m-0"
+                style={{ textAlign: 'center' }}>
+                #{order?.number}
+            </p>
+            <h1 className="text text_type_main-default m-0">
+                {order?.name}
+            </h1>
+            <p className="text text_type_main-small left"
+                style={{ color: '#00CCCC' }}>
                 {
                     translateStatus()
                 }
@@ -114,11 +143,21 @@ export const FeedOrderDetails: React.FC = () => {
                     renderIngredients()
                 }
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
                 {
                     renderDay()
                 }
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
                     <p className="text text_type_digits-default mr-4">{sum}</p>
                     <CurrencyIcon type={'primary'} />
                 </div>

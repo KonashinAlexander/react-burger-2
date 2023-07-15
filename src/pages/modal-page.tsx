@@ -4,6 +4,7 @@ import IngredientPage from './ingredient-page';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
 import FeedOrderPage from './feed-order-page';
+import ProfileOrdersPage from './profile-order-page';
 
 const modalRoot = document.querySelector('#modals')!
 
@@ -18,7 +19,6 @@ const Modal = () => {
     console.log(isIngredient, isOrder, isProfileOrder)
 
     function onDismiss() {
-        // navigate(-1)
         navigate(state.backgroundLocation.pathname)
     }
 
@@ -62,18 +62,20 @@ const Modal = () => {
 
                     <CloseIcon type={'primary'} onClick={onDismiss} />
                 </div>
+
                 {
                     isIngredient && <IngredientPage />
                 }
 
                 {
-                    (isOrder || isProfileOrder) && <FeedOrderPage />
+                    isOrder && <FeedOrderPage />
                 }
 
-
+                {
+                    isProfileOrder && <ProfileOrdersPage />
+                }
 
             </div>
-
         </div>,
         modalRoot
     )
