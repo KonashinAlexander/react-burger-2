@@ -6,7 +6,7 @@ import HomePage from "./home-page";
 import IngredientPage from "./ingredient-page";
 import LoginPage from "./login-page";
 import NotFoundPage from "./not-found-page";
-import ProfileOrdersPage from "./profile-order-page";
+import ProfileOrdersPage from "./profile-orders-page";
 import ProfilePage from "./profile-page";
 import RegisterPage from "./register-page";
 import ResetPage from "./reset-page";

@@ -4,7 +4,7 @@ import IngredientPage from './ingredient-page';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
 import FeedOrderPage from './feed-order-page';
-import ProfileOrdersPage from './profile-order-page';
+import ProfileSingleOrderPage from './propfile-single-order-page';
 
 const modalRoot = document.querySelector('#modals')!
 
@@ -72,7 +72,7 @@ const Modal = () => {
                 }
 
                 {
-                    isProfileOrder && <ProfileOrdersPage />
+                    isProfileOrder && <ProfileSingleOrderPage />
                 }
 
             </div>

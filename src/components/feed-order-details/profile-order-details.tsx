@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
 import { useGetOrdersQuery } from '../../services/rtk/web-socket';
-import { WS_URL_ALL } from '../../utils/api';
+import { WS_URL_USER } from '../../utils/api';
+import { useAppSelector } from '../../services/hooks';
+import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
 type TCounts = {
     _id: string,
@@ -14,11 +16,13 @@ type TCounts = {
     name: string,
 }
 
-export const FeedOrderDetails: React.FC = () => {
+export const ProfileOrderDetails: React.FC = () => {
 
     const { id } = useParams()
     console.log(id)
-    const { data: orders } = useGetOrdersQuery(WS_URL_ALL);
+    const currentAccessToken = useAppSelector(selectCurrentAccessToken).split('Bearer ')[1]
+    const { data: orders } = useGetOrdersQuery(`${WS_URL_USER}?token=${currentAccessToken}`);
+
     const order = orders?.orders.filter(order => order._id === id)[0]!
     const ingredients = order?.ingredients!
     console.log(orders, order)
