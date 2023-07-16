@@ -22,7 +22,7 @@ export const ForgotForm: React.FC = () => {
     }
 
     return (
-        <div className={style.page}>
+        <div className={style.profile}>
             <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Восстановление пароля</p>
                 <Input

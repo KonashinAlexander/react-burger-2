@@ -5,7 +5,8 @@
 .ingredient_box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: flex-start; */
+    color: white;
     position: relative;
 }
 

@@ -1,7 +1,7 @@
-.container {
+/* .container {
     margin: 0;
        
-}
+} */
 
 .title {
     text-align: left;
@@ -10,11 +10,12 @@
 
 .tabs {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .ingredients {
-    max-height: 500px;
+    max-height: 550px;
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #2F2F37 #8585AD;

@@ -44,7 +44,7 @@ export const BurgerIngredients: React.FC = () => {
 
     const content = isLoading
         ? <p>Loading ingredients...</p>
-        : <div className={cn(style.container)}>
+        : <div>
             <h1 className={cn(style.title, "text text_type_main-large", 'mt-10')}>Соберите бургер</h1>
 
             <section className={cn(style.tabs, 'mt-5', 'mb-10')}>

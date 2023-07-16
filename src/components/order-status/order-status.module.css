@@ -1,0 +1,14 @@
+.status_box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 24px;
+}
+
+.ready {
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    
+    /* grid- gridAutoFlow: 'column dense' */
+}
+
+/* style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '350px' } */

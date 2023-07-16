@@ -18,9 +18,6 @@ const Modal = () => {
     const isProfileOrder = useMatch('profile/orders/:id')
     const isDetails = useMatch('details')
 
-
-    console.log(isIngredient, isOrder, isProfileOrder, isDetails)
-
     function onDismiss() {
         navigate(state.backgroundLocation.pathname)
     }

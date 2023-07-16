@@ -15,7 +15,7 @@ export const AppHeader: React.FC = () => {
 
     return (
         <>
-            <header className={cn(style.header, 'pt-4', 'pb-4')}>
+            <header className={style.header}>
                 <nav className={style.nav}>
 
                     <NavLink to="/" className={setActive}>

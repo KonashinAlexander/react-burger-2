@@ -44,8 +44,7 @@ const baseQueryWithReauth: BaseQueryFn<
         api.dispatch(setCredentials({...refreshResult.data, user}))      
         result = await baseQuery(args, api, extraOptions)
 
-    } else {  
-      console.log('refreshResult.error >>', refreshResult.error)      
+    } else {             
       api.dispatch(logout())
     }
   }

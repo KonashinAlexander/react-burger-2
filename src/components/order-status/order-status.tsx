@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './order-status.module.css'
 import { IOrder } from '../../services/rtk/web-socket';
 
 type TOrdersProps = {
@@ -16,12 +17,18 @@ export const OrderStatus: React.FC<TOrdersProps> = ({ orders }) => {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', height: '350px' }}>
+        <div className={styles.status_box}>
             <div>
                 <p className="text text_type_main-medium">Готовы:</p>
                 <div
                     className="text text_type_digits-default"
-                    style={{ display: 'grid', gridTemplateRows: 'repeat(10, 1fr)', gridAutoFlow: 'column dense' }}>
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-feat, minmax(2fr, 1fr))',
+                        gridAutoFlow: 'row dense',
+                        maxHeight: '200px',
+                        overflow: 'scroll'
+                    }}>
                     {
                         renderOrdersReady()
                     }
@@ -35,7 +42,7 @@ export const OrderStatus: React.FC<TOrdersProps> = ({ orders }) => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

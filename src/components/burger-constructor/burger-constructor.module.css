@@ -5,12 +5,12 @@
     gap: 10px;
     min-height: 400px;
     max-height: 500px;
-    background-color: #0b0b20;
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #2F2F37 #8585AD;
-    padding: 0;
+    padding: 16px;
     border-radius: 10px;
+    outline: 1px dashed #8585AD;
 }
 
 .box_small {
@@ -18,8 +18,9 @@
     max-height: 500px;
     display: block;
     padding-left: 16px;
-    /* background-color: aquamarine; */
-}
+    border-radius: 10px;
+    outline: 1px dashed #8585AD;
+   }
 
 .box_flex {
     display: flex;
@@ -40,6 +41,4 @@
     margin-right: 8px;
 }
 
-.container {
-    margin: 0;
-}
+

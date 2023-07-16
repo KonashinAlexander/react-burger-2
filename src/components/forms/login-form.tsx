@@ -37,7 +37,7 @@ export const LoginForm: React.FC = () => {
 
     const content = isLoading
         ? <h1>Loading...</h1>
-        : <div className={style.page}>
+        : <div className={style.profile}>
             <form className={style.box} onSubmit={handleSubmit}>
                 <p className="text text_type_main-medium">Вход</p>
                 <Input

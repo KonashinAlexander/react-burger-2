@@ -1,7 +1,6 @@
 .header {
-    max-width: 1240px;
-    margin: 0 auto;
     background-color: var(--background);
+    
 }
 
 .link {
@@ -32,11 +31,11 @@
 }
 
 .outlet {
-    margin: 0 auto;
+    /* margin: 0 auto;
     max-width: 1240px;
     width: 100vw;
     height: 90vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }

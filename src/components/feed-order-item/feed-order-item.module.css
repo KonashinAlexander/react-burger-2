@@ -14,7 +14,8 @@
     margin: 16px;
     background-color: #1C1C21;
     box-sizing: border-box;
-    
+    text-decoration: none;
+    color: white;
 }
 
 .pictures {

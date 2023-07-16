@@ -1,5 +1,5 @@
 import { Navigate, useLocation, Outlet } from 'react-router-dom'
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useAppSelector } from '../../services/hooks';
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 

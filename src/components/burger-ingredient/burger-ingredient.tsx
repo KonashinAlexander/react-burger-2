@@ -21,6 +21,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
       to={`ingredients/${props._id}`}
       state={{ backgroundLocation: location }}
       ref={drag}
+      style={{ textDecoration: 'none' }}
     >
       <div
         className={styles.ingredient_box}
@@ -38,7 +39,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
           <p className="text text_type_digits-default mr-3">{props.price}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <p className="text text_type_main-default">{props.name}</p>
+        <p className="text text_type_main-default" style={{ textAlign: 'center' }}>{props.name}</p>
       </div>
     </Link>
 

@@ -20,12 +20,15 @@ export const ProfileOrderDetails: React.FC = () => {
 
     const { id } = useParams()
     console.log(id)
+    // const currentAccessToken = localStorage.getItem('accessToken')
+
     const currentAccessToken = useAppSelector(selectCurrentAccessToken).split('Bearer ')[1]
     const { data: orders } = useGetOrdersQuery(`${WS_URL_USER}?token=${currentAccessToken}`);
+    console.log(orders)
 
     const order = orders?.orders.filter(order => order._id === id)[0]!
     const ingredients = order?.ingredients!
-    console.log(orders, order)
+    console.log(orders)
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const uniqueIds: string[] = Array.from(new Set(ingredients))
