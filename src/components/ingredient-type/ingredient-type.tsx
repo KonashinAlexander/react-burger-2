@@ -4,6 +4,7 @@ import style from './ingredient-type.module.css'
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 import { TIngredientsType } from "../../utils/prop-types";
 import { useAppSelector } from "../../services/hooks";
+import { selectIngredients } from "../../services/reducers/constructor";
 
 type TTypeProps = {
     title: string;
@@ -13,8 +14,8 @@ type TTypeProps = {
 
 const IngredientType = forwardRef<HTMLDivElement, TTypeProps>(({ title, id, ingredients }, ref) => {
 
-    const ingredientsIds = useAppSelector((state) => state.constructorStore.ingredientsIds)
-    const bunsIds = useAppSelector((state) => state.constructorStore.bunsIds)
+    const { ingredientsIds, bunsIds } = useAppSelector(selectIngredients)
+    // const {bunsIds} = useAppSelector(selectIngredients)
     const ids = ingredientsIds.concat(bunsIds).concat(bunsIds)
 
     return (

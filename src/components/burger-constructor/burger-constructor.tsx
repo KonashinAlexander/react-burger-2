@@ -7,7 +7,7 @@ import React, { useMemo, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
-import { addConstructor } from '../../services/reducers/constructor';
+import { addConstructor, selectIngredients } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -30,7 +30,7 @@ export const BurgerConstructor: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { ingredients, ingredientsIds, buns } = useAppSelector(state => state.constructorStore);
+  const { ingredients, ingredientsIds, buns } = useAppSelector(selectIngredients);
   const currentAccessToken = useAppSelector(selectCurrentAccessToken)
 
 
