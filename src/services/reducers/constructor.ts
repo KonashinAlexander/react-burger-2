@@ -23,9 +23,10 @@ export const constructorSlice = createSlice({
   initialState,
   reducers: {
     addConstructor: (state, action) => {
+      
       switch (action.payload.type) {
         case 'bun':
-          state.buns.splice(0, 1, { ...action.payload, uuid: uuidv4() })
+          state.buns.splice(0, 1, { ...action.payload, uuid: uuidv4()})
           state.bunsIds = state.buns.map(item => item._id)
           break;
         default:

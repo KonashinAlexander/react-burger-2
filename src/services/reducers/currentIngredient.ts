@@ -14,9 +14,11 @@ export const currentSlice = createSlice({
   initialState,
   reducers: {
     addCurrentIngredient: (state, action) => {
+      console.log(action)
       state.currentIndgredient = action.payload
     },
-    removeCurrentIngredient: (state, action) => {
+    removeCurrentIngredient: (state) => {    
+
       state.currentIndgredient = {}
     }
   }

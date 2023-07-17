@@ -16,7 +16,6 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { usePostOrdersMutation } from '../../services/rtk/orders'
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
-
 export const BurgerConstructor: React.FC = () => {
   const location = useLocation()
 
@@ -70,7 +69,7 @@ export const BurgerConstructor: React.FC = () => {
     return (
       <ConstructorElement
         {...data}
-        key={data.uuid}
+        key={data._id}
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
