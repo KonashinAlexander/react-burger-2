@@ -65,7 +65,7 @@ export const BurgerConstructor: React.FC = () => {
 
 
 
-  const renderBuns = useCallback((data: TConstructorIngredients, index: number, pose: string) => {
+  const renderBuns = useCallback((data: TConstructorIngredients, index: number, position: "top" | "bottom", pose: '(Верх)' | '(Низ)') => {
     return (
       <ConstructorElement
         {...data}
@@ -73,7 +73,8 @@ export const BurgerConstructor: React.FC = () => {
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
-        type={data.position} />
+        type={position}
+      />
     );
   }, []);
 
@@ -103,7 +104,7 @@ export const BurgerConstructor: React.FC = () => {
       <div className='pt-25'>
         <div className={style.box_small}>
           {buns.map((data: TConstructorIngredients, index: number) =>
-            renderBuns(data, index, "(Верх)")
+            renderBuns(data, index, 'top', '(Верх)')
           )}
         </div>
 
@@ -118,7 +119,7 @@ export const BurgerConstructor: React.FC = () => {
 
         <div className={style.box_small}>
           {buns.map((data, index) =>
-            renderBuns(data, index, "(Низ)"),
+            renderBuns(data, index, 'bottom', '(Низ)'),
           )}
         </div>
 

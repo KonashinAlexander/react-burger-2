@@ -1,6 +1,8 @@
 .box_flex {
     display: flex;
     align-items: center;
-    /* justify-content: space-evenly; */
+  
+    /* flex-wrap: wrap; */
+    justify-content: space-evenly;
     width: 100%;
 }

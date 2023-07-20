@@ -11,6 +11,7 @@
     padding: 16px;
     border-radius: 10px;
     outline: 1px dashed #8585AD;
+    box-sizing: border-box;
 }
 
 .box_small {
@@ -27,6 +28,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .box__total_flex {

@@ -22,8 +22,7 @@ export type TIngredientsDetailsType = TIngredientsType & {
 
 export type TConstructorIngredients = TIngredientsDetailsType & {
   uuid: string;
-  pose: string;
-  position: 'bottom' | 'top';
+  // position: 'bottom' | 'top';
 }
 
 export type TConstructorElementItemProps = TIngredientsType & {

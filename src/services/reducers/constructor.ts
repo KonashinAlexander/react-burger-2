@@ -36,10 +36,12 @@ export const constructorSlice = createSlice({
       }
     },
     removeConstructor: (state, action) => {
+      
       state.ingredients = state.ingredients.filter(item => { return item.uuid !== action.payload.uuid })
       state.ingredientsIds = state.ingredients.map(item => item._id)
     },
     moveIngredients: (state, action) => {
+      console.log(action)
       state.ingredients = update(state.ingredients, {
         $splice: [
           [action.payload[0], 1],
