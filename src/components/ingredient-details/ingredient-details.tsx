@@ -14,7 +14,7 @@ export const IngredientDetails: React.FC = () => {
     } else {
         return (
             <div className={style.box}>
-
+                <h1>Детали ингредиента</h1>
                 <img src={item?.image_large} alt={item?.name}></img>
                 <p className="text text_type_main-medium text_color_inactive">{item?.name}</p>
                 <ul className={style.list}>

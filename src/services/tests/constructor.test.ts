@@ -50,6 +50,22 @@ const bun = {
   
   }
 
+  const cutlet = {
+    _id: '643d69a5c3f7b9001cfa0941',
+    name: 'Биокотлета из марсианской Магнолии',
+    type: 'main',
+    proteins: 420,
+    fat: 142,
+    carbohydrates: 242,
+    calories: 4242,
+    price: 424,
+    image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+    image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+    image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+    __v: 0,
+    count: 0,
+    uuid: '22d0c51a-9e0c-4184-8d68-e0fc3043dada'
+  }
 
 
 describe('constructor', ()=>{
@@ -119,6 +135,27 @@ describe('constructor', ()=>{
       const result = constructor(state, action)   
     
       expect(result).toEqual(initialState)             
+  })
+
+  it('should move ingredient with "moveIngredient" action', ()=>{
+    const prevState = {
+      buns: [],
+      bunsIds: [],
+      ingredients: [fillet, cutlet],
+      ingredientsIds: [fillet._id, cutlet._id],
+    }
+
+    const finalState = {
+      buns: [],
+      bunsIds: [],
+      ingredients: [cutlet, fillet],
+      ingredientsIds: [cutlet._id, fillet._id ],
+    }
+
+    const action = { type: moveIngredients.type, payload: [0, 1]}
+    const result = constructor(prevState, action)
+   
+    expect(result).toEqual(finalState)
   })
   
 })

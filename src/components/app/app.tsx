@@ -22,6 +22,10 @@ import {
     Modal,
     ProfileSingleOrderPage,
 } from '../../pages'
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { FeedOrderDetails } from "../feed-order-details/feed-order-details";
+import { OrderDetails } from "../order-details/order-details";
+import { ProfileOrderDetails } from "../feed-order-details/profile-order-details";
 
 
 export const Application: React.FC = () => {
@@ -61,10 +65,31 @@ export const Application: React.FC = () => {
 
                 {state?.backgroundLocation && (
                     <Routes>
-                        <Route path="ingredients/:id" element={<Modal />} />
-                        <Route path="feed/:id" element={<Modal />} />
-                        <Route path="profile/orders/:id" element={<PrivateRoute element={<Modal />} />} />
-                        <Route path="details" element={<PrivateRoute element={<Modal />} />} />
+
+                        <Route path="ingredients/:id" element={
+                            <Modal>
+                                <IngredientDetails />
+                            </Modal>
+                        } />
+
+                        <Route path="feed/:id" element={
+                            <Modal>
+                                <FeedOrderDetails />
+                            </Modal>
+                        } />
+
+                        <Route path="profile/orders/:id" element={<PrivateRoute element={
+                            <Modal>
+                                <ProfileOrderDetails />
+                            </Modal>
+                        } />} />
+
+                        <Route path="details" element={<PrivateRoute element={
+                            <Modal>
+                                <OrderDetails />
+                            </Modal>
+                        } />} />
+
                     </Routes>
                 )}
 

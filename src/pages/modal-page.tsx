@@ -1,22 +1,17 @@
-import { useNavigate, useLocation, useMatch } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import IngredientPage from './ingredient-page';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect } from 'react';
-import FeedOrderPage from './feed-order-page';
-import ProfileSingleOrderPage from './propfile-single-order-page';
-import { OrderDetails } from '../components/order-details/order-details';
+import { FC, useEffect } from 'react';
+
+type TModalProps = {
+    children: JSX.Element;
+}
 
 const modalRoot = document.querySelector('#modals')!
 
-const Modal = () => {
+const Modal: FC<TModalProps> = ({ children }) => {
     const { state } = useLocation()
     const navigate = useNavigate()
-
-    const isIngredient = useMatch('ingredients/:id')
-    const isOrder = useMatch('feed/:id')
-    const isProfileOrder = useMatch('profile/orders/:id')
-    const isDetails = useMatch('details')
 
     function onDismiss() {
         navigate(state.backgroundLocation.pathname)
@@ -28,6 +23,9 @@ const Modal = () => {
                 onDismiss();
             }
         }
+
+        document.addEventListener('click', (e) => console.log(e.target))
+
         document.addEventListener("keyup", closeOnEsc);
         return () => {
             document.removeEventListener("keyup", closeOnEsc);
@@ -35,7 +33,8 @@ const Modal = () => {
     })
 
     return createPortal(
-        <div onClick={onDismiss}
+        <div className='overlay'
+            onClick={onDismiss}
             style={{
                 position: "absolute",
                 top: '0',
@@ -47,12 +46,14 @@ const Modal = () => {
                 background: 'rgba(0,0,0,.5)'
 
             }}>
-            <div style={{
-                boxSizing: 'content-box',
-                background: '#1C1C21',
-                borderRadius: '40px',
-                padding: '20px'
-            }}>
+            <div
+                className='modal'
+                style={{
+                    boxSizing: 'content-box',
+                    background: '#1C1C21',
+                    borderRadius: '40px',
+                    padding: '20px'
+                }}>
                 <div style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -62,22 +63,8 @@ const Modal = () => {
 
                     <CloseIcon type={'primary'} onClick={onDismiss} />
                 </div>
+                {children}
 
-                {
-                    isIngredient && <IngredientPage />
-                }
-
-                {
-                    isOrder && <FeedOrderPage />
-                }
-
-                {
-                    isProfileOrder && <ProfileSingleOrderPage />
-                }
-
-                {
-                    isDetails && <OrderDetails />
-                }
 
             </div>
         </div>,
