@@ -41,7 +41,7 @@ export const constructorSlice = createSlice({
       state.ingredientsIds = state.ingredients.map(item => item._id)
     },
     moveIngredients: (state, action) => {
-      console.log(action)
+      
       state.ingredients = update(state.ingredients, {
         $splice: [
           [action.payload[0], 1],

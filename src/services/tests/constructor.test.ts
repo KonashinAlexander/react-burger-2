@@ -149,11 +149,12 @@ describe('constructor', ()=>{
       buns: [],
       bunsIds: [],
       ingredients: [cutlet, fillet],
-      ingredientsIds: [cutlet._id, fillet._id ],
-    }
+      ingredientsIds: [fillet._id, cutlet._id],
+    }   
+
 
     const action = { type: moveIngredients.type, payload: [0, 1]}
-    const result = constructor(prevState, action)
+    const result = constructor(prevState, action)   
    
     expect(result).toEqual(finalState)
   })
