@@ -1,7 +1,7 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import styles from './app.module.css'
 import { AppHeader } from "../app-header/app-header"
 import PrivateRoute from "../protected-route/private-route";
@@ -65,31 +65,12 @@ export const Application: React.FC = () => {
 
                 {state?.backgroundLocation && (
                     <Routes>
-
-                        <Route path="ingredients/:id" element={
-                            <Modal>
-                                <IngredientDetails />
-                            </Modal>
-                        } />
-
-                        <Route path="feed/:id" element={
-                            <Modal>
-                                <FeedOrderDetails />
-                            </Modal>
-                        } />
-
-                        <Route path="profile/orders/:id" element={<PrivateRoute element={
-                            <Modal>
-                                <ProfileOrderDetails />
-                            </Modal>
-                        } />} />
-
-                        <Route path="details" element={<PrivateRoute element={
-                            <Modal>
-                                <OrderDetails />
-                            </Modal>
-                        } />} />
-
+                        <Route element={<Modal><Outlet /></Modal>}>
+                            <Route path="ingredients/:id" element={<IngredientDetails />} />
+                            <Route path="feed/:id" element={<FeedOrderDetails />} />
+                            <Route path="profile/orders/:id" element={<PrivateRoute element={<ProfileOrderDetails />} />} />
+                            <Route path="details" element={<PrivateRoute element={<OrderDetails />} />} />
+                        </Route>
                     </Routes>
                 )}
 

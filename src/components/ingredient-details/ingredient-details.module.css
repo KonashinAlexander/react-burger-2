@@ -21,6 +21,6 @@
     align-items: center;
     padding: 0px;    
     width: 480px;
-    height: 430px;
+    /* height: 430px; */
     gap: 24px;   
 }

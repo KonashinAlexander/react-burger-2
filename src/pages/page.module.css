@@ -94,10 +94,11 @@
 }
 
 .modal {
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
     background: #1C1C21;  
     border-radius: 40px;
     padding: 20px;
+    /* position: relative; */
 }
 
 .modal_box {

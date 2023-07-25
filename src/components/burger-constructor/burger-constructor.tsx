@@ -102,13 +102,13 @@ export const BurgerConstructor: React.FC = () => {
   return (
     <>
       <div className='pt-25'>
-        <div className={style.box_small}>
+        <div className={style.box_small} id='top'>
           {buns.map((data: TConstructorIngredients, index: number) =>
             renderBuns(data, index, 'top', '(Верх)')
           )}
         </div>
 
-        <ol className={cn(style.box_big, 'mt-4')} ref={drop}>
+        <ol className={cn(style.box_big, 'mt-4')} ref={drop} id='drop'>
           {
             ingredients.length === 0
               ? <h1 className="text text_type_main-default text_color_inactive">Поместите ингредиенты сюда</h1>
@@ -117,7 +117,7 @@ export const BurgerConstructor: React.FC = () => {
 
         </ol>
 
-        <div className={style.box_small}>
+        <div className={style.box_small} id='bottom'>
           {buns.map((data, index) =>
             renderBuns(data, index, 'bottom', '(Низ)'),
           )}
