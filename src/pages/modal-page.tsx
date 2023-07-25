@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useEffect } from 'react';
+import styles from './page.module.css'
 
 type TModalProps = {
     children: JSX.Element;
@@ -33,39 +34,12 @@ const Modal: FC<TModalProps> = ({ children }) => {
     })
 
     return createPortal(
-        <div className='overlay'
-            onClick={onDismiss}
-            style={{
-                position: "absolute",
-                top: '0',
-                width: '100vw',
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                background: 'rgba(0,0,0,.5)'
-
-            }}>
-            <div
-                className='modal'
-                style={{
-                    boxSizing: 'content-box',
-                    background: '#1C1C21',
-                    borderRadius: '40px',
-                    padding: '20px'
-                }}>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                }}>
-
+        <div className={styles.overlay} onClick={onDismiss}>
+            <div className={styles.modal}>
+                <div className={styles.modal_box}>
                     <CloseIcon type={'primary'} onClick={onDismiss} />
                 </div>
                 {children}
-
-
             </div>
         </div>,
         modalRoot

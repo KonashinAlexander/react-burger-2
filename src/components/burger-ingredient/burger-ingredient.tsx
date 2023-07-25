@@ -18,6 +18,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
 
   return (
     <Link
+      className='burger-ingredient'
       to={`ingredients/${props._id}`}
       state={{ backgroundLocation: location }}
       ref={drag}
