@@ -134,8 +134,24 @@ describe('Constructor page behaviour with unauthorized user', ()=>{
         cy.get('input[name="password"]').type('qwerty');
         cy.get('button[type="submit"]').click();
 
+        cy.get('#top').find('.constructor-element__text').should(name=>{  
+            expect(name[0].textContent === 'Краторная булка N-200i (Верх)').eql(true)
+        }) 
 
+        cy.get('#bottom').find('.constructor-element__text').should(name=>{  
+            expect(name[0].textContent === 'Краторная булка N-200i (Низ)').eql(true)
+        }) 
 
+        cy.get('#drop').find('.constructor-element__text').should(name=>{                
+            expect(name[0].textContent === 'Биокотлета из марсианской Магнолии').eql(true)
+            expect(name[1].textContent === 'Сыр с астероидной плесенью').eql(true)
+        }) 
+
+       cy.get('button').contains('Оформить заказ').click()
+
+       cy.wait(20000)
+       cy.location('pathname').should('eq', '/details')
+       cy.get('#modals').find('#number').should('exist')
     });    
 
     it('show total price of added ingredients');   

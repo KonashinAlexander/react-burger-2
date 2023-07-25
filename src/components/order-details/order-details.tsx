@@ -16,7 +16,7 @@ export const OrderDetails: React.FC = () => {
 
     return (
         <div className={style.box}>
-            <p className={cn(style.digits, 'text', 'text_type_digits-large')}>{result.data?.order.number}</p>
+            <p id='number' className={cn(style.digits, 'text', 'text_type_digits-large')}>{result.data?.order.number}</p>
             <p className="text text_type_main-medium">идентификатор заказа</p>
             <p className="text text_type_main-default text_color_inactive mt-2 mb-6">{result.data?.name}</p>
             <img className={style.image} src={image} alt='logo'></img>
