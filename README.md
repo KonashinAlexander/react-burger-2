@@ -14,11 +14,14 @@
 
 Изображения, текст, шрифты, прочие данные загружаются с сервера.
 
+* [Проект опубликован в Vercel](https://react-burger-2-4vlq.vercel.app/)
+
 ## Стек
 
 1. VS Code, Chrome, Firefox
 2. React, Redux, React-DnD, React-router-dom, RTK Query, WebSocket + JWT
 3. TypeScript
+4. Cypress
 
 Проект не опубликован на GitHubPages.
 
