@@ -55,3 +55,11 @@
   .counter__num {
     margin: auto;
   }
+
+  .burger_ingredient {
+    text-decoration: none;
+  }
+
+  .ingredient_title {
+    text-align: center;
+  }

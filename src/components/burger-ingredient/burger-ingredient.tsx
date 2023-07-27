@@ -1,4 +1,5 @@
 import { useDrag } from 'react-dnd';
+import cn from 'classnames'
 import styles from '../burger-ingredient/burger-ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TBurgerIngredientsProps } from "../../utils/prop-types";
@@ -18,11 +19,10 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
 
   return (
     <Link
-      className='burger-ingredient'
+      className={styles.burger_ingredient}
       to={`ingredients/${props._id}`}
       state={{ backgroundLocation: location }}
       ref={drag}
-      style={{ textDecoration: 'none' }}
     >
       <div
         className={styles.ingredient_box}
@@ -40,7 +40,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
           <p className="text text_type_digits-default mr-3">{props.price}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <p className="text text_type_main-default" style={{ textAlign: 'center' }}>{props.name}</p>
+        <p className={cn(styles.ingredient_title, 'text_type_main-default')}>{props.name}</p>
       </div>
     </Link>
 

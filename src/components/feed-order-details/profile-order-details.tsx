@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './orders-details.module.css'
+import cn from 'classnames'
 import { useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
@@ -19,16 +20,14 @@ type TCounts = {
 export const ProfileOrderDetails: React.FC = () => {
 
     const { id } = useParams()
-    console.log(id)
+
     // const currentAccessToken = localStorage.getItem('accessToken')
 
     const currentAccessToken = useAppSelector(selectCurrentAccessToken).split('Bearer ')[1]
     const { data: orders } = useGetOrdersQuery(`${WS_URL_USER}?token=${currentAccessToken}`);
-    console.log(orders)
 
     const order = orders?.orders.filter(order => order._id === id)[0]!
     const ingredients = order?.ingredients!
-    console.log(orders)
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const uniqueIds: string[] = Array.from(new Set(ingredients))
@@ -59,37 +58,17 @@ export const ProfileOrderDetails: React.FC = () => {
 
     const renderIngredients = () => {
         return counts.map((item) => (
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginRight: '16px'
-            }}
+            <div className={style.box_ingredient}
                 key={item._id}
             >
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginRight: '16px',
-                    gap: '10px'
-                }}>
-                    <img style={{ width: '64px', height: '64px' }}
+                <div className={style.box_main}>
+                    <img className={style.image}
                         src={item.image}
                         alt={item.name}
                     />
                     <p className='ml-4 mr-4'>{item.name}</p>
                 </div>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginRight: '16px',
-                    gap: '10px'
-                }}>
+                <div className={style.box_main}>
                     {item.count}
                     <span>x</span>
                     <p>{item.price}</p>
@@ -131,40 +110,28 @@ export const ProfileOrderDetails: React.FC = () => {
     const content = isLoading
         ? <h1>Loading ingredients...</h1>
         : <div className={style.box_order}>
-            <p className="text text_type_digits-default m-0"
-                style={{ textAlign: 'center' }}>
+            <p className={cn(style.box_number, "text text_type_digits-default m-0")}>
                 #{order?.number}
             </p>
             <h1 className="text text_type_main-default m-0">
                 {order?.name}
             </h1>
-            <p className="text text_type_main-small left"
-                style={{ color: '#00CCCC' }}>
+            <p className={cn(style.box_status, "text text_type_main-small left")}>
                 {
                     translateStatus()
                 }
             </p>
             <h2 className="text text_type_main-default">Состав:</h2>
-            <div className="text text_type_main-default" style={{ overflow: 'scroll' }}>
+            <div className={cn(style.box_list, "text text_type_main-default")}>
                 {
                     renderIngredients()
                 }
             </div>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}>
+            <div className={style.box_day}>
                 {
                     renderDay()
                 }
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
+                <div className={style.box_day}>
                     <p className="text text_type_digits-default mr-4">{sum}</p>
                     <CurrencyIcon type={'primary'} />
                 </div>

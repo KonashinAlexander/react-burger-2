@@ -6,3 +6,45 @@
     height: 430px;
     gap: 8px;   
 }
+
+.box_ingredient {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.box_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 16px;
+    gap: 10px
+}
+
+.image {
+    width: 64px;
+    height: 64px;
+}
+
+.box_number {
+    text-align: center;
+}
+
+.box_status {
+    color: #00CCCC;
+}
+
+.box_list {
+    overflow: scroll;
+}
+
+.box_day {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+   
+}

@@ -73,7 +73,10 @@ const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, in
   }
 
   return (
-    <li className={style.box_flex} ref={ref} data-handler-id={handlerId}>
+    <li className={style.box_flex}
+      ref={ref}
+      data-handler-id={handlerId}
+    >
       <DragIcon type={'primary'} />
       <ConstructorElement
         thumbnail={image}

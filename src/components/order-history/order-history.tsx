@@ -1,5 +1,6 @@
 import { IOrder } from '../../services/rtk/web-socket';
 import FeedOrderItem from "../feed-order-item/feed-order-item"
+import styles from './order-history.module.css'
 
 type TOrdersProps = {
     orders: IOrder[] | []
@@ -11,7 +12,7 @@ export const OrderHistory: React.FC<TOrdersProps> = ({ orders }) => {
     }
 
     return (
-        <div style={{ height: '680px', width: '95%', overflow: 'scroll', boxSizing: 'border-box' }}>
+        <div className={styles.box_history}>
             {
                 renderOrders()
             }

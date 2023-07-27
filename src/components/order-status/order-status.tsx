@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './order-status.module.css'
+import cn from 'classnames'
 import { IOrder } from '../../services/rtk/web-socket';
 
 type TOrdersProps = {
@@ -9,26 +10,18 @@ type TOrdersProps = {
 export const OrderStatus: React.FC<TOrdersProps> = ({ orders }) => {
 
     const renderOrdersReady = () => {
-        return orders.map((item, index) => item.status === 'done' && <p key={index} style={{ margin: '4px', color: '#00CCCC' }}>{item.number}</p>)
+        return orders.map((item, index) => item.status === 'done' && <p key={index} className={styles.number_ready}>{item.number}</p>)
     }
 
     const renderOrdersInProgress = () => {
-        return orders.map((item, index) => item.status !== 'done' && <p key={index} style={{ margin: '4px' }}>{item.number}</p>)
+        return orders.map((item, index) => item.status !== 'done' && <p key={index} className={styles.number_progress}>{item.number}</p>)
     }
 
     return (
         <div className={styles.status_box}>
             <div>
                 <p className="text text_type_main-medium">Готовы:</p>
-                <div
-                    className="text text_type_digits-default"
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-feat, minmax(2fr, 1fr))',
-                        gridAutoFlow: 'row dense',
-                        maxHeight: '200px',
-                        overflow: 'scroll'
-                    }}>
+                <div className={cn(styles.box_ready, "text text_type_digits-default")}>
                     {
                         renderOrdersReady()
                     }
@@ -36,7 +29,7 @@ export const OrderStatus: React.FC<TOrdersProps> = ({ orders }) => {
             </div>
             <div>
                 <p className="text text_type_main-medium">В работе:</p>
-                <div className="text text_type_digits-default" style={{ overflow: 'scroll', maxHeight: '90%' }}>
+                <div className={cn(styles.box_progress, "text text_type_digits-default")}>
                     {
                         renderOrdersInProgress()
                     }

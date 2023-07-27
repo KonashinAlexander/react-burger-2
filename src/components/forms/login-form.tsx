@@ -54,7 +54,13 @@ export const LoginForm: React.FC = () => {
                     onChange={onChange}
                     required
                 />
-                <Button htmlType="submit" type="primary" size="medium" disabled={(form.password === '' || form.email === '')} >Войти</Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    disabled={(form.password === '' || form.email === '')}
+                >
+                    Войти</Button>
                 <p>Вы - новый пользователь?
                     <Link to='/register' className='ml-4'>Зарегистрироваться</Link>
                 </p>
