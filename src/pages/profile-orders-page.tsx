@@ -6,6 +6,8 @@ import { useGetOrdersQuery } from '../services/rtk/web-socket';
 import { WS_URL_USER } from '../utils/api';
 
 const ProfileOrdersPage: React.FC = () => {
+    console.log('ProfileOrdersPage')
+
     const currentAccessToken = useAppSelector(selectCurrentAccessToken).split('Bearer ')[1]
 
     const { data, isLoading } = useGetOrdersQuery(`${WS_URL_USER}?token=${currentAccessToken}`);

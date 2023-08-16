@@ -3,6 +3,8 @@ import { ProfileOrderDetails } from '../components/feed-order-details/profile-or
 import styles from './page.module.css'
 
 function ProfileSingleOrderPage() {
+    console.log('ProfileSingleOrderPage')
+
     return (
         <div className={styles.box_page}>
             <ProfileOrderDetails />

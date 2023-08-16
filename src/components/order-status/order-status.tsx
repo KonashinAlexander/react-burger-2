@@ -8,6 +8,7 @@ type TOrdersProps = {
 }
 
 export const OrderStatus: React.FC<TOrdersProps> = ({ orders }) => {
+    console.log('OrderStatus')
 
     const renderOrdersReady = () => {
         return orders.map((item, index) => item.status === 'done' && <p key={index} className={styles.number_ready}>{item.number}</p>)

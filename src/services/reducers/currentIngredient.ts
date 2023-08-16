@@ -5,7 +5,7 @@ type TCurrentState = {
   currentIndgredient: TIngredientsDetailsType | {};
 }
 
-const initialState: TCurrentState = {
+export const initialState: TCurrentState = {
   currentIndgredient: {}
 }
 

@@ -8,6 +8,8 @@ import { useAppDispatch } from '../services/hooks';
 
 
 const ProfilePage: React.FC = () => {
+    console.log('ProfilePage')
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 

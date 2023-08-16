@@ -1,6 +1,6 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './app-header.module.css';
-import cn from 'classnames';
+
 import { Outlet, NavLink } from "react-router-dom";
 import React from 'react';
 
@@ -12,6 +12,7 @@ type TActive = {
 const setActive = ({ isActive }: TActive) => isActive ? style.link_active : style.link
 
 export const AppHeader: React.FC = () => {
+    console.log('AppHeader')
 
     return (
         <>
@@ -26,8 +27,9 @@ export const AppHeader: React.FC = () => {
                         <ListIcon type="secondary" />
                         <span className="text text_type_main-default ml-2" >Лента заказов</span>
                     </NavLink>
-                    <Logo />
-
+                    <NavLink to='/'>
+                        <Logo />
+                    </NavLink>
                     <NavLink to="/profile" className={setActive} >
                         <ProfileIcon type='secondary' />
                         <span className="text text_type_main-default ml-2" >Личный кабинет</span>

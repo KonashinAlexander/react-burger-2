@@ -8,6 +8,7 @@ import { TFormChange, TPreventDefault } from '../../utils/prop-types';
 
 
 export const ResetForm: React.FC = () => {
+    console.log('ResetForm')
 
     const [changePass] = useChangePassMutation()
 

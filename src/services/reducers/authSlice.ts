@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-const initialState = {
+export const initialState = {
         accessToken: '',
         user: {
             email: '',

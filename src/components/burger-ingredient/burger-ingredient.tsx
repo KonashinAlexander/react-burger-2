@@ -7,6 +7,9 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
+
+  console.log('BurgerIngredient')
+
   const location = useLocation()
 
   const [, drag] = useDrag(() => ({
@@ -23,6 +26,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
       to={`ingredients/${props._id}`}
       state={{ backgroundLocation: location }}
       ref={drag}
+
     >
       <div
         className={styles.ingredient_box}
@@ -42,6 +46,7 @@ export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
         </div>
         <p className={cn(styles.ingredient_title, 'text_type_main-default')}>{props.name}</p>
       </div>
+
     </Link>
 
   );

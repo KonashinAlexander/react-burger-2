@@ -1,16 +1,9 @@
 import auth, { 
     setCredentials, 
     logout, 
-    updateCredentials
+    updateCredentials,
+    initialState
 } from '../reducers/authSlice'
-
-const initialState = {
-    accessToken: '',
-    user: {
-        email: '',
-        name: '',
-    }
-}
 
 const userCredentials = {
     accessToken: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTNhODZmMTJmNGEyMDAxYmQ1YjcwMiIsImlhdCI6MTY5MDQ0MDE4MywiZXhwIjoxNjkwNDQxMzgzfQ.jJ9xt5Es-kWiqFiTV0ofJaH8By3dBCoa3VAi88iLQfA',

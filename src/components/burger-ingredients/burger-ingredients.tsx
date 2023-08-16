@@ -6,6 +6,8 @@ import IngredientType from "../ingredient-type/ingredient-type";
 import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
+    console.log('BurgerIngredientS')
+
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const [current, setCurrent] = useState('buns');

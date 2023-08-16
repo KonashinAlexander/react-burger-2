@@ -6,6 +6,8 @@ import { useGetOrdersQuery } from '../services/rtk/web-socket';
 import { WS_URL_ALL } from '../utils/api';
 
 const FeedPage: React.FC = () => {
+    console.log('FeedPage')
+
     const { data, isLoading } = useGetOrdersQuery(WS_URL_ALL);
     const orders = data ? data.orders : []
 
@@ -18,7 +20,7 @@ const FeedPage: React.FC = () => {
             </div>
 
 
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginTop: '80px' }}>
+            <div className={styles.status_box}>
                 <OrderStatus orders={orders} />
 
                 <div>

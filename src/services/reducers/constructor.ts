@@ -11,7 +11,7 @@ export type TConstructorState = {
   ingredientsIds: string[],
 }
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   buns: [],
   bunsIds: [],
   ingredients: [],

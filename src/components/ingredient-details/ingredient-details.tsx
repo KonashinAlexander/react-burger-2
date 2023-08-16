@@ -5,6 +5,8 @@ import React from 'react';
 import { useGetIngredientsQuery } from '../../services/rtk/ingredients';
 
 export const IngredientDetails: React.FC = () => {
+    console.log('IngredientDetails')
+
     const { id } = useParams()
     const { data } = useGetIngredientsQuery('BurgerIngredients')
     const item = data?.data.filter(item => item._id === id)[0]

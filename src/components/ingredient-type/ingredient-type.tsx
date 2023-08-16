@@ -13,6 +13,7 @@ type TTypeProps = {
 }
 
 const IngredientType = forwardRef<HTMLDivElement, TTypeProps>(({ title, id, ingredients }, ref) => {
+    console.log('IngredientType')
 
     const { ingredientsIds, bunsIds } = useAppSelector(selectIngredients)
     // const {bunsIds} = useAppSelector(selectIngredients)

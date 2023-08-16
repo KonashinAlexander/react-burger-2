@@ -8,6 +8,8 @@ import { useRegisterUserMutation } from '../../services/reducers/authApiSlice';
 import { TFormChange } from '../../utils/prop-types';
 
 export const RegisterForm: React.FC = () => {
+    console.log('RegisterForm')
+
     const navigate = useNavigate()
 
     const [registerUser] = useRegisterUserMutation()

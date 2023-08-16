@@ -16,6 +16,7 @@ type TCounts = {
 }
 
 export const FeedOrderDetails: React.FC = () => {
+    console.log('FeedOrderDetails')
 
     const { id } = useParams()
 

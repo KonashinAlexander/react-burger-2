@@ -8,6 +8,8 @@ import { TFormChange, TPreventDefault } from '../../utils/prop-types';
 import { logout, updateCredentials } from '../../services/reducers/authSlice';
 
 export const UserForm: React.FC = () => {
+    console.log('ResetForm')
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.authStore.user)

@@ -1,15 +1,11 @@
 
 import currentIngredient, {
     addCurrentIngredient, 
-    removeCurrentIngredient
+    removeCurrentIngredient,
+    initialState
 } from "../reducers/currentIngredient";
 
-
-const initialState = {
-    currentIndgredient: {}
-  }
-
-  const ingredient = {
+const ingredient = {
     _id: '643d69a5c3f7b9001cfa093d',
     name: 'Флюоресцентная булка R2-D3',
     type: 'bun',

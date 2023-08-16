@@ -3,16 +3,8 @@ import constructor, {
     addConstructor,
     moveIngredients,
     removeConstructor,
-    TConstructorState
+    initialState
 } from "../reducers/constructor";
-
-
-const initialState: TConstructorState = {
-    buns: [],
-    bunsIds: [],
-    ingredients: [],
-    ingredientsIds: [],
-  }
 
 const bun = {
     _id: '643d69a5c3f7b9001cfa093d',

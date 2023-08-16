@@ -3,6 +3,8 @@ import { IngredientDetails } from '../components/ingredient-details/ingredient-d
 import styles from './page.module.css'
 
 const IngredientPage: React.FC = () => {
+    console.log('IngredientPage')
+
     return (
         <div className={styles.box_page}>
             <IngredientDetails />

@@ -3,6 +3,8 @@ import style from './page.module.css'
 import { Link } from 'react-router-dom';
 
 const NotFoundPage: React.FC = () => {
+    console.log('NotFoundPage')
+
     return (
         <div className={style.page}>
             <div className={style.box}>
