@@ -43,7 +43,7 @@ const Modal: FC<TModalProps> = ({ children }) => {
             document.removeEventListener("keyup", closeOnEsc);
             document.removeEventListener('click', closeOnClick)
         }
-    })
+    }, [])
 
     return createPortal(
         <div className={styles.overlay} id='myOverlay'>
