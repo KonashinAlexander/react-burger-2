@@ -5,7 +5,7 @@ import React from 'react';
 import { usePostOrdersMutation } from '../../services/rtk/orders';
 
 export const OrderDetails: React.FC = () => {
-    console.log('OrderDetails')
+
 
     const [postOrder, result] = usePostOrdersMutation({
         fixedCacheKey: 'shared-postOrder',

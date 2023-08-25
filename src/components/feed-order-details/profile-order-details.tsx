@@ -18,7 +18,6 @@ type TCounts = {
 }
 
 export const ProfileOrderDetails: React.FC = () => {
-    console.log('ProfileOrderDetails')
 
     const { id } = useParams()
 

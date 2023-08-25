@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useResetPassMutation } from '../../services/reducers/authApiSlice';
 
 export const ForgotForm: React.FC = () => {
-    console.log('ForgotForm')
+
 
     const navigate = useNavigate();
     const [email, setEmail] = useState('')

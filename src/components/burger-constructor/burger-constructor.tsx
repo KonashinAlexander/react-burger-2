@@ -17,7 +17,7 @@ import { usePostOrdersMutation } from '../../services/rtk/orders'
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
 export const BurgerConstructor: React.FC = () => {
-  console.log('BurgerConstructor')
+
 
   const location = useLocation()
 

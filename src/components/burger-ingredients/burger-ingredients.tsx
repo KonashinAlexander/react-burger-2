@@ -6,8 +6,6 @@ import IngredientType from "../ingredient-type/ingredient-type";
 import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
-    console.log('BurgerIngredientS')
-
 
     const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const [current, setCurrent] = useState('buns');
@@ -55,11 +53,11 @@ export const BurgerIngredients: React.FC = () => {
                 <Tab value="sauce" active={current === 'sauce'} onClick={handleClickTab}>Соусы</Tab>
             </section>
 
-            <div className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
+            <section className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
                 <IngredientType title='Булки' id='buns' ingredients={buns} ref={bunsRef} />
                 <IngredientType title='Начинки' id='main' ingredients={main} ref={mainRef} />
                 <IngredientType title='Соусы' id='sauce' ingredients={sauce} ref={sauceRef} />
-            </div>
+            </section>
 
         </div>
 

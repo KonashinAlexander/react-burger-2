@@ -4,7 +4,7 @@ import { useAppSelector } from '../../services/hooks';
 import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
 const UnauthorizedRoute: FC = () => {
-    console.log('UnauthorizedRoute')
+
 
     const currentAccessToken = useAppSelector(selectCurrentAccessToken)
     const location = useLocation()

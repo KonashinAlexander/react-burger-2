@@ -6,7 +6,7 @@ type TOrdersProps = {
     orders: IOrder[] | []
 }
 export const OrderHistory: React.FC<TOrdersProps> = ({ orders }) => {
-    console.log('OrderHistory')
+
 
     const renderOrders = () => {
         return orders.map(item => <FeedOrderItem key={item._id} props={item} />)

@@ -9,7 +9,7 @@ import { TFormChange, TPreventDefault } from '../../utils/prop-types';
 import { setCredentials } from '../../services/reducers/authSlice';
 
 export const LoginForm: React.FC = () => {
-    console.log('LoginForm')
+
 
     const [form, setForm] = useState({ email: '', password: '' })
     const navigate = useNavigate();

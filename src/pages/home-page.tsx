@@ -4,7 +4,7 @@ import { BurgerConstructor } from '../components/burger-constructor/burger-const
 import { BurgerIngredients } from '../components/burger-ingredients/burger-ingredients';
 
 const HomePage: React.FC = () => {
-    console.log('HomePage')
+
 
     return (
         <main className={styles.home}>

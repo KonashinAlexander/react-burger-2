@@ -8,8 +8,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 export const BurgerIngredient: React.FC<TBurgerIngredientsProps> = (props) => {
 
-  console.log('BurgerIngredient')
-
   const location = useLocation()
 
   const [, drag] = useDrag(() => ({

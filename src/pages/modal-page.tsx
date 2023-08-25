@@ -11,7 +11,7 @@ type TModalProps = {
 const modalRoot = document.querySelector('#modals')!
 
 const Modal: FC<TModalProps> = ({ children }) => {
-    console.log('Modal')
+
 
     const { state } = useLocation()
     const navigate = useNavigate()

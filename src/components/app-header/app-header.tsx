@@ -12,7 +12,7 @@ type TActive = {
 const setActive = ({ isActive }: TActive) => isActive ? style.link_active : style.link
 
 export const AppHeader: React.FC = () => {
-    console.log('AppHeader')
+
 
     return (
         <>

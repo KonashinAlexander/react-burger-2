@@ -6,7 +6,7 @@ import { useGetOrdersQuery } from '../services/rtk/web-socket';
 import { WS_URL_ALL } from '../utils/api';
 
 const FeedPage: React.FC = () => {
-    console.log('FeedPage')
+
 
     const { data, isLoading } = useGetOrdersQuery(WS_URL_ALL);
     const orders = data ? data.orders : []

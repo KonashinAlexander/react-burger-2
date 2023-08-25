@@ -8,7 +8,6 @@ import { useAppDispatch } from '../../services/hooks';
 import { removeCurrentIngredient } from '../../services/reducers/currentIngredient';
 
 const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, index, image, name, price, ...props }) => {
-  console.log('ConstructorElementItem')
 
   const dispatch = useAppDispatch();
 
