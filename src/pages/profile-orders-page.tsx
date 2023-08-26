@@ -7,7 +7,6 @@ import { WS_URL_USER } from '../utils/api';
 
 const ProfileOrdersPage: React.FC = () => {
 
-
     const currentAccessToken = useAppSelector(selectCurrentAccessToken).split('Bearer ')[1]
 
     const { data, isLoading } = useGetOrdersQuery(`${WS_URL_USER}?token=${currentAccessToken}`);

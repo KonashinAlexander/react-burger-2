@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
+
+
 export const initialState = {
-        accessToken: '',
+        accessToken: localStorage.getItem('accessToken') || '',
         user: {
             email: '',
             name: '',

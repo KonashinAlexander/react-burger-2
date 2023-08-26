@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../utils/api';
 import { setCredentials, logout} from '../reducers/authSlice'
-import { RootState } from '../store';
+// import { RootState } from '../store';
 
 import type {
     BaseQueryFn,
@@ -12,7 +12,9 @@ import type {
 const baseQuery = fetchBaseQuery({ 
     baseUrl: BASE_URL,
     prepareHeaders: (headers, {getState}) => {   
-        const token = (getState() as RootState).authStore.accessToken
+        // const token = (getState() as RootState).authStore.accessToken
+        const token = localStorage.getItem('accessToken')
+        // console.log('token >>', token)
         if (token) {
           headers.set("Authorization", token);
         }
@@ -34,9 +36,11 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions) 
+  // console.log('result >>', result)
 
   if (result?.error?.status === 403 || result?.error?.status === 401) {         
     const refreshResult : any = await baseQuery(refreshArgs, api, extraOptions) 
+    // console.log('refreshResult >>', refreshResult)
     
     if (refreshResult?.data) { 
         const user = JSON.parse(localStorage.getItem('user')!)

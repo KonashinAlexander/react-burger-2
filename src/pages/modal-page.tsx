@@ -12,7 +12,6 @@ const modalRoot = document.querySelector('#modals')!
 
 const Modal: FC<TModalProps> = ({ children }) => {
 
-
     const { state } = useLocation()
     const navigate = useNavigate()
 
@@ -51,7 +50,9 @@ const Modal: FC<TModalProps> = ({ children }) => {
                 <div className={styles.modal_box} >
                     <CloseIcon type={'primary'} />
                 </div>
-                {children}
+                {
+                    children ? children : <h1>Loading data...</h1>
+                }
             </div>
         </div>,
         modalRoot

@@ -29,6 +29,7 @@ import { ProfileOrderDetails } from "../feed-order-details/profile-order-details
 
 
 export const Application: React.FC = () => {
+
     const location = useLocation()
     const state = location.state as { backgroundLocation?: Location }
 
