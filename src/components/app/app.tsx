@@ -1,65 +1,80 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import styles from './app.module.css'
 import { AppHeader } from "../app-header/app-header"
-import style from './app.module.css'
-import { fetchIngredients } from "../../services/reducers/ingredients";
-import LoginPage from "../../pages/login-page";
-import RegisterPage from "../../pages/register-page";
-import ForgotPage from "../../pages/forgot-page";
-import ResetPage from "../../pages/reset-page";
-import ProfilePage from "../../pages/profile-page";
-import IngredientPage from "../../pages/ingredient-page";
-import NotFoundPage from "../../pages/not-found-page";
-import HomePage from "../../pages/home-page";
-import ProtectedRoute from "../protected-route/protected-route";
-import { Modal } from '../modal/modal';
-import { IngredientDetails } from '../ingredient-details/ingredient-details';
-import { removeIngredientDetails } from "../../services/reducers/ingredientDetails";
-import { TIngredientsDetailsType } from "../../utils/prop-types";
+import PrivateRoute from "../protected-route/private-route";
+import UnauthorizedRoute from "../protected-route/auth-route";
+import {
+    FeedOrderPage,
+    FeedPage,
+    ForgotPage,
+    FormPage,
+    HomePage,
+    IngredientPage,
+    LoginPage,
+    NotFoundPage,
+    ProfileOrdersPage,
+    ProfilePage,
+    RegisterPage,
+    ResetPage,
+    Modal,
+    ProfileSingleOrderPage,
+} from '../../pages'
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { FeedOrderDetails } from "../feed-order-details/feed-order-details";
+import { OrderDetails } from "../order-details/order-details";
+import { ProfileOrderDetails } from "../feed-order-details/profile-order-details";
 
-interface IDetailsStore {
-    detailsStore: {
-        ingredientDetails: TIngredientsDetailsType;
-    }
-}
 
 export const Application: React.FC = () => {
-    const dispatch: any = useDispatch();
-    const details = useSelector((state: IDetailsStore) => state.detailsStore.ingredientDetails)
-    const ingredient = JSON.parse(localStorage.getItem('ingredient')!)
 
-    const closeModal = () => {
-        localStorage.removeItem('ingredient')
-        dispatch(removeIngredientDetails())
-    };
+    const location = useLocation()
+    const state = location.state as { backgroundLocation?: Location }
 
-    useEffect(() => {
-        dispatch(fetchIngredients())
-    }, [dispatch])
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <div className={style.app}>
-                <Routes>
+
+            <div className={styles.app}>
+                <Routes location={state?.backgroundLocation || location}>
                     <Route path="/" element={<AppHeader />}>
+
+                        {/* public routes*/}
                         <Route index element={<HomePage />} />
-                        <Route path="login" element={<ProtectedRoute element={<LoginPage />} />} />
-                        <Route path="register" element={<ProtectedRoute element={<RegisterPage />} />} />
-                        <Route path="forgot-password" element={<ProtectedRoute element={<ForgotPage />} />} />
-                        <Route path="reset-password" element={<ProtectedRoute element={<ResetPage />} />} />
-                        <Route path="profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-                        <Route path="ingredients/:id" element={<IngredientPage />} />
                         <Route path="*" element={<NotFoundPage />} />
+                        <Route path="ingredients/:id" element={<IngredientPage />} />
+
+                        <Route path="feed" element={<FeedPage />} />
+                        <Route path="feed/:id" element={<FeedOrderPage />} />
+
+                        {/* routes protected from authorized users*/}
+                        <Route element={<UnauthorizedRoute />}>
+                            <Route path="login" element={<LoginPage />} />
+                            <Route path="register" element={<RegisterPage />} />
+                            <Route path="forgot-password" element={<ForgotPage />} />
+                            <Route path="reset-password" element={<ResetPage />} />
+                        </Route>
+
+                        {/* private routes*/}
+                        <Route path="profile" element={<PrivateRoute element={<ProfilePage />} />} >
+                            <Route path='' element={<PrivateRoute element={<FormPage />} />} />
+                            <Route path='orders' element={<PrivateRoute element={<ProfileOrdersPage />} />} />
+                        </Route>
+                        <Route path="profile/orders/:id" element={<PrivateRoute element={<ProfileSingleOrderPage />} />} />
                     </Route>
                 </Routes>
 
-                {ingredient && (
-                    <Modal title="Детали ингредиента" onClose={closeModal}>
-                        <IngredientDetails data={ingredient} />
-                    </Modal>
+                {state?.backgroundLocation && (
+                    <Routes>
+                        <Route element={<Modal><Outlet /></Modal>}>
+                            <Route path="ingredients/:id" element={<IngredientDetails />} />
+                            <Route path="feed/:id" element={<FeedOrderDetails />} />
+                            <Route path="profile/orders/:id" element={<PrivateRoute element={<ProfileOrderDetails />} />} />
+                            <Route path="details" element={<PrivateRoute element={<OrderDetails />} />} />
+                        </Route>
+                    </Routes>
                 )}
 
             </div>

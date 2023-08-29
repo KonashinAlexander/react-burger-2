@@ -1,0 +1,38 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 480px;
+    gap: 24px;
+}
+
+.box_small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.box_order {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    position: absolute;
+    width: 480px;
+    height: 560px;
+    gap: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.profile {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+
+}
+

@@ -1,7 +1,6 @@
 .header {
-    max-width: 1240px;
-    margin: 0 auto;
     background-color: var(--background);
+    
 }
 
 .link {
@@ -29,4 +28,16 @@
 
 .box {
     display: flex;
+}
+
+.outlet {
+    /* margin: 0 auto;
+    max-width: 1240px;
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+    height: 90vh;
+    box-sizing: border-box;
 }

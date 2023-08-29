@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.3.1",
     "@types/jest": "^27.5.2",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.15.0-beta.1",
     "classnames": "^2.3.2",
@@ -33,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open cash clear"
   },
   "eslintConfig": {
     "extends": [
@@ -55,9 +57,12 @@
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
-    "@types/react": "^18.2.6",
+    "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.4",
     "@types/react-redux": "^7.1.25",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^9.0.2",
+    "cypress": "^12.17.2",
+    "eslint-plugin-cypress": "^2.13.3"
   }
 }

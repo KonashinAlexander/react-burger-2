@@ -1,19 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit'
-import ingredients from './reducers/ingredients';
-import constructor from './reducers/constructor';
-import currentIngredient from './reducers/currentIngredient';
-import order from './reducers/order';
-import ingredientDetails from './reducers/ingredientDetails';
+import rootReducer from './reducers';
+import { authApi } from './rtk/authorization';
+import { ingredientsApi } from './rtk/ingredients';
+import { ordersApi } from './rtk/orders';
+import { webSocketApi } from './rtk/web-socket';
 
 
 const store = configureStore({
-  reducer: {
-    ingredientsStore: ingredients,
-    constructorStore: constructor,
-    currentIngredientStore: currentIngredient,
-    orderStore: order,
-    detailsStore: ingredientDetails
-  }
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware()
+            .concat(webSocketApi.middleware)
+            .concat(ingredientsApi.middleware)
+            .concat(ordersApi.middleware)
+            .concat(authApi.middleware)
+
+  },
 })
 
 export default store;

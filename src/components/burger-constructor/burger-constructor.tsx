@@ -3,22 +3,24 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import cn from 'classnames';
 import style from './burger-constructor.module.css';
-import { Modal } from '../modal/modal';
-import { OrderDetails } from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { fetchOrder } from '../../services/reducers/order';
-import { addConstructor, selectConstructorBuns, selectConstructorIngredients } from '../../services/reducers/constructor';
+import { addConstructor, selectIngredients } from '../../services/reducers/constructor';
 import { addCurrentIngredient } from '../../services/reducers/currentIngredient';
 import ConstructorElementItem from '../constructor-element/constructor-element';
-import { useNavigate } from 'react-router-dom';
-import { TConctrElemProps } from '../../utils/prop-types';
-import { AppDispatch } from '../../services/store';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { TConstructorIngredients } from '../../utils/prop-types';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { usePostOrdersMutation } from '../../services/rtk/orders'
+import { selectCurrentAccessToken } from '../../services/reducers/authSlice';
 
 export const BurgerConstructor: React.FC = () => {
+
+
+  const location = useLocation()
+
   const [, drop] = useDrop(() => ({
     accept: 'ingredient',
     drop: (item) => {
@@ -27,20 +29,25 @@ export const BurgerConstructor: React.FC = () => {
     },
   }));
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const buns = useSelector(selectConstructorBuns);
-  const ingredients = useSelector(selectConstructorIngredients);
+  const { ingredients, ingredientsIds, buns } = useAppSelector(selectIngredients);
+  const currentAccessToken = useAppSelector(selectCurrentAccessToken)
 
-  const otherIngredients = ingredients.filter((item: { type: string; }) => item.type !== 'bun');
+
+  const [postOrder] = usePostOrdersMutation({
+    fixedCacheKey: 'shared-postOrder',
+  })
+
+
 
   const bunsCost = useMemo(
     () =>
       buns
-        .map((data: { price: number; }) => {
+        .map((data: { price: any; }) => {
           return data.price;
         })
-        .reduce((sum: number, current: number) => {
+        .reduce((sum, current) => {
           return sum + current;
         }, 0),
     [buns],
@@ -48,63 +55,73 @@ export const BurgerConstructor: React.FC = () => {
 
   const otherIngredientsCost = useMemo(
     () =>
-      otherIngredients
-        .map((data: { price: number; }) => {
+      ingredients
+        .map((data) => {
           return data.price;
         })
-        .reduce((sum: number, current: number) => {
+        .reduce((sum, current) => {
           return sum + current;
         }, 0),
-    [otherIngredients],
+    [ingredients],
   );
 
-  const [showModal, setShowModal] = useState(false);
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
-  const getOrder = () => {
-    if ((Object.prototype.toString.call(localStorage.user) === '[object String]')) {
-      dispatch(fetchOrder())
-    } else {
-      navigate('/login')
-    }
-  };
 
-  const renderBuns = useCallback((data: TConctrElemProps, index: number, pose: string, type: "top" | "bottom") => {
+  const renderBuns = useCallback((data: TConstructorIngredients, index: number, position: "top" | "bottom", pose: '(Верх)' | '(Низ)') => {
     return (
       <ConstructorElement
-        price={0} {...data}
-        type={type}
-        key={data.uuid}
+        {...data}
+        key={data._id}
         thumbnail={data.image}
         text={`${data.name} ${pose}`}
         isLocked={true}
-        index={index} />
+        type={position}
+      />
     );
   }, []);
 
-  const renderOtherIngredients = useCallback((data: TConctrElemProps, index: number) => {
-    return <ConstructorElementItem __v={0} _id={''} calories={0} carbohydrates={0} fat={0} image_large={''} image_mobile={''} proteins={0} price={0} {...data} key={data.uuid} index={index} id={index} />;
+  const renderOtherIngredients = useCallback((data: TConstructorIngredients, index: number) => {
+    return (
+      <ConstructorElementItem
+        {...data}
+        key={data.uuid}
+        index={index}
+        id={index}
+        type={data.type} />
+    );
   }, []);
+
+
+  const handlePostOrder = async () => {
+    if (currentAccessToken) {
+      await postOrder(ingredientsIds)
+      navigate('/details', { state: { backgroundLocation: location } })
+    } else {
+      navigate('/login')
+    }
+  }
 
   return (
     <>
-      <div className={cn(style.container, 'pt-25')}>
-        <div className={style.box_small}>
-          {buns.map((data: TConctrElemProps, index: number, pose: string, type: string) =>
-            renderBuns(data, index, (pose = '(Верх)'), (type = 'top'))
+      <div className='pt-25'>
+        <div className={style.box_small} id='top'>
+          {buns.map((data: TConstructorIngredients, index: number) =>
+            renderBuns(data, index, 'top', '(Верх)')
           )}
         </div>
 
-        <ol className={cn(style.box_big, 'mt-4')} ref={drop}>
-          {otherIngredients.map(renderOtherIngredients)}
+        <ol className={cn(style.box_big, 'mt-4')} ref={drop} id='drop'>
+          {
+            ingredients.length === 0
+              ? <h1 className="text text_type_main-default text_color_inactive">Поместите ингредиенты сюда</h1>
+              : ingredients.map(renderOtherIngredients)
+          }
 
         </ol>
 
-        <div className={style.box_small}>
-          {buns.map((data: TConctrElemProps, i: number, pose: string, type: string) =>
-            renderBuns(data, i, (pose = '(Низ)'), (type = 'bottom')),
+        <div className={style.box_small} id='bottom'>
+          {buns.map((data, index) =>
+            renderBuns(data, index, 'bottom', '(Низ)'),
           )}
         </div>
 
@@ -119,19 +136,14 @@ export const BurgerConstructor: React.FC = () => {
             htmlType="button"
             size="large"
             onClick={() => {
-              setShowModal(true);
-              getOrder();
+              handlePostOrder()
             }}
+            disabled={ingredientsIds.length === 0}
           >
             Оформить заказ
           </Button>
         </div>
 
-        {showModal && (
-          <Modal onClose={closeModal} title={''}>
-            <OrderDetails />
-          </Modal>
-        )}
 
       </div>
     </>

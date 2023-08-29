@@ -5,11 +5,13 @@
     gap: 10px;
     min-height: 400px;
     max-height: 500px;
-    /* background-color: #8585AD; */
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #2F2F37 #8585AD;
-    padding: 0;
+    padding: 16px;
+    border-radius: 10px;
+    outline: 1px dashed #8585AD;
+    box-sizing: border-box;
 }
 
 .box_small {
@@ -17,14 +19,16 @@
     max-height: 500px;
     display: block;
     padding-left: 16px;
-    /* background-color: aquamarine; */
-}
+    border-radius: 10px;
+    outline: 1px dashed #8585AD;
+   }
 
 .box_flex {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .box__total_flex {
@@ -39,6 +43,4 @@
     margin-right: 8px;
 }
 
-.container {
-    margin: 0;
-}
+

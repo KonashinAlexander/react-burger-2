@@ -1,13 +1,15 @@
 import React, { useRef, useCallback } from 'react'
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './constructor-element.module.css'
-import { useDispatch } from 'react-redux'
 import { removeConstructor, moveIngredients } from "../../services/reducers/constructor";
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
 import { TConstructorElementItemProps } from "../../utils/prop-types";
+import { useAppDispatch } from '../../services/hooks';
+import { removeCurrentIngredient } from '../../services/reducers/currentIngredient';
 
 const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, index, image, name, price, ...props }) => {
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null)
 
@@ -65,16 +67,25 @@ const ConstructorElementItem: React.FC<TConstructorElementItemProps> = ({ id, in
 
   drag(drop(ref))
 
+
+  const onCloseClick = () => {
+    dispatch(removeConstructor(props))
+    dispatch(removeCurrentIngredient())
+  }
+
   return (
-    <li className={style.box_flex} ref={ref} data-handler-id={handlerId}>
-      <DragIcon />
+    <li className={style.box_flex}
+      ref={ref}
+      data-handler-id={handlerId}
+    >
+      <DragIcon type={'primary'} />
       <ConstructorElement
         thumbnail={image}
         text={name}
         price={price}
-        handleClose={() => dispatch(removeConstructor(props))}
+        handleClose={onCloseClick}
         isLocked={false}
-        type={'top'} />
+      />
     </li>
   )
 }

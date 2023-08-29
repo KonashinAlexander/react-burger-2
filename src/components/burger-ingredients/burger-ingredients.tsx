@@ -1,19 +1,18 @@
-import React, { useState, useMemo, useRef, SetStateAction } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import cn from 'classnames';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients.module.css';
 import IngredientType from "../ingredient-type/ingredient-type";
-import { useSelector } from "react-redux/es/exports";
-import { IIngredientsStore } from "../../utils/prop-types";
+import { useGetIngredientsQuery } from "../../services/rtk/ingredients";
 
 export const BurgerIngredients: React.FC = () => {
 
+    const { data, isLoading } = useGetIngredientsQuery('BurgerIngredients')
     const [current, setCurrent] = useState('buns');
-    const { data: ingredients } = useSelector((state: IIngredientsStore) => state.ingredientsStore)
 
-    const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
-    const main = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
-    const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+    const buns = useMemo(() => data?.data.filter(item => item.type === 'bun'), [data?.data]);
+    const main = useMemo(() => data?.data.filter(item => item.type === 'main'), [data?.data]);
+    const sauce = useMemo(() => data?.data.filter(item => item.type === 'sauce'), [data?.data]);
 
     const primaryRef = useRef<HTMLDivElement>(null);
     const bunsRef = useRef<HTMLDivElement>(null);
@@ -43,30 +42,26 @@ export const BurgerIngredients: React.FC = () => {
         }
     }
 
-    return (
-        <div className={cn(style.container)}>
+    const content = isLoading
+        ? <p>Loading ingredients...</p>
+        : <div>
             <h1 className={cn(style.title, "text text_type_main-large", 'mt-10')}>Соберите бургер</h1>
 
             <section className={cn(style.tabs, 'mt-5', 'mb-10')}>
-                <Tab value="buns" active={current === 'buns'} onClick={handleClickTab}>
-                    Булки
-                </Tab>
-                <Tab value="main" active={current === 'main'} onClick={handleClickTab}>
-                    Начинки
-                </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={handleClickTab}>
-                    Соусы
-                </Tab>
+                <Tab value="buns" active={current === 'buns'} onClick={handleClickTab}>Булки</Tab>
+                <Tab value="main" active={current === 'main'} onClick={handleClickTab}>Начинки</Tab>
+                <Tab value="sauce" active={current === 'sauce'} onClick={handleClickTab}>Соусы</Tab>
             </section>
 
-            <div className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
+            <section className={cn(style.ingredients)} ref={primaryRef} onScroll={handleScroll}>
                 <IngredientType title='Булки' id='buns' ingredients={buns} ref={bunsRef} />
                 <IngredientType title='Начинки' id='main' ingredients={main} ref={mainRef} />
                 <IngredientType title='Соусы' id='sauce' ingredients={sauce} ref={sauceRef} />
-            </div>
+            </section>
 
         </div>
-    )
+
+    return content
 }
 
 
