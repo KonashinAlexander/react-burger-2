@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_URL } from '../../utils/api';
+import { BASE_URL, endpointUrls } from '../../utils/api';
 import { setCredentials, logout} from '../reducers/authSlice'
 // import { RootState } from '../store';
 
@@ -25,7 +25,7 @@ const baseQuery = fetchBaseQuery({
 const refreshToken = document.cookie.split('=')[1]
 
 const refreshArgs  = {
-      url: 'auth/token',
+      url: endpointUrls.renewToken,
       method: 'POST',
       body: {token: refreshToken},
   }

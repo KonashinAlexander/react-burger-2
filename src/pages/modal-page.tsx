@@ -15,34 +15,42 @@ const Modal: FC<TModalProps> = ({ children }) => {
     const { state } = useLocation()
     const navigate = useNavigate()
 
+    const handleDocumentClick = (e: MouseEvent) => {
+        closeOnClick(e);
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+        closeOnEsc(e);
+    };
+
     useEffect(() => {
-        function onDismiss() {
-            navigate(state.backgroundLocation.pathname)
-        }
-
-        function closeOnEsc(e: { key: string; }) {
-            if (e.key === "Escape" || e.key === "Esc") {
-                onDismiss();
-            }
-        }
-
-        function closeOnClick(e: { target: any; }) {
-            const target = e.target
-
-            if (target.localName === 'svg') {
-                onDismiss()
-            } else if (target.localName === 'div' && target.id === 'myOverlay') {
-                onDismiss();
-            }
-        }
-
-        document.addEventListener('click', closeOnClick)
-        document.addEventListener("keyup", closeOnEsc);
+        document.addEventListener('click', handleDocumentClick);
+        document.addEventListener('keyup', handleKeyUp);
         return () => {
-            document.removeEventListener("keyup", closeOnEsc);
-            document.removeEventListener('click', closeOnClick)
+            document.removeEventListener('click', handleDocumentClick);
+            document.removeEventListener('keyup', handleKeyUp);
+        };
+    })
+
+    const onDismiss = () => {
+        navigate(state.backgroundLocation.pathname)
+    }
+
+    const closeOnEsc = (e: KeyboardEvent) => {
+        if (e.key === "Escape" || e.key === "Esc") {
+            onDismiss();
         }
-    }, [])
+    }
+
+    const closeOnClick = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+
+        if (target.localName === 'svg') {
+            onDismiss()
+        } else if (target.localName === 'div' && target.id === 'myOverlay') {
+            onDismiss();
+        }
+    }
 
     return createPortal(
         <div className={styles.overlay} id='myOverlay'>

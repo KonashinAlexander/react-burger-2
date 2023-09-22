@@ -20,14 +20,14 @@ const ProfilePage: React.FC = () => {
 
     const onExitClick = async (e: React.SetStateAction<string>) => {
         setCurrent(e)
-        await logoutUser({ token: refreshToken })
-            .unwrap()
-            .then(res => {
-                localStorage.clear()
-                dispatch(logout())
-                navigate('/login', { replace: true })
-            })
-            .catch(err => alert(err.data.message))
+        try {
+            const response = await logoutUser({ token: refreshToken }).unwrap();
+            localStorage.clear();
+            dispatch(logout());
+            navigate('/login', { replace: true });
+        } catch (err: any) {
+            alert(err.data.message);
+        }
     }
 
     const onHistoryClick = (e: React.SetStateAction<string>) => {
